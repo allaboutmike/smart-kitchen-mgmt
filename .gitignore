@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/management_service/node_modules
+/frontend/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -19,6 +21,7 @@
 
 # production
 /build
+/management_service/build
 
 # misc
 .DS_Store
@@ -32,6 +35,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!management_service/config/.env.example
 
 # vercel
 .vercel
