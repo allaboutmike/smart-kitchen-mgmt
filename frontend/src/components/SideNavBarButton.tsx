@@ -8,7 +8,7 @@ export default function SideNavBarButton({svgIcon, text}: SideNavBarButtonProps)
   return (
     <div className="side-nav-bar-button">
       {svgIcon}
-      {text}
+      <div>{text}</div>
     </div>
   )
 }
