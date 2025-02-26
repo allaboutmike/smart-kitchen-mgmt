@@ -6,16 +6,17 @@ interface SideNavBarButtonProps {
     svgIcon: React.ReactNode;
     text: string;
     setCurrentSelection: (selection: string) => void;
-    currentText: string;
+    selected: boolean;
 }
-export default function SideNavBarButton({svgIcon, text, setCurrentSelection, currentText}: SideNavBarButtonProps) {
+export default function SideNavBarButton({svgIcon, text, setCurrentSelection, selected}: SideNavBarButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   
   if(buttonRef.current)
   {
-    if(currentText == text){
+    if(selected)
+    {
       buttonRef.current.style.backgroundColor = "var(--foreground)";      
-      buttonRef.current.style.color = "var(--background)";   
+      buttonRef.current.style.color = "var(--background)"; 
     }else{
       buttonRef.current.style.backgroundColor = "initial";
       buttonRef.current.style.color = "var(--foreground)";
