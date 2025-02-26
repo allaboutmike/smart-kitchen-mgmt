@@ -6,9 +6,9 @@ interface SideNavBarButtonProps {
 }
 export default function SideNavBarButton({svgIcon, text}: SideNavBarButtonProps) {
   return (
-    <div className="side-nav-bar-button">
+    <button className="side-nav-bar-button">
       {svgIcon}
       <div>{text}</div>
-    </div>
+    </button>
   )
 }
