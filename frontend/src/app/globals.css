@@ -19,7 +19,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 .main-container{
-  @apply flex justify-center items-center flex-col ;
+  @apply flex justify-center items-center flex-col;
 }
 
 .grid-waste-metrics{
