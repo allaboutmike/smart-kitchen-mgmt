@@ -1,10 +1,9 @@
 :root {
-  --background: #FAFBFF;
-  --foreground: #638DE5;
+  --background: #fafbff;
+  --foreground: #638de5;
   --drop-shadow-color: hsla(221, 71%, 64%, 0.293);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
-
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -18,49 +17,55 @@ body {
   background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
-.main-container{
+.main-container {
   @apply flex justify-center items-center flex-col;
 }
 
-.grid-waste-metrics{
-  @apply grid gap-y-2; 
+.grid-waste-metrics {
+  @apply grid gap-y-2;
 }
 
-.grid-waste-rows{
-  @apply grid grid-cols-4 gap-x-20 text-center font-[550]; 
+.grid-waste-rows {
+  @apply grid grid-cols-4 gap-x-20 text-center font-[550];
   @apply px-8 py-[6px] rounded-sm bg-white text-black text-sm;
   box-shadow: var(--rows-drop-shadow);
-  &:first-child{@apply text-[1.08rem] font-[700];}
+  &:first-child {
+    @apply text-[1.08rem] font-[700];
+  }
 }
 
-.food-type-sellers-container{
+.food-type-sellers-container {
   @apply flex flex-col items-center justify-center gap-y-2 w-[200px] mt-[2rem] px-[2rem] py-[6px];
   @apply rounded-[17px] bg-[white] shadow-[var(--sellers-container-drop-shadow)];
   box-shadow: var(--sellers-container-drop-shadow);
-   > div:first-of-type{
+  > div:first-of-type {
     @apply text-[1rem] font-[700];
   }
-  > div > div:nth-of-type(2){
+  > div > div:nth-of-type(2) {
     @apply h-[50px] w-[50px] outline-[1px] border-black;
   }
 }
 
-.side-nav-bar{
+.side-nav-bar {
   @apply flex flex-col absolute top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] gap-y-[10px] overflow-y-auto;
   box-shadow: 0 0 10px 1px var(--drop-shadow-color);
-  @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row  tablet:min-h-[fit-content] ;
- 
-  .side-nav-bar-button{
-    @apply flex flex-col items-center justify-center py-[5px] gap-y-[0.5rem] tablet:py-[1rem]; 
+  @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row  tablet:min-h-[fit-content];
+
+  .side-nav-bar-button {
+    @apply flex flex-col items-center justify-center py-[5px] gap-y-[0.5rem] tablet:py-[1rem];
     @apply w-[100%] border-none text-[var(--foreground)] bg-white;
 
-    &:hover{
+    &:hover {
       background-color: var(--foreground);
-      @apply text-white cursor-pointer; 
+      @apply text-white cursor-pointer;
     }
-    > div{
+    > div {
       @apply text-center tablet:hidden;
-    } 
+    }
     transition: all 0.18s ease-in-out;
   }
+}
+
+.footer-component {
+  @apply flex fixed bottom-[10px] text-[--foreground] right-[50px];
 }
