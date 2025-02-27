@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 export default function Footer() {
   const [date, setDate] = useState(new Date());
 
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+    timeStyle: "short",
+  });
+
   useEffect(() => {
     const timer = setInterval(() => {
       setDate(() => new Date());
@@ -12,7 +17,7 @@ export default function Footer() {
   }, []);
   return (
     <footer className="footer-component">
-      <span>{<pre>{date.toLocaleString()}</pre>}</span>
+      <span>{<pre>{formatter.format(date)}</pre>}</span>
     </footer>
   );
 }
