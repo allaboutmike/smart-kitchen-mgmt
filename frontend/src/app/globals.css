@@ -1,6 +1,7 @@
 :root {
   --background: #FAFBFF;
   --foreground: #638DE5;
+  --foreground-2: #747dbe;
   --drop-shadow-color: hsla(221, 71%, 64%, 0.293);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
@@ -20,16 +21,25 @@ body {
 .main-container{
   @apply flex justify-center items-center flex-col;
 }
-
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 .grid-waste-metrics{
   @apply grid gap-y-2; 
+  .waste-metrics-title{
+    @apply text-[2rem] font-[700] text-center text-[black] tablet:text-[2rem] text-[--foreground];
+  }
+  .waste-metrics-cells-container{
+    @apply flex flex-col gap-y-2 max-h-[400px] overflow-y-auto no-scrollbar py-[6px];
+  }
 }
 
 .grid-waste-rows{
-  @apply grid grid-cols-4 gap-x-20 text-center font-[550]; 
-  @apply px-8 py-[6px] rounded-sm bg-white text-black text-sm;
+  @apply grid grid-cols-4 gap-x-2 text-center font-[550]; 
+  @apply px-4 py-[6px] rounded-sm bg-white text-black text-sm;
   box-shadow: var(--rows-drop-shadow);
-  &:first-child{@apply text-[1.08rem] font-[700];}
+  &:first-child{@apply text-[1.4rem] font-[700] sticky top-0 text-center items-center mobile:text-[0.7rem] text-[--foreground];}
+  &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];}
 }
 
 .food-type-sellers-container{
@@ -45,7 +55,7 @@ body {
 }
 
 .side-nav-bar{
-  @apply flex flex-col absolute top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] gap-y-[10px] overflow-y-auto;
+  @apply flex flex-col fixed top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] gap-y-[10px] overflow-y-auto;
   box-shadow: 0 0 10px 1px var(--drop-shadow-color);
   @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row  tablet:min-h-[fit-content] ;
  
@@ -62,4 +72,17 @@ body {
     } 
     transition: all 0.18s ease-in-out;
   }
+}
+
+.restaurant-menu-container{
+  @apply grid gap-2 grid-cols-4 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
+  box-shadow: var(--sellers-container-drop-shadow);
+}
+.restaurant-menu-button{
+  @apply text-[--foreground] cursor-pointer rounded-[8px] px-[35px] py-[25px] bg-white border-none;
+  box-shadow: var(--sellers-container-drop-shadow);
+  &:hover{
+    @apply text-white bg-[--foreground];
+  }
+  transition: all 0.16s ease-in-out;
 }
