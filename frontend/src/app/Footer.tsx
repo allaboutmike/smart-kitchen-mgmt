@@ -17,7 +17,7 @@ export default function Footer() {
   }, []);
   return (
     <footer className="footer-component">
-      <span>{<pre>{formatter.format(date)}</pre>}</span>
+      <span>{<pre>{formatter.format(date).replace(" at", "")}</pre>}</span>
     </footer>
   );
 }
