@@ -11,5 +11,4 @@ CREATE TABLE stock (
     CONSTRAINT fk_ingredient
       FOREIGN KEY (ingredientID)
       REFERENCES ingredients(ingredientID)
-      ON DELETE CASCADE
 );
