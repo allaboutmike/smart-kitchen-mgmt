@@ -7,7 +7,7 @@ CREATE TABLE stock (
     cost DECIMAL(10, 2) NOT NULL,
     isExpired BOOLEAN NOT NULL DEFAULT FALSE,
 
-/*ingredientsID is referenced & if a row in ingredients table is deleted, all rows referencing this ingredient are also deleted*/
+--ingredientsID is referenced
     CONSTRAINT fk_ingredient
       FOREIGN KEY (ingredientID)
       REFERENCES ingredients(ingredientID)
