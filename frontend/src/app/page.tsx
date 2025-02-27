@@ -1,10 +1,9 @@
-import Footer from "./Footer";
+import SideNavBar from "@/components/SideNavBar";
 
 export default function Home() {
   return (
     <div className="main-container">
-      <div>A centered div</div>
-      <Footer></Footer>
+      <SideNavBar />
     </div>
   );
 }

@@ -5,15 +5,14 @@ export default function Footer() {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    setInterval(() => {
-      setDate(new Date());
+    const timer = setInterval(() => {
+      setDate(() => new Date());
     }, 1000);
+    return () => clearInterval(timer);
   }, []);
   return (
-    <footer className="absolute bottom-[10px] text-[#638DE5] right-[50px]">
-      <span>
-        <pre>{date.toLocaleString()}</pre>
-      </span>
+    <footer className="footer-component">
+      <span>{<pre>{date.toLocaleString()}</pre>}</span>
     </footer>
   );
 }
