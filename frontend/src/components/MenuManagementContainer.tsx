@@ -5,7 +5,10 @@ import InteractableOrderItem from "./InteractableOrderItem";
 
 const menuItems =
   "popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(",");
-const foodChoices = {
+type foodTypes={
+    [key: string]: string[],
+}
+const foodChoices : foodTypes = {
   "popular":
     "Margherita pizza, Beef Wellington, Souvlaki, Moussaka, Fajitas, Fish tacos, Ramen, Sushi rolls, Pho, Beef Bourguignon, Chicken Tikka Masala, Pad Kra Pao, Chicken Shawarma, Gyro, Peking duck, Dim sum, Goulash, Empanadas, Ratatouille, Croque Monsieur, Biryani, Jerk chicken, Tortilla Española, Beef fajitas, Lamb Rogan Josh, Bibimbap, Ceviche, Chiles Rellenos, Ropa Vieja, Coq au Vin".split(","),
   "lunch":
@@ -45,6 +48,8 @@ export default function MenuManagementContainer() {
         setOrderAddedItems(currentOrderItems => [...currentOrderItems, {name: name, price: price, quantity: 1}]);
     }
     setOrderNumber(984095);
+    const optionName = selectedItem.toLowerCase();
+    const foods = foodChoices[optionName];
   return (
     <div>
         <div className="restaurant-sub-menu-container">
@@ -62,7 +67,8 @@ export default function MenuManagementContainer() {
             <div className="restaurant-current-option-title">{selectedItem} Menu</div>
             <div className="current-menu-items-container">
                 {
-                    foodChoices[selectedItem.toLowerCase()].map((menuItem: string, index: number) => {
+                    
+                    foods.map((menuItem: string, index: number) => {
                         return <MenuItem key={index}
                         addedToOrder={false}
                         addItem={updateOder}
@@ -94,7 +100,16 @@ export default function MenuManagementContainer() {
                      />
                 })}
             </div>
-
+            <div className="order-total-container">
+                <div className="order-total-group">
+                    <div>Total</div>
+                    <div className="order-total-value">$89.99</div>
+                </div>
+                <div className="order-buttons-group">
+                    <button className="order-total-button continue-button">Continue</button>
+                    <button className="order-total-button cancel-button">Cancel</button>
+                </div>
+            </div>
         </div>
     </div>
   );
