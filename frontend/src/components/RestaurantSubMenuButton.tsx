@@ -1,12 +1,12 @@
 "use client";
 import React from 'react'
 import {useRef} from 'react';
-interface RestaurantMenuButtonProps{
+interface RestaurantSubMenuButtonProps{
     text: string;
     setCurrentSelection: (selection: string) => void;
     selected: boolean;
 }
-export default function RestaurantMenuButton({text, setCurrentSelection, selected}: RestaurantMenuButtonProps) {
+export default function RestaurantSubMenuButton({text, setCurrentSelection, selected}: RestaurantSubMenuButtonProps) {
     const buttonRef = useRef<HTMLButtonElement>(null);
     if(buttonRef.current)
     {
@@ -20,7 +20,7 @@ export default function RestaurantMenuButton({text, setCurrentSelection, selecte
         }
     }
   return (
-    <button ref={buttonRef} className="restaurant-menu-button" onPointerDown={() => {
+    <button ref={buttonRef} className="restaurant-sub-menu-button" onPointerDown={() => {
       setCurrentSelection(text);
       console.log(text)}}
       >{text}</button>

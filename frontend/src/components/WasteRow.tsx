@@ -5,9 +5,9 @@ interface WasteRowProps{
     costPerUnit: number;
     wasteReason: string;
 }
-export default function GridWasteRow({name, quantity, costPerUnit, wasteReason}: WasteRowProps) {
+export default function WasteRow({name, quantity, costPerUnit, wasteReason}: WasteRowProps) {
   return (   
-        <div className="grid-waste-rows">
+        <div className="row-element">
           <div>{name}</div>
           <div>{quantity}</div>
           <div>{costPerUnit}</div>
