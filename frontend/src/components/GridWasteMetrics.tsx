@@ -2,9 +2,9 @@ import React from 'react'
 import WasteRow from './WasteRow'
 export default function GridWasteMetrics() {
   return (
-    <div className="grid-waste-metrics">
-        <div className="waste-metrics-title">Waste Metrics</div>
-        <div className ="waste-metrics-cells-container">
+    <div className="grid-metrics">
+        <div className="metrics-title">Waste Metrics</div>
+        <div className ="metrics-cells-container">
               <div className="row-element">
                   <div>Name</div>
                   <div>Quantity</div>
