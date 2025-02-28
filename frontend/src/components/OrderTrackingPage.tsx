@@ -1,4 +1,5 @@
 import React from "react";
+import OrderTrackingButton from "./OrderTrackingButton";
 
 const orders = {
   orderId: 12345,
@@ -28,22 +29,25 @@ export default function OrderTrackingPage() {
   });
 
   return (
-    <div>
-      {orders.orderItems.map((order, index) => {
-        return (
-          <div key={index}>
-            <h2>Order: #{`${orders.orderId}`}</h2>
-            <h3>{orders.orderStatus}</h3>
-            <span>
-              <p>{order.itemName}</p>
-              <p>{order.itemQuantity}</p>
-              <p>{order.itemPrice}</p>
-            </span>
-          </div>
-        );
-      })}
-      <p>Total {orderTotal}</p>
-      <p>{formatter.format(new Date())}</p>
-    </div>
+    <>
+      <OrderTrackingButton />
+      <div>
+        {orders.orderItems.map((order, index) => {
+          return (
+            <div key={index}>
+              <h2>Order: #{`${orders.orderId}`}</h2>
+              <h3>{orders.orderStatus}</h3>
+              <span>
+                <p>{order.itemName}</p>
+                <p>Qty {order.itemQuantity}</p>
+                <p>{order.itemPrice}</p>
+              </span>
+            </div>
+          );
+        })}
+        <p>Total {orderTotal}</p>
+        <p>{formatter.format(new Date())}</p>
+      </div>
+    </>
   );
 }
