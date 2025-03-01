@@ -1,20 +1,21 @@
+"use client";
 import {useState} from "react";
 import RestaurantSubMenuButton from "./RestaurantSubMenuButton";
 import MenuItem from "./MenuItem";
 import InteractableOrderItem from "./InteractableOrderItem";
 
 const menuItems =
-  "popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(",");
+  "Popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(",");
+  menuItems.forEach(menuItems => menuItems.trimStart());
 type foodTypes={
     [key: string]: string[],
+
 }
 const foodChoices : foodTypes = {
   "popular":
     "Margherita pizza, Beef Wellington, Souvlaki, Moussaka, Fajitas, Fish tacos, Ramen, Sushi rolls, Pho, Beef Bourguignon, Chicken Tikka Masala, Pad Kra Pao, Chicken Shawarma, Gyro, Peking duck, Dim sum, Goulash, Empanadas, Ratatouille, Croque Monsieur, Biryani, Jerk chicken, Tortilla Española, Beef fajitas, Lamb Rogan Josh, Bibimbap, Ceviche, Chiles Rellenos, Ropa Vieja, Coq au Vin".split(","),
   "lunch":
-    "Tomatoes, Onions, Garlic, Bell peppers, Carrots, Celery, Spinach, Kale, Lettuce, Broccoli, Cauliflower, Zucchini, Mushrooms, Potatoes, Sweet potatoes, Green beans, Corn, Asparagus, Eggplant".split(
-      ","
-    ),
+    "Tomatoes, Onions, Garlic, Bell peppers, Carrots, Celery, Spinach, Kale, Lettuce, Broccoli, Cauliflower, Zucchini, Mushrooms, Potatoes, Sweet potatoes, Green beans, Corn, Asparagus, Eggplant".split(","),
   "dinner":
     "Grilled steak, Roast chicken, Baked salmon, Beef stew, Shrimp scampi, Spaghetti Bolognese, Lasagna, Chicken Parmesan, Lamb chops, Pork tenderloin, Vegetarian chili, Stuffed bell peppers, Eggplant Parmesan, Beef tacos, Chicken fajitas, Grilled shrimp, BBQ ribs, Meatloaf, Chicken curry, Beef stir-fry, Pad Thai, Risotto, Paella, Shepherd's pie, Fish and chips, Vegetable stir-fry, Chicken Alfredo, Chicken pot pie, Jambalaya, Shrimp and grits".split(
       ","
@@ -40,49 +41,53 @@ const foodChoices : foodTypes = {
       ","
     ),
 };
+type orderType ={
+    name: string, price: number, quantity: number
+}
 export default function MenuManagementContainer() {
     const [selectedItem, setSelectedItem] = useState("none");
-    const [orderNumber, setOrderNumber] = useState(0);
-    const [orderAddedItems, setOrderAddedItems] = useState([{name: "", price: 0, quantity: 0}]);
+    // const [orderNumber, setOrderNumber] = useState(984095);
+    const orderNumber = 9384093;
+    const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
     const updateOder=(name: string, price: number)=>{
         setOrderAddedItems(currentOrderItems => [...currentOrderItems, {name: name, price: price, quantity: 1}]);
     }
-    setOrderNumber(984095);
-    const optionName = selectedItem.toLowerCase();
-    const foods = foodChoices[optionName];
+    
+    const optionName = selectedItem.toLowerCase().trimStart();
+    const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
   return (
-    <div>
+    <div className="restaurant-components-main-container">
         <div className="restaurant-sub-menu-container">
             {
                 menuItems.map((menuItem, index) => {
                     return <RestaurantSubMenuButton 
-                    selected={selectedItem === menuItem} 
+                    selected={selectedItem.trimStart() === menuItem.trimStart()} 
                     setCurrentSelection={setSelectedItem} 
-                    text={menuItem} 
+                    text={menuItem.trimStart()} 
                     key={index}/>
                 }) 
             }
         </div>
-        <div className="restaurant-main-food-menu-container">
+        { foods.length > 0 && <div className="restaurant-main-food-menu-container">
             <div className="restaurant-current-option-title">{selectedItem} Menu</div>
             <div className="current-menu-items-container">
-                {
-                    
-                    foods.map((menuItem: string, index: number) => {
-                        return <MenuItem key={index}
-                        addedToOrder={false}
-                        addItem={updateOder}
-                        name={menuItem} 
-                        price={index*10} 
-                        picture="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHw%3D&w=1000&q=80"/>
-                    })
-                }
+             {
+                 foods.map((menuItem: string, index: number) => {
+                    const formattedItem = menuItem.trimStart();
+                    return <MenuItem key={index}
+                    addedToOrder={false}
+                    addItem={updateOder}
+                    name={formattedItem} 
+                    price={index*10} 
+                    picture="https://i.imgur.com/D4qu3pD.png"/>
+                })
+            }
             </div>
-        </div>
+        </div>}
 
-        <div className="current-order-items-manager">
+        {orderAddedItems.length > 0 && <div className="current-order-items-manager">
             <div className="order-header-group">
-                <div>Order#{orderNumber}</div>
+                <div>Order: #{orderNumber}</div>
                 <span className="line-separator"></span>
             </div>
             <div className="order-items-container">
@@ -100,6 +105,7 @@ export default function MenuManagementContainer() {
                      />
                 })}
             </div>
+            <span className="line-separator"></span>
             <div className="order-total-container">
                 <div className="order-total-group">
                     <div>Total</div>
@@ -110,7 +116,7 @@ export default function MenuManagementContainer() {
                     <button className="order-total-button cancel-button">Cancel</button>
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
   );
 }

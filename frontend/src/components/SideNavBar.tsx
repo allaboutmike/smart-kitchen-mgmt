@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import React from 'react'
 import svgIcons from "../app/svgIcons";
 import SideNavBarButton from "@/components/SideNavBarButton";
@@ -7,15 +7,16 @@ import {useRouter} from 'next/navigation';
 export default function SideNavBar() {
   const [currentSelection, setCurrentSelection] = useState("none");
   const router = useRouter();
-  const updateCurrentSelection =(passedSelection: string)=>{
-    switch(passedSelection){
+  const updateCurrentSelection =(passedSelection: string)=>{    
+    setCurrentSelection(passedSelection);
+    switch(passedSelection){      
       case "Home": {router.push("/");break;}
       case "Menu Manager": {router.push("/menuManagement");break;}
       case "Order Tracking": {router.push("/orderTracking");break;}
       case "Inventory Tracker": {router.push("/inventoryTracker");break;}
       case "Productivity Metrics": {router.push("/productivityMetrics");break;}
       case "Settings": {router.push("/settings");break;}
-    }
+    }    
   }
  
   return (

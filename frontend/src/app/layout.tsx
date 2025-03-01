@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <SideNavBar />
         {children}
-        <Footer />
+      <Footer />
       </body>
     </html>
   );
