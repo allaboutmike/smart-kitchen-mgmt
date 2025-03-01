@@ -21,7 +21,7 @@ export default function InteractableOrderItem({name, orderIndex, price, removeIt
             </div>
         </div>
         <div className="remove-and-price-group">
-            <div className="order-item-price">${price}</div>
+            <div className="order-item-price">${price * quantity}</div>
             <button className="order-item-remove-button"
                 onPointerDown={() => removeItem(orderIndex)}
             >Remove</button>

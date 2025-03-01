@@ -99,7 +99,7 @@ export default function MenuManagementContainer() {
                     orderIndex={orderIndex}
                     removeItem={()=>{
                         setOrderAddedItems(currentOrderItems => {
-                            return currentOrderItems.filter((orderItem, index) => index !== orderIndex)
+                            return currentOrderItems.filter((orderItem) =>currentOrder.price !== orderItem.price && orderItem.name !== currentOrder.name)
                         })
                     }}
                      />
