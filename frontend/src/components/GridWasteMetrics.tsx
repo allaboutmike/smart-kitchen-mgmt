@@ -1,24 +1,17 @@
-import React from 'react'
-import WasteRow from './WasteRow'
-export default function GridWasteMetrics() {
-  return (
-    <div className="grid-metrics">
-        <div className="metrics-title">Waste Metrics</div>
-        <div className ="metrics-cells-container">
-              <div className="row-element">
-                  <div>Name</div>
-                  <div>Quantity</div>
-                  <div>Cost Per Unit</div>
-                  <div>Waste Reason</div>
-              </div>
-            
-            {
-                Array.from({ length: 60 }).map((_, index) => {
-                    return <WasteRow key={index} name="name" quantity={index*10} costPerUnit={index} wasteReason="reason" />
-                })
-            }
-        </div>
-    </div>
-  )
-}
+import React from "react";
+import { RowType } from "./Row";
+import DataTable, { TableInfo } from "./DataTable";
 
+export default function GridWasteMetrics() {
+  const data: TableInfo = {
+    tableTitle: "Waste Metrics",
+    headCellNames: ["Name", "Quantity", "Cost Per Unit", "Waste Reason"],
+    rowData: {
+      name: "name",
+      quantity: 1,
+      costPerUnit: 20,
+      wasteReason: "Reason",
+    } as RowType,
+  };
+  return <DataTable {...data} />;
+}

@@ -1,16 +1,19 @@
-interface RowProps{
-    name: string;
-    thresholdQuantity: number;
-    costPerUnit: number;
-    shelfLife: string;
+export type RowType ={
+  name: string,
+  thresholdQuantity?: number,
+  quantity?: number,
+  costPerUnit: number,
+  shelfLife?: string,
+  wasteReason?: string
 }
-export default function WasteRow({name, thresholdQuantity, costPerUnit, shelfLife}: RowProps) {
+
+export default function Row(rowInfo:RowType) {
   return (   
-        <div className="row-element">
-          <div>{name}</div>
-          <div>{thresholdQuantity}</div>
-          <div>{costPerUnit}</div>
-          <div>{shelfLife}</div>
-        </div>        
+        <tr className="row-element">
+          <td>{rowInfo.name}</td>
+          {(rowInfo.quantity || rowInfo.thresholdQuantity) && <td>{rowInfo.thresholdQuantity? rowInfo.thresholdQuantity: rowInfo.quantity}</td>}
+          <td>{rowInfo.costPerUnit}</td>
+          {(rowInfo.shelfLife || rowInfo.wasteReason) && <td>{rowInfo.shelfLife? rowInfo.shelfLife: rowInfo.wasteReason}</td>}
+        </tr>        
   )
 }

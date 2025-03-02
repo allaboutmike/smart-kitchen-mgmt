@@ -40,10 +40,10 @@ body {
 
 .row-element{
   @apply grid grid-cols-4 gap-x-2 text-center font-[550]; 
-  @apply px-4 py-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
-  box-shadow: var(--rows-drop-shadow);
-  &:first-child{@apply text-[1.4rem] font-[700] sticky top-0 text-center items-center tablet:text-[1rem] mobile:text-[0.7rem] text-[--foreground];}
-  &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2] ;}
+  @apply px-4 my-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
+  @apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];
+  box-shadow: var(--rows-drop-shadow);  
+  /* &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2] ;} */
 }
 
 .food-type-sellers-container {
