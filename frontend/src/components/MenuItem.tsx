@@ -11,16 +11,16 @@ export default function MenuItem({ name, price, picture, addItem }: MenuItemProp
   const imageSize = 80;
   return (
     <div className="menu-item">
-      <div className="menu-item-picture-and-price-group">
-        <div className="menu-item-picture">
+      <span className="menu-item-picture-and-price-group">
+        <span className="menu-item-picture">
           <Image src={picture} width={imageSize} height={imageSize} alt={name}/>
-        </div>
-        <div className="menu-pricing-group">
-          <div>Price:</div>
-          <div className="menu-item-price">${price}</div>
-        </div>
-      </div>
-      <div className="menu-item-name">{name}</div>
+        </span>
+        <span className="menu-pricing-group">
+          <span>Price:</span>
+          <span className="menu-item-price">${price}</span>
+        </span>
+      </span>
+      <span className="menu-item-name">{name}</span>
       <button onClick={() => addItem(name, price)}>Add Item</button>
     </div>
   );
