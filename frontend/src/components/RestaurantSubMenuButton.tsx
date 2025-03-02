@@ -20,7 +20,7 @@ export default function RestaurantSubMenuButton({text, setCurrentSelection, sele
         }
     }
   return (
-    <button ref={buttonRef} className="restaurant-sub-menu-button" onPointerDown={() => {
+    <button ref={buttonRef} className="restaurant-sub-menu-button" onClick={() => {
       setCurrentSelection(text.trimStart());
       }}
       >{text}</button>

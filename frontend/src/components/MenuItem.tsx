@@ -21,7 +21,7 @@ export default function MenuItem({ name, price, picture, addItem }: MenuItemProp
         </div>
       </div>
       <div className="menu-item-name">{name}</div>
-      <button onPointerDown={() => addItem(name, price)}>Add Item</button>
+      <button onClick={() => addItem(name, price)}>Add Item</button>
     </div>
   );
 }

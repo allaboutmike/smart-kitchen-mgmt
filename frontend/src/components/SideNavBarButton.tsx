@@ -23,7 +23,7 @@ export default function SideNavBarButton({svgIcon, text, setCurrentSelection, se
     }
   }
   return (
-    <button className="side-nav-bar-button" ref={buttonRef} onPointerDown={() => {
+    <button className="side-nav-bar-button" ref={buttonRef} onClick={() => {
       setCurrentSelection(text);
     }}>
       {svgIcon}
