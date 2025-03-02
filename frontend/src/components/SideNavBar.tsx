@@ -1,9 +1,9 @@
 "use client";
 import React from 'react'
 import svgIcons from "../app/svgIcons";
-import SideNavBarButton from "@/components/SideNavBarButton";
 import {useRouter} from 'next/navigation';
 import useSelection from '@/customHooks/useSelection';
+import SelectableButton from './SelectableButton';
 export default function SideNavBar() {
   const {setCurrentSelection, isCurrentSelection} = useSelection()
   const router = useRouter();
@@ -21,12 +21,12 @@ export default function SideNavBar() {
  
   return (
     <div className="side-nav-bar">      
-        <SideNavBarButton svgIcon={svgIcons.home} selected={isCurrentSelection("Home")} setCurrentSelection={updateCurrentSelection} text="Home"/>
-        <SideNavBarButton svgIcon={svgIcons.menuManager} selected={isCurrentSelection("Menu Manager")} setCurrentSelection={updateCurrentSelection} text="Menu Manager"/>
-        <SideNavBarButton svgIcon={svgIcons.orderTracking} selected={isCurrentSelection("Order Tracking")} setCurrentSelection={updateCurrentSelection} text="Order Tracking"/>
-        <SideNavBarButton svgIcon={svgIcons.inventory} selected={isCurrentSelection("Inventory Tracker")} setCurrentSelection={updateCurrentSelection} text="Inventory Tracker"/>
-        <SideNavBarButton svgIcon={svgIcons.productivity} selected={isCurrentSelection("Productivity Metrics")} setCurrentSelection={updateCurrentSelection} text="Productivity Metrics"/>
-        <SideNavBarButton svgIcon={svgIcons.settings} selected={isCurrentSelection("Settings")} setCurrentSelection={updateCurrentSelection} text="Settings"/>      
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.home} selected={isCurrentSelection("Home")} setCurrentSelection={updateCurrentSelection} text="Home"/>
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.menuManager} selected={isCurrentSelection("Menu Manager")} setCurrentSelection={updateCurrentSelection} text="Menu Manager"/>
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.orderTracking} selected={isCurrentSelection("Order Tracking")} setCurrentSelection={updateCurrentSelection} text="Order Tracking"/>
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.inventory} selected={isCurrentSelection("Inventory Tracker")} setCurrentSelection={updateCurrentSelection} text="Inventory Tracker"/>
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.productivity} selected={isCurrentSelection("Productivity Metrics")} setCurrentSelection={updateCurrentSelection} text="Productivity Metrics"/>
+        <SelectableButton buttonClassName={"side-nav-bar-button"} svgIcon={svgIcons.settings} selected={isCurrentSelection("Settings")} setCurrentSelection={updateCurrentSelection} text="Settings"/>      
     </div>
   )
 }

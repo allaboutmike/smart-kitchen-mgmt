@@ -1,9 +1,9 @@
 "use client";
 import {useState} from "react";
-import RestaurantSubMenuButton from "./RestaurantSubMenuButton";
 import MenuItem from "./MenuItem";
 import InteractableOrderItem from "./InteractableOrderItem";
 import useSelection from "@/customHooks/useSelection";
+import SelectableButton from "./SelectableButton";
 
 const menuItems =
   "Popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(",");
@@ -60,9 +60,10 @@ export default function MenuManagementContainer() {
         <div className="restaurant-sub-menu-container">
             {
                 menuItems.map((menuItem, index) => {
-                    return <RestaurantSubMenuButton 
+                    return <SelectableButton 
                     selected={isCurrentSelection(menuItem)} 
                     setCurrentSelection={setCurrentSelection} 
+                    buttonClassName={"restaurant-sub-menu-button"}
                     text={menuItem.trimStart()} 
                     key={index}/>
                 }) 
