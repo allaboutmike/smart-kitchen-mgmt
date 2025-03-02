@@ -3,13 +3,13 @@ import {useState} from "react";
 import RestaurantSubMenuButton from "./RestaurantSubMenuButton";
 import MenuItem from "./MenuItem";
 import InteractableOrderItem from "./InteractableOrderItem";
+import useSelection from "@/customHooks/useSelection";
 
 const menuItems =
   "Popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(",");
   menuItems.forEach(menuItems => menuItems.trimStart());
 type foodTypes={
     [key: string]: string[],
-
 }
 const foodChoices : foodTypes = {
   "popular":
@@ -45,14 +45,15 @@ type orderType ={
     name: string, price: number, quantity: number
 }
 export default function MenuManagementContainer() {
-    const [selectedItem, setSelectedItem] = useState("none");
+    // const [selectedItem, setSelectedItem] = useState("none");
+    const {currentSelection, setCurrentSelection, isCurrentSelection} = useSelection()
     const orderNumber = 9384093;
     const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
     const updateOder=(name: string, price: number)=>{
         setOrderAddedItems(currentOrderItems => [...currentOrderItems, {name: name, price: price, quantity: 1}]);
     }
     
-    const optionName = selectedItem.toLowerCase().trimStart();
+    const optionName = currentSelection.toLowerCase().trimStart();
     const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
   return (
     <div className="restaurant-components-main-container">
@@ -60,15 +61,15 @@ export default function MenuManagementContainer() {
             {
                 menuItems.map((menuItem, index) => {
                     return <RestaurantSubMenuButton 
-                    selected={selectedItem.trimStart() === menuItem.trimStart()} 
-                    setCurrentSelection={setSelectedItem} 
+                    selected={isCurrentSelection(menuItem)} 
+                    setCurrentSelection={setCurrentSelection} 
                     text={menuItem.trimStart()} 
                     key={index}/>
                 }) 
             }
         </div>
         { foods.length > 0 && <div className="restaurant-main-food-menu-container">
-            <div className="restaurant-current-option-title">{selectedItem} Menu</div>
+            <div className="restaurant-current-option-title">{currentSelection} Menu</div>
             <div className="current-menu-items-container">
              {
                  foods.map((menuItem: string, index: number) => {
