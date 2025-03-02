@@ -46,7 +46,6 @@ type orderType ={
 }
 export default function MenuManagementContainer() {
     const [selectedItem, setSelectedItem] = useState("none");
-    // const [orderNumber, setOrderNumber] = useState(984095);
     const orderNumber = 9384093;
     const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
     const updateOder=(name: string, price: number)=>{
