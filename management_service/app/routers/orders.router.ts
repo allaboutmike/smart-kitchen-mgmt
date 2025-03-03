@@ -44,7 +44,7 @@ ordersRouter.get("/:id", (req: Request, res: Response) => {
 });
 
 // MIGHT REPLACE THIS WITH WEBSOCKET
-ordersRouter.post("/create-order", (req: Request, res: Response) => {
+ordersRouter.post("/", (req: Request, res: Response) => {
     try {
         // This is a placeholder for the actual order creation logic
     const { items, status, total, timePlaced } = req.body;
@@ -73,7 +73,7 @@ ordersRouter.post("/create-order", (req: Request, res: Response) => {
 });
 
 
-ordersRouter.put("/update-order/:id", (req: Request, res: Response) => {
+ordersRouter.put("/:id", (req: Request, res: Response) => {
     try {
         // This is a placeholder for the actual order update logic
     const orderId = req.params["id"];
