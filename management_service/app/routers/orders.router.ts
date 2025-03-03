@@ -4,7 +4,7 @@ import { Router, Request, Response } from "express";
 const ordersRouter = Router() as NamedRouter;
 ordersRouter.prefix = "orders";
 
-ordersRouter.get("/:id", (req: Request, res: Response) => {
+ordersRouter.get("/:id", (res: Response) => {
     try {
         // This is a placeholder for the actual order retrieval logic
     // const orderId = req.params.id;
