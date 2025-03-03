@@ -31,10 +31,10 @@ export default function OrderTrackingPage() {
   return (
     <>
       <OrderTrackingButton />
-      <div>
+      {/* <div className="orders-container">
         {orders.orderItems.map((order, index) => {
           return (
-            <div key={index}>
+            <div key={index} className="order">
               <h2>Order: #{`${orders.orderId}`}</h2>
               <h3>{orders.orderStatus}</h3>
               <span>
@@ -47,6 +47,61 @@ export default function OrderTrackingPage() {
         })}
         <p>Total {orderTotal}</p>
         <p>{formatter.format(new Date())}</p>
+      </div> */}
+
+      <div className="orders-container">
+        <article className="order">
+          <p className="order-number">Order #12345</p>
+          <p>Completed</p>
+          <br className="line-break" />
+          <span className="item-details">
+            <p>Burger</p>
+            <p>Qty 1</p>
+            <p>$1.99</p>
+          </span>
+          <span className="item-details">
+            <p>Gumbo</p>
+            <p>Qty 1</p>
+            <p>$4.99</p>
+          </span>
+          <span className="item-details">
+            <p>French Fries</p>
+            <p>Qty 2</p>
+            <p>$2.49</p>
+          </span>
+          <br className="line-break" />
+          <span className="order-total">
+            <p>Total</p>
+            <p>$21.94</p>
+            <p>{formatter.format(new Date())}</p>
+          </span>
+        </article>
+        <article className="order">
+          <p className="order-number">Order #12346</p>
+          <p>Completed</p>
+          <br className="line-break" />
+          <span className="item-details">
+            <p>Burger</p>
+            <p>Qty 1</p>
+            <p>$1.99</p>
+          </span>
+          <span className="item-details">
+            <p>Gumbo</p>
+            <p>Qty 1</p>
+            <p>$4.99</p>
+          </span>
+          <span className="item-details">
+            <p>French Fries</p>
+            <p>Qty 2</p>
+            <p>$2.49</p>
+          </span>
+          <br className="line-break" />
+          <span className="order-total">
+            <p>Total</p>
+            <p>$21.94</p>
+            <p>{formatter.format(new Date())}</p>
+          </span>
+        </article>
       </div>
     </>
   );
