@@ -1,14 +1,12 @@
-"use client";
-import React from 'react'
-import {useRef} from 'react';
-
-interface SideNavBarButtonProps {
-    svgIcon: React.ReactNode;
+import { useRef } from "react";
+interface SelectableButtonProps {
+    svgIcon?: React.ReactNode;
     text: string;
     setCurrentSelection: (selection: string) => void;
     selected: boolean;
+    buttonClassName: string;
 }
-export default function SideNavBarButton({svgIcon, text, setCurrentSelection, selected}: SideNavBarButtonProps) {
+export default function SelectableButton({svgIcon, buttonClassName, text, setCurrentSelection, selected}: SelectableButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   
   if(buttonRef.current)
@@ -23,10 +21,10 @@ export default function SideNavBarButton({svgIcon, text, setCurrentSelection, se
     }
   }
   return (
-    <button className="side-nav-bar-button" ref={buttonRef} onPointerDown={() => {
+    <button className={buttonClassName} ref={buttonRef} onClick={() => {
       setCurrentSelection(text);
     }}>
-      {svgIcon}
+      {svgIcon && svgIcon}
       <div>{text}</div>
     </button>
   )
