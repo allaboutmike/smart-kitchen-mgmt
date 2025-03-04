@@ -14,7 +14,8 @@
   "description": "Cohort team project",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "management_service": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -26,8 +27,12 @@
     "nodemon": "^3.1.9",
     "prettier": "^3.5.2",
     "prettier-eslint": "^16.3.0",
+    "prisma": "^6.4.1",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1"
+  },
+  "prisma": {
+    "schema": "app/DB/prisma/schema.prisma"
   }
 }
