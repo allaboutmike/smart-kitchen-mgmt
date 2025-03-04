@@ -53,7 +53,6 @@ type orderType = {
   quantity: number;
 };
 export default function MenuManagementContainer() {
-  // const [selectedItem, setSelectedItem] = useState("none");
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
   const orderNumber = 9384093;

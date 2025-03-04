@@ -238,7 +238,7 @@ button {
   @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
   box-shadow: var(--sellers-container-drop-shadow);
   &:hover {
-    @apply text-white bg-[--foreground];
+    @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
 }
