@@ -141,7 +141,9 @@ export default function MenuManagementContainer() {
               <button className="order-total-button continue-button">
                 Continue
               </button>
-              <button className="order-total-button cancel-button">
+              <button className="order-total-button cancel-button"
+                onClick={()=>setOrderAddedItems([])}
+              >
                 Cancel
               </button>
             </div>
