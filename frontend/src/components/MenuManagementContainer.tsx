@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import {useState} from "react";
 import MenuItem from "./MenuItem";
 import InteractableOrderItem from "./InteractableOrderItem";
 import useSelection from "@/customHooks/useSelection";
@@ -53,11 +53,12 @@ type orderType = {
   quantity: number;
 };
 export default function MenuManagementContainer() {
+  // const [selectedItem, setSelectedItem] = useState("none");
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
   const orderNumber = 9384093;
   const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
-  const updateOder = (name: string, price: number) => {
+  const updateOrder = (name: string, price: number) => {
     setOrderAddedItems((currentOrderItems) => [
       ...currentOrderItems,
       { name: name, price: price, quantity: 1 },
@@ -93,7 +94,7 @@ export default function MenuManagementContainer() {
                 <MenuItem
                   key={index}
                   addedToOrder={false}
-                  addItem={updateOder}
+                  addItem={updateOrder}
                   name={formattedItem}
                   price={index * 10}
                   picture="https://i.imgur.com/D4qu3pD.png"
