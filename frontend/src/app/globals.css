@@ -218,3 +218,20 @@ button {
 .restaurant-main-food-menu-container {
   @apply mb-[4rem];
 }
+
+.order-tracking-button-container {
+  @apply flex gap-x-[33] px-[35px] py-[15px] rounded-[8px];
+  box-shadow: 0 3px 10px 4px var(--drop-shadow-color);
+}
+
+.selection-button {
+  --vertical-padding: 14px;
+  @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[--vertical-padding] bg-white border-none;
+  @apply tablet:text-[1rem] tablet:px-[5px];
+  @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
+  box-shadow: var(--sellers-container-drop-shadow);
+  &:hover {
+    @apply text-white bg-[--foreground];
+  }
+  transition: all 0.16s ease-in-out;
+}
