@@ -12,13 +12,13 @@ export default function OrderTrackingMenu() {
         buttonClassName="order-tracking-button selection-button"
         setCurrentSelection={setCurrentSelection}
         text="Current Orders"
-        selected={isCurrentSelection(currentSelection)}
+        selected={isCurrentSelection("Current Orders")}
       />
       <SelectableButton
         buttonClassName="order-tracking-button selection-button"
         setCurrentSelection={setCurrentSelection}
         text="Completed Orders"
-        selected={isCurrentSelection(currentSelection)}
+        selected={isCurrentSelection("Completed Orders")}
       />
     </div>
   );
