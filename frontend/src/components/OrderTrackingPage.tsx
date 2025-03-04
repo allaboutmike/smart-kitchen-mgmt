@@ -52,7 +52,7 @@ export default function OrderTrackingPage() {
       <div className="orders-container">
         <article className="order">
           <p className="order-number">Order #12345</p>
-          <p>Completed</p>
+          <p className="order-status">Completed</p>
           <br className="line-break" />
           <span className="item-details">
             <p>Burger</p>
@@ -78,7 +78,7 @@ export default function OrderTrackingPage() {
         </article>
         <article className="order">
           <p className="order-number">Order #12346</p>
-          <p>Completed</p>
+          <p className="order-status">Completed</p>
           <br className="line-break" />
           <span className="item-details">
             <p>Burger</p>
