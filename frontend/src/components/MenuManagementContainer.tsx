@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import { useState } from "react";
 import MenuItem from "./MenuItem";
 import OrderReceiptManager, {OrderReceiptManagerDetails} from "./OrderReceiptManager"
 
