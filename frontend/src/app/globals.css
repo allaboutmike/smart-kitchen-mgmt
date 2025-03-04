@@ -220,7 +220,7 @@ button {
 }
 
 .order-tracking-button-container {
-  @apply flex gap-x-[33] px-[35px] py-[15px] rounded-[8px];
+  @apply flex gap-x-[33px] px-[35px] py-[15px] rounded-[8px];
   box-shadow: 0 3px 10px 4px var(--drop-shadow-color);
 }
 

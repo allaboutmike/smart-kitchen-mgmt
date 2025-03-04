@@ -3,8 +3,7 @@ import SelectableButton from "./SelectableButton";
 import useSelection from "@/customHooks/useSelection";
 
 export default function OrderTrackingMenu() {
-  const { currentSelection, setCurrentSelection, isCurrentSelection } =
-    useSelection();
+  const { setCurrentSelection, isCurrentSelection } = useSelection();
 
   return (
     <div className="order-tracking-button-container">
