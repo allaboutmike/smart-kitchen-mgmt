@@ -138,12 +138,12 @@ thead{
   @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
 }
 .order-items-container {
-  @apply grid grid-cols-1 py-[20px] gap-y-[15px] overflow-y-scroll max-h-[400px] max-w-[100%];
+  @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[400px] max-w-[100%];
   justify-items: center;
 }
 
 .interactable-order-item {
-  @apply grid  text-[2rem] grid-rows-2 p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
+  @apply grid  text-[2rem] grid-rows-2 gap-[1rem] p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
   outline: solid 2px var(--foreground);
   .remove-and-price-group {
     @apply flex items-center;
@@ -151,7 +151,7 @@ thead{
   }
 }
 .order-item-remove-button {
-  @apply text-[2rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
+  @apply text-[1.5rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
   &:active {
     @apply bg-[--custom-active-red-color];
   }
