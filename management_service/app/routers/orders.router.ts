@@ -80,14 +80,18 @@ ordersRouter.get("/:id", async (req: Request, res: Response) => {
 ordersRouter.post("/", async (req: Request, res: Response) => {
     try {
         // This is a placeholder for the actual order creation logic
-    const { items, status, total, timePlaced } = req.body;
+    const { items, timePlaced } = req.body;
+
+    const orderItemsData = items.map((orderItem: Prisma.orderitemsCreateInput) => {
+        return {
+            menuitemid: orderItem.menuitems.connect?.menuitemid,
+            customizationdetail: orderItem.customizationdetail,}
+    });
 
     // Simulate order creation
     const newOrder = {
         id: "123",
         items,
-        status,
-        total,
         timePlaced,
     };
     console.log("Order created:", newOrder);
@@ -97,7 +101,7 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
             ordertimestamp: timePlaced,
             orderitems: {
                 createMany: {
-                    data: [{menuitemid:, customizationdetail:}],
+                    data: orderItemsData,
                 },
             },
         }
@@ -115,22 +119,24 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
 });
 
 
-ordersRouter.put("/:id", (req: Request, res: Response) => {
+ordersRouter.put("/:id", async (req: Request, res: Response) => {
     try {
         // This is a placeholder for the actual order update logic
-    const orderId = req.params["id"];
+    const orderId = Number(req.params["id"]);
     const { newStatus } = req.body;
     console.log("Updating order with ID:", orderId);
-    // const order = await prisma.order.findUnique({ where: { id: orderId } });
+    
+    // const order = await prisma.orders.findUnique({ where: { orderid: orderId } });
+    
     // if (!order) {
     //     return res.status(404).json({ error: "Order not found" });
     // }
     // Update the order status
     console.log("New status:", newStatus);
-    // await prisma.order.update({
-    //     where: { id: orderId },
-    //     data: { status: newStatus },
-    // });
+    await prisma.orders.update({
+        where: { orderid: orderId },
+        data: { completed: newStatus },
+    });
     console.log("Order updated successfully");
 
     // ONCE WEBSOCKET IS IMPLEMENTED, WE WILL NOTIFY THE CLIENT OF A A STATUS UPDATE
