@@ -1,7 +1,8 @@
 "use client";
 import {useState} from "react";
 import MenuItem from "./MenuItem";
-import InteractableOrderItem from "./InteractableOrderItem";
+import OrderReceiptManager, {OrderReceiptManagerDetails} from "./OrderReceiptManager"
+
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
 
@@ -47,7 +48,7 @@ const foodChoices: foodTypes = {
       ","
     ),
 };
-type orderType = {
+export type orderType = {
   name: string;
   price: number;
   quantity: number;
@@ -63,9 +64,26 @@ export default function MenuManagementContainer() {
       { name: name, price: price, quantity: 1 },
     ]);
   };
-
+  const removeItem =(currentOrder: orderType)=>{
+    setOrderAddedItems((currentOrderItems) => {
+      return currentOrderItems.filter(
+        (orderItem) =>
+          currentOrder.price !== orderItem.price &&
+          orderItem.name !== currentOrder.name
+      );
+    });
+  }
+  const cancelOrder=()=> setOrderAddedItems([])
   const optionName = currentSelection.toLowerCase().trimStart();
   const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
+  const orderReceiptDetails: OrderReceiptManagerDetails ={
+    orderNumber: orderNumber,
+    orderAddedItems: orderAddedItems,
+    removeItem: removeItem,
+    cancelOrder: cancelOrder,
+    isJustReceipt: false
+  }
+
   return (
     <div className="restaurant-components-main-container">
       <div className="restaurant-sub-menu-container">
@@ -104,52 +122,8 @@ export default function MenuManagementContainer() {
         </div>
       )}
 
-      {orderAddedItems.length > 0 && (
-        <div className="current-order-items-manager">
-          <div className="order-header-group">
-            <div>Order: #{orderNumber}</div>
-            <span className="line-separator"></span>
-          </div>
-          <div className="order-items-container">
-            {orderAddedItems.map((currentOrder, orderIndex) => {
-              return (
-                <InteractableOrderItem
-                  key={orderIndex}
-                  name={currentOrder.name}
-                  price={currentOrder.price}
-                  orderIndex={orderIndex}
-                  removeItem={() => {
-                    setOrderAddedItems((currentOrderItems) => {
-                      return currentOrderItems.filter(
-                        (orderItem) =>
-                          currentOrder.price !== orderItem.price &&
-                          orderItem.name !== currentOrder.name
-                      );
-                    });
-                  }}
-                />
-              );
-            })}
-          </div>
-          <span className="line-separator"></span>
-          <div className="order-total-container">
-            <div className="order-total-group">
-              <div>Total</div>
-              <div className="order-total-value">$89.99</div>
-            </div>
-            <div className="order-buttons-group">
-              <button className="order-total-button continue-button">
-                Continue
-              </button>
-              <button className="order-total-button cancel-button"
-                onClick={()=>setOrderAddedItems([])}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {orderAddedItems.length > 0 &&
+       (<OrderReceiptManager {...orderReceiptDetails} />)}
     </div>
   );
 }
