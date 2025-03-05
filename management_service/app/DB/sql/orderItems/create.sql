@@ -8,4 +8,3 @@ CREATE TABLE orderItems (
     CONSTRAINT fk_order FOREIGN KEY (orderID) REFERENCES orders(orderID),
     CONSTRAINT fk_menu_item FOREIGN KEY (menuItemID) REFERENCES menuItems(menuItemID)
 );
-
