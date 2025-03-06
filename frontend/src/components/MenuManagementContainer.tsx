@@ -101,9 +101,9 @@ export default function MenuManagementContainer() {
       </div>
       {foods.length > 0 && (
         <div className="restaurant-main-food-menu-container">
-          <div className="restaurant-current-option-title">
-            {currentSelection} Menu
-          </div>
+          <span className="restaurant-current-option-title">
+            <span>{currentSelection}</span> Menu
+          </span>
           <div className="current-menu-items-container">
             {foods.map((menuItem: string, index: number) => {
               const formattedItem = menuItem.trimStart();
