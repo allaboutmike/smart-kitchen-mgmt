@@ -1,25 +1,16 @@
 "use client";
 import React from "react";
 import OrderTrackingMenu from "@/components/OrderTrackingMenu";
+import { useFetch } from "@/customHooks/useFetch";
 
 export default function OrderTrackingPage() {
-  const [orders, setOrders] = React.useState<Order[]>([]);
-  React.useEffect(() => {
-    const fetchData = async () => {
-      // Fetching fake data from backend
-      const response = await fetch("http://localhost:3001/api/orders/1");
-      const data = await response.json();
-      console.log(data); // Handle the fetched data
-      setOrders([data.order]);
-    }
-    fetchData();
-  }, []);
+  const { data: orders } = useFetch<Order[]>("/orders/1");
 
   return (
     <div className="main-container">
       <OrderTrackingMenu />
       <div>
-        {orders.length ? (
+        {orders && orders.length ? (
           <div>
             <h1>Orders</h1>
             {orders.map((order) => (
