@@ -232,7 +232,7 @@ button {
   box-shadow: 0 3px 10px 4px var(--drop-shadow-color);
 }
 
-.selection-button {
+.selection-button{
   --vertical-padding: 14px;
   @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[--vertical-padding] bg-white border-none;
   @apply tablet:text-[1rem] tablet:px-[5px];
