@@ -9,7 +9,8 @@ export default {
   theme: {
     screens:{
       'tablet': {'min': '0', 'max': '850px'},
-      'mobile': {'min': '0px', 'max': '400px'}
+      'mobile': {'min': '0px', 'max': '400px'},
+      'mobile-m': {'min': '400px', 'max': '550px'}
     },
     extend: {
       colors: {

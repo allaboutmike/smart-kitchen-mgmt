@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "tsx --watch --env-file ./config/.env.dev ./app/server.ts",
-    "start": "tsx --env-file ./config/.env.prod ./build/app/server.js"
+    "start": "tsx ./build/app/server.js"
   },
   "keywords": [],
   "author": "",
@@ -35,5 +35,8 @@
   },
   "prisma": {
     "schema": "app/DB/prisma/schema.prisma"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
