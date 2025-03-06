@@ -102,7 +102,7 @@ export default function MenuManagementContainer() {
       {foods.length > 0 && (
         <div className="restaurant-main-food-menu-container">
           <div className="restaurant-current-option-title">
-            {currentSelection} Menu
+            <b>{currentSelection}</b> Menu
           </div>
           <div className="current-menu-items-container">
             {foods.map((menuItem: string, index: number) => {
