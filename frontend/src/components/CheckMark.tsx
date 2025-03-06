@@ -21,10 +21,10 @@ export default function CheckMark() {
       <div
         onClick={() => {
           setOrderComplete((prevVal) => !prevVal);
-        }}
+        }} className="order-status"
       >
         {!orderReady ? svgIcons.emptyCheckMark : svgIcons.greenCheckMark}
-        {orderComplete && <span>Complete</span>}
+        {orderComplete && <span className="order-complete">Complete</span>}
       </div>
     </>
   );
