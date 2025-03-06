@@ -41,30 +41,7 @@ ordersRouter.get("/:id", async (req: Request, res: Response) => {
             completed: true,      
         }   
     });
-/*
-    const sampleOrder = {
-        id: "123",
-        items: [
-            { 
-                productId: "1",
-                productName: "Cheeseburger",
-                ingredients: {
-                    cheese: true,
-                    lettuce: true,
-                    tomato: false,
-                    onion: true,
-                    pickles: false,
-                    ketchup: true,
-                    mustard: false
-                },
-                notes: "Extra ketchup, side of mayo",
-            },
-        ],
-        status: "In progress",
-        total: 15.99,
-        timePlaced: new Date().toISOString(),
-    }
-*/
+
     res.status(200).json({
         order: order,
     });
