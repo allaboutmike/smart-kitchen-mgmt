@@ -106,11 +106,14 @@ thead{
   @apply tablet:bottom-[80px] mobile:text-center right-[none];
 }
 .restaurant-current-option-title {
-  @apply text-[2rem] my-[10px] pl-[2rem];
+  @apply flex gap-[1rem] text-[2rem] my-[10px] pl-[2rem];
+  @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
+  > span{ @apply font-semibold;}
 }
 .current-menu-items-container {
-  @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%];
-  @apply mobile:grid-cols-2;
+  @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
+  @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
+  place-items: center;
   .menu-item {
     @apply flex rounded-[6px] flex-col max-w-[160px] px-[20px] py-[20px] bg-[white] gap-[8px] justify-between;
     box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
@@ -118,10 +121,10 @@ thead{
       @apply grid grid-cols-2 gap-[10px] items-end;
     }
     .menu-pricing-group {
-      @apply flex flex-col;
+      @apply flex flex-col font-semibold;
     }
     button {
-      @apply text-[1.2rem] rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
+      @apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
       &:active {
         @apply bg-[--active-button-color];
       }
