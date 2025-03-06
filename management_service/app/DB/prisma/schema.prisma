@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,123 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model employees {
+  employeeid     Int              @id @default(autoincrement())
+  employeerole   String?
+  firstname      String?
+  lastname       String?
+  employeeshifts employeeshifts[]
+}
+
+model employeeshifts {
+  employeeid Int
+  shiftid    Int
+  employees  employees @relation(fields: [employeeid], references: [employeeid], onDelete: NoAction, onUpdate: NoAction, map: "fk_employeeshifts_employeeid")
+  shifts     shifts    @relation(fields: [shiftid], references: [shiftid], onDelete: NoAction, onUpdate: NoAction, map: "fk_employeeshifts_shiftid")
+
+  @@id([employeeid, shiftid])
+}
+
+model forecasts {
+  forecastid        Int       @id @default(autoincrement())
+  recommendation    String?
+  recommendationfor DateTime? @db.Timestamptz(6)
+  createdat         DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model ingredients {
+  ingredientid        Int                   @id @default(autoincrement())
+  ingredientname      String
+  thresholdquantity   Int
+  costperunit         Decimal               @db.Decimal(10, 2)
+  shelflife           Int
+  menuitemingredients menuitemingredients[]
+  stock               stock[]
+}
+
+model menuitemingredients {
+  menuitemid   Int
+  ingredientid Int
+  quantity     Int
+  ingredients  ingredients @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_menuitemingredients_ingredientid")
+  menuitems    menuitems   @relation(fields: [menuitemid], references: [menuitemid], onDelete: NoAction, onUpdate: NoAction, map: "fk_menuitemingredients_menuitemid")
+
+  @@id([menuitemid, ingredientid])
+}
+
+model menuitems {
+  menuitemid          Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(255)
+  price               Decimal               @db.Decimal(10, 2)
+  profit              Decimal               @db.Decimal(10, 2)
+  createdat           DateTime?             @default(now()) @db.Timestamptz(6)
+  updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
+  menuitemingredients menuitemingredients[]
+  orderitems          orderitems[]
+}
+
+model orderitems {
+  orderitemid         Int       @id @default(autoincrement())
+  orderid             Int
+  menuitemid          Int
+  served              Boolean?  @default(false)
+  servedtimestamp     DateTime? @db.Timestamptz(6)
+  customizationdetail String?
+  menuitems           menuitems @relation(fields: [menuitemid], references: [menuitemid], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_item")
+  orders              orders    @relation(fields: [orderid], references: [orderid], onDelete: NoAction, onUpdate: NoAction, map: "fk_order")
+}
+
+model orders {
+  orderid        Int          @id @default(autoincrement())
+  ordertimestamp DateTime?    @default(now()) @db.Timestamptz(6)
+  completed      Boolean      @default(false)
+  orderitems     orderitems[]
+}
+
+model shifts {
+  shiftid         Int               @id @default(autoincrement())
+  starttime       DateTime?         @db.Timestamptz(6)
+  endtime         DateTime?         @db.Timestamptz(6)
+  employeeshifts  employeeshifts[]
+  shiftstockusage shiftstockusage[]
+}
+
+model shiftstockusage {
+  shiftid    Int
+  stockid    Int
+  quantity   Int
+  recordedat DateTime? @default(now()) @db.Timestamptz(6)
+  shifts     shifts    @relation(fields: [shiftid], references: [shiftid], onDelete: NoAction, onUpdate: NoAction, map: "fk_shiftstockusage_shiftid")
+  stock      stock     @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_shiftstockusage_stockid")
+
+  @@id([shiftid, stockid])
+}
+
+model stock {
+  stockid           Int               @id @default(autoincrement())
+  ingredientid      Int
+  quantity          Int
+  expirationdate    DateTime?         @db.Timestamptz(6)
+  receivedtimestamp DateTime?         @default(now()) @db.Timestamptz(6)
+  cost              Decimal           @db.Decimal(10, 2)
+  isexpired         Boolean           @default(false)
+  shiftstockusage   shiftstockusage[]
+  ingredients       ingredients       @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredient")
+  waste             waste[]
+}
+
+model waste {
+  wasteid        Int         @id @default(autoincrement())
+  stockid        Int
+  reason         wastereason
+  wastetimestamp DateTime?   @default(now()) @db.Timestamptz(6)
+  quantity       Int
+  stock          stock       @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_waste_stockid")
+}
+
+enum wastereason {
+  Expired
+  Over_prepped @map("Over-prepped")
 }

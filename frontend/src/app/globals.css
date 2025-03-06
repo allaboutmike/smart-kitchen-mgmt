@@ -33,16 +33,23 @@ body {
   .metrics-title {
     @apply text-[2rem] font-[700] text-center text-[black] tablet:text-[1.6rem] text-[--foreground];
   }
-  .metrics-cells-container {
-    @apply flex flex-col gap-y-2 max-h-[400px] overflow-y-auto no-scrollbar py-[6px];
+  .metrics-cells-container{
+    @apply flex flex-col max-h-[400px] overflow-y-auto no-scrollbar py-[6px];
+  }
+   
+}
+thead{
+  
+  @apply sticky top-[0px] ;
+  > .row-element{
+    @apply my-[0] text-black ;
   }
 }
-
-.row-element {
-  @apply grid grid-cols-4 gap-x-2 text-center font-[550];
+.row-element{
+  @apply grid grid-cols-4 gap-x-2 text-center font-[550]; 
   @apply px-4 my-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
   @apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];
-  box-shadow: var(--rows-drop-shadow);
+  box-shadow: var(--rows-drop-shadow);    
   /* &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2] ;} */
 }
 
@@ -58,13 +65,13 @@ body {
   }
 }
 
-.side-nav-bar {
-  @apply flex flex-col fixed top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] gap-y-[10px] overflow-y-auto;
+.side-nav-bar{
+  @apply flex flex-col fixed top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] overflow-y-auto;
   box-shadow: 0 0 10px 1px var(--drop-shadow-color);
   @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row  tablet:min-h-[fit-content];
 
   .side-nav-bar-button {
-    @apply flex flex-col items-center justify-center py-[5px] gap-y-[0.5rem] tablet:py-[1rem];
+    @apply flex flex-col items-center justify-center py-[15px] gap-y-[0.5rem] tablet:py-[1rem];
     @apply w-[100%] border-none text-[var(--foreground)] bg-white;
 
     &:hover {
@@ -89,8 +96,8 @@ body {
   @apply tablet:text-[1rem] tablet:px-[5px];
   @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
   box-shadow: var(--sellers-container-drop-shadow);
-  &:hover {
-    @apply text-white bg-[--foreground];
+  &:hover{
+    @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
 }
@@ -131,12 +138,12 @@ body {
   @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
 }
 .order-items-container {
-  @apply grid grid-cols-1 py-[20px] gap-y-[15px] overflow-y-scroll max-h-[400px] max-w-[100%];
+  @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[400px] max-w-[100%];
   justify-items: center;
 }
 
 .interactable-order-item {
-  @apply grid  text-[2rem] grid-rows-2 p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
+  @apply grid  text-[2rem] grid-rows-2 gap-[1rem] p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
   outline: solid 2px var(--foreground);
   .remove-and-price-group {
     @apply flex items-center;
@@ -144,7 +151,7 @@ body {
   }
 }
 .order-item-remove-button {
-  @apply text-[2rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
+  @apply text-[1.5rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
   &:active {
     @apply bg-[--custom-active-red-color];
   }
@@ -231,7 +238,7 @@ button {
   @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
   box-shadow: var(--sellers-container-drop-shadow);
   &:hover {
-    @apply text-white bg-[--foreground];
+    @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
 }
