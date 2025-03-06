@@ -108,6 +108,7 @@ thead{
 .restaurant-current-option-title {
   @apply flex gap-[1rem] text-[2rem] my-[10px] pl-[2rem];
   @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
+  > span{ @apply font-semibold;}
 }
 .current-menu-items-container {
   @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
