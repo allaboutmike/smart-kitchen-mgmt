@@ -120,10 +120,10 @@ thead{
       @apply grid grid-cols-2 gap-[10px] items-end;
     }
     .menu-pricing-group {
-      @apply flex flex-col;
+      @apply flex flex-col font-semibold;
     }
     button {
-      @apply text-[1.2rem] rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
+      @apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
       &:active {
         @apply bg-[--active-button-color];
       }

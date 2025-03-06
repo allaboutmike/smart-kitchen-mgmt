@@ -16,12 +16,12 @@ export default function MenuItem({ name, price, picture, addItem }: MenuItemProp
           <Image src={picture} width={imageSize} height={imageSize} alt={name}/>
         </span>
         <span className="menu-pricing-group">
-          <span><b>Price:</b></span>
-          <span className="menu-item-price"><b>${price}</b></span>
+          <span>Price:</span>
+          <span className="menu-item-price">${price}</span>
         </span>
       </span>
       <span className="menu-item-name">{name}</span>
-      <button onClick={() => addItem(name, price)}><b>Add Item</b></button>
+      <button onClick={() => addItem(name, price)}>Add Item</button>
     </div>
   );
 }
