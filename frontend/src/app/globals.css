@@ -1,4 +1,7 @@
-@plugin "daisyui";
+/* @plugin "daisyui"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --background: #fafbff;
   --foreground: #638de5;
@@ -9,22 +12,17 @@
   --drop-shadow-color: hsla(221, 71%, 64%, 0.293);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
+  background-color: var(--background);  
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #638DE5;
-    --foreground: #D9D9D9;
-  }
-} */
 body {
   color: var(--foreground);
-  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
 }
 .main-container {
-  @apply flex justify-center items-center flex-col;
+  @apply flex justify-center pl-[120px] items-center flex-col;
+  @apply tablet:pl-[0] mobile:pl-[0];
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;

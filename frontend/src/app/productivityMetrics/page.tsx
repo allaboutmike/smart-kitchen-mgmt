@@ -8,19 +8,19 @@ export default function ProductivityMetricsPage() {
       <GridWasteMetrics />
       <ToastMessageNotification 
         alertMessage='An impressive alert message'
-        alertName='-info'
+        alertName={"alert alert-info"}
       />
       <ToastMessageNotification 
         alertMessage='An impressive alert message'
-        alertName='-error'
+        alertName={"alert alert-error"}
       />
       <ToastMessageNotification 
         alertMessage='An impressive alert message'
-        alertName='-success'
+        alertName={"alert alert-success"}
       />
       <ToastMessageNotification 
         alertMessage='An impressive alert message'
-        alertName='-warning'
+        alertName={"alert alert-warning"}
       />
     </div>
   )
