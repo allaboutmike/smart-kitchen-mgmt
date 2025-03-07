@@ -22,7 +22,7 @@ export default function SelectableButton({svgIcon, buttonClassName, text, setCur
   }
   return (
     <button className={buttonClassName} ref={buttonRef} onClick={() => {
-      setCurrentSelection(text);
+      if(!selected) setCurrentSelection(text);
     }}>
       {svgIcon && svgIcon}
       <div>{text}</div>

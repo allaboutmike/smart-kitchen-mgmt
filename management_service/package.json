@@ -6,13 +6,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "dev": "tsx --watch --env-file ./config/.env.dev ./app/server.ts",
-    "start": "tsx --env-file ./config/.env.prod ./build/app/server.js"
+    "start": "tsx ./build/app/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Cohort team project",
   "dependencies": {
+    "@prisma/client": "^6.4.1",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "management_service": "file:"
@@ -34,5 +35,8 @@
   },
   "prisma": {
     "schema": "app/DB/prisma/schema.prisma"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

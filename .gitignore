@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+.idea
 # dependencies
 /node_modules
 /management_service/node_modules
@@ -413,6 +413,11 @@ dist
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+venv/
+ENV/
+.env
 
 # C extensions
 *.so

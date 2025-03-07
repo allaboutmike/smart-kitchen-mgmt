@@ -7,7 +7,7 @@ stockRouter.prefix = "stocks";
 
 // GET Inventory Items 
 
-stockRouter.get("/", (res: Response) => {
+stockRouter.get("/", ( req: Request, res: Response) => {
   try {
     const sampleStockInvList = [
       {id: "1", product: "Sample Product A", quantity: 50, lastUpdated: new Date().toISOString() },
