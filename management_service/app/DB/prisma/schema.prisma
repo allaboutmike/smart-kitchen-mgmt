@@ -37,6 +37,8 @@ model ingredients {
   thresholdquantity   Int
   costperunit         Decimal               @db.Decimal(10, 2)
   shelflife           Int
+  servingSize         String              @db.VarChar(255)
+  category            ingredientCategory
   menuitemingredients menuitemingredients[]
   stock               stock[]
 }
@@ -58,6 +60,7 @@ model menuitems {
   profit              Decimal               @db.Decimal(10, 2)
   createdat           DateTime?             @default(now()) @db.Timestamptz(6)
   updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
+  category            menuItemCategory
   menuitemingredients menuitemingredients[]
   orderitems          orderitems[]
 }
@@ -69,6 +72,7 @@ model orderitems {
   served              Boolean?  @default(false)
   servedtimestamp     DateTime? @db.Timestamptz(6)
   customizationdetail String?
+  returned            Boolean?  @default(false)
   menuitems           menuitems @relation(fields: [menuitemid], references: [menuitemid], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_item")
   orders              orders    @relation(fields: [orderid], references: [orderid], onDelete: NoAction, onUpdate: NoAction, map: "fk_order")
 }
@@ -77,6 +81,7 @@ model orders {
   orderid        Int          @id @default(autoincrement())
   ordertimestamp DateTime?    @default(now()) @db.Timestamptz(6)
   completed      Boolean      @default(false)
+  completedTimeStamp DateTime? @db.Timestamptz(6)
   orderitems     orderitems[]
 }
 
@@ -124,4 +129,25 @@ model waste {
 enum wastereason {
   Expired
   Over_prepped @map("Over-prepped")
+}
+
+enum menuItemCategory {
+  Meals
+  Entrees
+  Salads
+  Sides
+  Beverages
+}
+
+enum ingredientCategory {
+  Buns
+  Patties
+  Nuggets
+  Chicken_strips @map("Chicken Strips")
+  Fries
+  Cheese
+  Produce
+  Sauces
+  Drinks
+  Other
 }
