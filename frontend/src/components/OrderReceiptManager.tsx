@@ -22,7 +22,8 @@ export default function OrderReceiptManager(
     <div className="current-order-items-manager">
       <div className="order-header-group">
         <div>Order: #{orderDetails.orderNumber}</div>
-        <OrderStatusNotifier />
+        {/* TODO: Add conditional render for orderStatusNotifier */}
+        {orderDetails.isJustReceipt && <OrderStatusNotifier />}
       </div>
       <span className="line-separator"></span>
 
