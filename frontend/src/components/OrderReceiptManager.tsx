@@ -1,45 +1,52 @@
 "use client";
 import InteractableOrderItem from "./InteractableOrderItem";
-import { orderType } from "./MenuManagementContainer";
 import React from "react";
 import OrderStatusNotifier from "./OrderStatusNotifier";
+export type Order = {
+  id: string;
+  items: AddedItem[];
+  status: string;
+  total: number;
+  timePlaced: string;
+};
 export type AddedItem = {
-  name: string;
   price: number;
   quantity: number;
+  productId: string;
+  productName: string;
+  ingredients: { [key: string]: boolean };
+  notes: string;
 };
 export type OrderReceiptManagerDetails = {
-  orderNumber: number;
-  orderAddedItems: AddedItem[];
-  removeItem?: (order: orderType) => void;
+  order: Order;
+  removeItem?: (item: AddedItem) => void;
   cancelOrder?: () => void;
-  isJustReceipt: boolean;
 };
 export default function OrderReceiptManager(
   orderDetails: OrderReceiptManagerDetails
 ) {
+  const isJustReceipt = orderDetails.order.status !== "new";
   return (
     <div className="current-order-items-manager">
       <div className="order-header-group">
-        <div>Order: #{orderDetails.orderNumber}</div>
-        {/* TODO: Add conditional render for orderStatusNotifier */}
-        {orderDetails.isJustReceipt && <OrderStatusNotifier />}
+        <div>Order: #{orderDetails.order.id}</div>
+        {!isJustReceipt && <OrderStatusNotifier />}
       </div>
       <span className="line-separator"></span>
 
       <div className="order-items-container">
-        {orderDetails.orderAddedItems.map((currentOrder, orderIndex) => {
+        {orderDetails.order.items.map((currentOrder, orderIndex) => {
           return (
             <InteractableOrderItem
               key={orderIndex}
-              name={currentOrder.name}
+              name={currentOrder.productName}
               price={currentOrder.price}
               orderIndex={orderIndex}
               removeItem={() =>
                 orderDetails.removeItem !== undefined &&
                 orderDetails.removeItem(currentOrder)
               }
-              isJustReceipt={orderDetails.isJustReceipt}
+              isJustReceipt={isJustReceipt}
             />
           );
         })}
@@ -50,7 +57,7 @@ export default function OrderReceiptManager(
           <div>Total</div>
           <div className="order-total-value">$89.99</div>
         </div>
-        {!orderDetails.isJustReceipt && (
+        {!isJustReceipt && (
           <div className="order-buttons-group">
             <button className="order-total-button continue-button">
               Continue
