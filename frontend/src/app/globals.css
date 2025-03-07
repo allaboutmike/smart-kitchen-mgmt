@@ -206,6 +206,7 @@ button {
   @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
 }
 .order-header-group {
+  @apply flex flex-row justify-between;
   div:first-child {
     @apply text-[2rem] text-[black] font-semibold;
   }
@@ -232,7 +233,7 @@ button {
   box-shadow: 0 3px 10px 4px var(--drop-shadow-color);
 }
 
-.selection-button{
+.selection-button {
   --vertical-padding: 14px;
   @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[--vertical-padding] bg-white border-none;
   @apply tablet:text-[1rem] tablet:px-[5px];
@@ -242,4 +243,11 @@ button {
     @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
+}
+
+.order-status {
+  @apply flex gap-x-[10px];
+  .order-complete {
+    @apply text-[#4AC84A] place-self-center;
+  }
 }

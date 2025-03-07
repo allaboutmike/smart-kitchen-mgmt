@@ -2,6 +2,7 @@
 import React from "react";
 import OrderTrackingMenu from "@/components/OrderTrackingMenu";
 import { useFetch } from "@/customHooks/useFetch";
+import OrderReceiptManager from "@/components/OrderReceiptManager";
 
 export default function OrderTrackingPage() {
   const { data: orders } = useFetch<Order[]>("/orders/1");
@@ -14,10 +15,19 @@ export default function OrderTrackingPage() {
           <div>
             <h1>Orders</h1>
             {orders.map((order) => (
-              <div key={order?.id}>
-                <p>{order?.items[0].productName}</p>
-                <p>{order?.status}</p>
-              </div>
+              <div>
+              <OrderReceiptManager
+                orderNumber={12345}
+                orderAddedItems={[
+                  {
+                    name: "burger",
+                    price: 4.99,
+                    quantity: 3,
+                  },
+                ]}
+                isJustReceipt={true}
+              />
+            </div>
             ))}
           </div>
         ) : (
