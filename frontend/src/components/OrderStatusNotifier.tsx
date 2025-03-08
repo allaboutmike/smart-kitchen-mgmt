@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import svgIcons from "@/app/svgIcons";
+import {svgIcons} from "@/app/svgIcons";
 
 export default function OrderStatusNotifier() {
   //Need to add state logic for the change in image
