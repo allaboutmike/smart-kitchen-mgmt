@@ -4,7 +4,6 @@ import { Router, Request, Response } from "express";
 const stockRouter = Router() as NamedRouter;
 stockRouter.prefix = "stocks";
 
-
 // GET Inventory Items 
 
 stockRouter.get("/", ( req: Request, res: Response) => {
