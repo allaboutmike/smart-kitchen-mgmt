@@ -1,7 +1,7 @@
 "use client";
-import {useState} from "react";
+import { useState } from "react";
 import MenuItem from "./MenuItem";
-import OrderReceiptManager, {OrderReceiptManagerDetails} from "./OrderReceiptManager"
+import OrderReceiptManager, {AddedItem, OrderReceiptManagerDetails} from "./OrderReceiptManager"
 
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
@@ -57,19 +57,19 @@ export default function MenuManagementContainer() {
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
   const orderNumber = 9384093;
-  const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
+  const [orderAddedItems, setOrderAddedItems] = useState<AddedItem[]>([]);
   const updateOrder = (name: string, price: number) => {
     setOrderAddedItems((currentOrderItems) => [
       ...currentOrderItems,
-      { name: name, price: price, quantity: 1 },
+      { productName: name, price: price, quantity: 1, ingredients: {}, productId: "1", notes: "" },
     ]);
   };
-  const removeItem =(currentOrder: orderType)=>{
+  const removeItem =(currentOrder: AddedItem)=>{
     setOrderAddedItems((currentOrderItems) => {
       return currentOrderItems.filter(
         (orderItem) =>
           currentOrder.price !== orderItem.price &&
-          orderItem.name !== currentOrder.name
+          orderItem.productName !== currentOrder.productName
       );
     });
   }
@@ -77,11 +77,15 @@ export default function MenuManagementContainer() {
   const optionName = currentSelection.toLowerCase().trimStart();
   const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
   const orderReceiptDetails: OrderReceiptManagerDetails ={
-    orderNumber: orderNumber,
-    orderAddedItems: orderAddedItems,
     removeItem: removeItem,
     cancelOrder: cancelOrder,
-    isJustReceipt: false
+    order: {
+      id: `${orderNumber}`,
+  items: orderAddedItems,
+  status: "new",
+  total: 0,
+  timePlaced: "",
+    }
   }
 
   return (
