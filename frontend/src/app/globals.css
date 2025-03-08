@@ -112,29 +112,10 @@ thead {
   @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
   @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
   place-items: center;
-  .menu-item {
-    @apply flex rounded-[6px] flex-col max-w-[160px] px-[20px] py-[20px] bg-[white] gap-[8px] justify-between;
-    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
-    .menu-item-picture-and-price-group {
-      @apply grid grid-cols-2 gap-[10px] items-end;
-    }
-    .menu-pricing-group {
-      @apply flex flex-col font-semibold;
-    }
-    button {
-      @apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
-      &:active {
-        @apply bg-[--active-button-color];
-      }
-    }
-  }
+ 
 }
-.menu-item-name {
-  @apply text-[1.1rem];
-}
-.menu-item-picture {
-  @apply rounded-[8px] overflow-hidden;
-}
+
+
 .order-total-container {
   @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
 }
