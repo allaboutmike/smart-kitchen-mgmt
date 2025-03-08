@@ -1,7 +1,8 @@
-/* @plugin "daisyui"; */
+@plugin "daisyui";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --background: #fafbff;
   --foreground: #638de5;
