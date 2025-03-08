@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { NamedRouter, ordersRouter} from "@server/routers";
+import { NamedRouter, ordersRouter, stockRouter} from "@server/routers";
 
 
 console.log(
@@ -17,7 +17,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 const PublicAPIs: NamedRouter[] = [
-  ordersRouter,
+  ordersRouter, stockRouter
   // Add more routers here as needed
 ];
 

@@ -33,23 +33,21 @@ body {
   .metrics-title {
     @apply text-[2rem] font-[700] text-center text-[black] tablet:text-[1.6rem] text-[--foreground];
   }
-  .metrics-cells-container{
+  .metrics-cells-container {
     @apply flex flex-col max-h-[400px] overflow-y-auto no-scrollbar py-[6px];
   }
-   
 }
-thead{
-  
-  @apply sticky top-[0px] ;
-  > .row-element{
-    @apply my-[0] text-black ;
+thead {
+  @apply sticky top-[0px];
+  > .row-element {
+    @apply my-[0] text-black;
   }
 }
-.row-element{
-  @apply grid grid-cols-4 gap-x-2 text-center font-[550]; 
+.row-element {
+  @apply grid grid-cols-4 gap-x-2 text-center font-[550];
   @apply px-4 my-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
   @apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];
-  box-shadow: var(--rows-drop-shadow);    
+  box-shadow: var(--rows-drop-shadow);
   /* &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2] ;} */
 }
 
@@ -65,7 +63,7 @@ thead{
   }
 }
 
-.side-nav-bar{
+.side-nav-bar {
   @apply flex flex-col fixed top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] overflow-y-auto;
   box-shadow: 0 0 10px 1px var(--drop-shadow-color);
   @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row  tablet:min-h-[fit-content];
@@ -96,7 +94,7 @@ thead{
   @apply tablet:text-[1rem] tablet:px-[5px];
   @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
   box-shadow: var(--sellers-container-drop-shadow);
-  &:hover{
+  &:hover {
     @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
@@ -208,6 +206,7 @@ button {
   @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
 }
 .order-header-group {
+  @apply flex flex-row justify-between;
   div:first-child {
     @apply text-[2rem] text-[black] font-semibold;
   }
@@ -244,4 +243,11 @@ button {
     @apply !text-white !bg-[--foreground];
   }
   transition: all 0.16s ease-in-out;
+}
+
+.order-status {
+  @apply flex gap-x-[10px];
+  .order-complete {
+    @apply text-[#4AC84A] place-self-center;
+  }
 }

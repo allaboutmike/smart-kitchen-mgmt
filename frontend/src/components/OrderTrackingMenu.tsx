@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import SelectableButton from "./SelectableButton";
 import useSelection from "@/customHooks/useSelection";
 

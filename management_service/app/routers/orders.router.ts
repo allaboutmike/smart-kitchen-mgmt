@@ -6,6 +6,8 @@ const ordersRouter = Router() as NamedRouter;
 const prisma = new PrismaClient();
 ordersRouter.prefix = "orders";
 
+
+
 ordersRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     // This is a placeholder for the actual order retrieval logic
