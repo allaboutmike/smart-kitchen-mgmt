@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import MenuItem from "./MenuItem";
-import OrderReceiptManager, {AddedItem, OrderReceiptManagerDetails} from "./OrderReceiptManager"
+import OrderReceiptManager, {
+  AddedItem,
+  OrderReceiptManagerDetails,
+} from "./OrderReceiptManager";
 
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
@@ -61,10 +64,17 @@ export default function MenuManagementContainer() {
   const updateOrder = (name: string, price: number) => {
     setOrderAddedItems((currentOrderItems) => [
       ...currentOrderItems,
-      { productName: name, price: price, quantity: 1, ingredients: {}, productId: "1", notes: "" },
+      {
+        productName: name,
+        price: price,
+        quantity: 1,
+        ingredients: {},
+        productId: "1",
+        notes: "",
+      },
     ]);
   };
-  const removeItem =(currentOrder: AddedItem)=>{
+  const removeItem = (currentOrder: AddedItem) => {
     setOrderAddedItems((currentOrderItems) => {
       return currentOrderItems.filter(
         (orderItem) =>
@@ -72,21 +82,21 @@ export default function MenuManagementContainer() {
           orderItem.productName !== currentOrder.productName
       );
     });
-  }
-  const cancelOrder=()=> setOrderAddedItems([])
+  };
+  const cancelOrder = () => setOrderAddedItems([]);
   const optionName = currentSelection.toLowerCase().trimStart();
   const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
-  const orderReceiptDetails: OrderReceiptManagerDetails ={
+  const orderReceiptDetails: OrderReceiptManagerDetails = {
     removeItem: removeItem,
     cancelOrder: cancelOrder,
     order: {
       id: `${orderNumber}`,
-  items: orderAddedItems,
-  status: "new",
-  total: 0,
-  timePlaced: "",
-    }
-  }
+      items: orderAddedItems,
+      status: "new",
+      total: 0,
+      timePlaced: "",
+    },
+  };
 
   return (
     <div className="restaurant-components-main-container">
@@ -126,8 +136,9 @@ export default function MenuManagementContainer() {
         </div>
       )}
 
-      {orderAddedItems.length > 0 &&
-       (<OrderReceiptManager {...orderReceiptDetails} />)}
+      {orderAddedItems.length > 0 && (
+        <OrderReceiptManager {...orderReceiptDetails} />
+      )}
     </div>
   );
 }
