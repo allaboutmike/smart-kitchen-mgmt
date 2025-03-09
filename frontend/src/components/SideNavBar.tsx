@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import svgIcons from "../app/svgIcons";
+import {svgIcons} from "../app/svgIcons";
 import {useRouter} from 'next/navigation';
 import useSelection from '@/customHooks/useSelection';
 import SelectableButton from './SelectableButton';
