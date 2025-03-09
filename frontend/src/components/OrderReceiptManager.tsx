@@ -58,11 +58,11 @@ export default function OrderReceiptManager(orderDetails: OrderReceiptManagerDet
         </div>
         {!isJustReceipt && (
           <div className={styles["order-buttons-group"]}>
-            <button className={styles["order-total-button continue-button"]}>
+            <button className={`${styles["order-total-button"]} ${styles["continue-button"]}`}>
               Continue
             </button>
             <button
-              className={styles["order-total-button cancel-button"]}
+              className={`${styles["order-total-button"]} ${styles["cancel-button"]}`}
               onClick={orderDetails.cancelOrder}
             >
               Cancel
