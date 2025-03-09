@@ -1,3 +1,8 @@
+@plugin "daisyui";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: #fafbff;
   --foreground: #638de5;
@@ -8,22 +13,17 @@
   --drop-shadow-color: hsla(221, 71%, 64%, 0.293);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
+  background-color: var(--background);  
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #638DE5;
-    --foreground: #D9D9D9;
-  }
-} */
 body {
   color: var(--foreground);
-  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
 }
 .main-container {
-  @apply flex justify-center items-center flex-col;
+  @apply flex justify-center pl-[120px] items-center flex-col;
+  @apply tablet:pl-[0] mobile:pl-[0];
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -112,29 +112,10 @@ thead {
   @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
   @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
   place-items: center;
-  .menu-item {
-    @apply flex rounded-[6px] flex-col max-w-[160px] px-[20px] py-[20px] bg-[white] gap-[8px] justify-between;
-    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
-    .menu-item-picture-and-price-group {
-      @apply grid grid-cols-2 gap-[10px] items-end;
-    }
-    .menu-pricing-group {
-      @apply flex flex-col font-semibold;
-    }
-    button {
-      @apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
-      &:active {
-        @apply bg-[--active-button-color];
-      }
-    }
-  }
+ 
 }
-.menu-item-name {
-  @apply text-[1.1rem];
-}
-.menu-item-picture {
-  @apply rounded-[8px] overflow-hidden;
-}
+
+
 .order-total-container {
   @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
 }

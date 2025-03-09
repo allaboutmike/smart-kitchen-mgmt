@@ -22,15 +22,13 @@ export type OrderReceiptManagerDetails = {
   removeItem?: (item: AddedItem) => void;
   cancelOrder?: () => void;
 };
-export default function OrderReceiptManager(
-  orderDetails: OrderReceiptManagerDetails
-) {
+export default function OrderReceiptManager(orderDetails: OrderReceiptManagerDetails) {
   const isJustReceipt = orderDetails.order.status !== "new";
   return (
     <div className="current-order-items-manager">
       <div className="order-header-group">
         <div>Order: #{orderDetails.order.id}</div>
-        {!isJustReceipt && <OrderStatusNotifier />}
+        {isJustReceipt && <OrderStatusNotifier />}
       </div>
       <span className="line-separator"></span>
 
