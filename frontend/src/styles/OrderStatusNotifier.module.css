@@ -1,0 +1,6 @@
+.order-status {
+    @apply flex gap-x-[10px];
+    .order-complete {
+        @apply text-[#4AC84A] place-self-center;
+    }
+}

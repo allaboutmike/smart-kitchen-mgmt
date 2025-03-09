@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-
+import styles from "../styles/Footer.module.css"
 export default function Footer() {
    
   const [formattedDate, setFormattedDate] = useState("");
@@ -18,7 +18,7 @@ export default function Footer() {
     return () => clearInterval(timer);
   }, []);
   return (
-    <footer className="footer-component">
+    <footer className={styles["footer-component"]}>
       <span>{formattedDate}</span>
     </footer>
   );

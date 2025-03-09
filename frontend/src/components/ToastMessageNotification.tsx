@@ -1,19 +1,19 @@
 import React from 'react'
 import { notificationIcons } from '@/app/svgIcons'
 interface AlertNameProp{
-    alertName: "alert alert-info"| "alert alert-success" | "alert alert-error" | "alert alert-warning"
+    alertName: "info"| "success" | "error" | "warning"
     alertMessage: string,
 }
 export default function ToastMessageNotification({alertName, alertMessage}: AlertNameProp) {
     let icon;
+    let passedClass = "";
     switch(alertName){
-        case "alert alert-info": icon = notificationIcons.info; break;
-        case "alert alert-error": icon =  notificationIcons.error; break;
-        case "alert alert-success": icon = notificationIcons.success; break;
-        case "alert alert-warning": icon = notificationIcons.warning; break;
+        case "info": icon = notificationIcons.info;  passedClass= "alert alert-info"; break;
+        case "error": icon =  notificationIcons.error;  passedClass= "alert alert-error"; break;
+        case "success": icon = notificationIcons.success;  passedClass= "alert alert-success"; break;
+        case "warning": icon = notificationIcons.warning;  passedClass= "alert alert-warning"; break;
         default: console.error("notification icon not found");
-    }
-    const passedClass = "alert alert"+alertName
+    }    
   return (
     <div role="alert" className={passedClass}>
         {icon && icon}
@@ -21,7 +21,3 @@ export default function ToastMessageNotification({alertName, alertMessage}: Aler
     </div>
   )
 }
-
-
-
-

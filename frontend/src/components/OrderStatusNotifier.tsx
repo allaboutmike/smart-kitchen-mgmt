@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {svgIcons} from "@/app/svgIcons";
-
+import styles from "../styles/OrderStatusNotifier.module.css"
 export default function OrderStatusNotifier() {
   //Need to add state logic for the change in image
   //onClick will change the checkmark used
@@ -22,10 +22,10 @@ export default function OrderStatusNotifier() {
         onClick={() => {
           setOrderComplete((prevVal) => !prevVal);
         }}
-        className="order-status"
+        className={styles["order-status"]}
       >
         {!orderReady ? svgIcons.emptyCheckMark : svgIcons.greenCheckMark}
-        {orderComplete && <span className="order-complete">Complete</span>}
+        {orderComplete && <span className={styles["order-complete"]}>Complete</span>}
       </div>
     </>
   );

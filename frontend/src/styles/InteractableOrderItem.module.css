@@ -1,0 +1,38 @@
+.interactable-order-item {
+    @apply grid text-[2rem] grid-rows-2 gap-[1rem] p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
+    outline: solid 2px var(--foreground);
+
+    .remove-and-price-group {
+        @apply flex items-center;
+        justify-content: space-between;
+    }
+}
+
+.order-item-top-group {
+    @apply flex w-full items-center text-center;
+    justify-content: space-between;
+}
+.order-item-name{
+    @apply text-left max-w-[250px] overflow-x-auto;
+}
+.order-item-quantity-group-menu {
+    @apply flex gap-[10px];
+    .order-item-button {
+        @apply text-[--remove-button-bg-color] w-[40px] bg-white;
+        outline: 2px solid;
+        &:active {
+            @apply text-white bg-[--remove-button-bg-color];
+        }
+    }
+}
+.order-item-button {
+    @apply border-none text-[2.2rem] rounded-[4px] px-[8px];
+    outline: 1px solid;
+}
+  
+.order-item-remove-button {
+    @apply text-[1.5rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
+    &:active {
+      @apply bg-[--custom-active-red-color];
+    }
+  }
