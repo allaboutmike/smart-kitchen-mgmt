@@ -47,7 +47,6 @@ thead {
   @apply px-4 my-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
   @apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];
   box-shadow: var(--rows-drop-shadow);
-  /* &:not(&:first-child){@apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2] ;} */
 }
 
 .food-type-sellers-container {
@@ -61,9 +60,6 @@ thead {
     @apply h-[50px] w-[50px] outline-[1px] border-black;
   }
 }
-
-
-
 .restaurant-sub-menu-container {
   @apply grid gap-2 grid-cols-4 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
   @apply tablet:p-[10px] tablet:w-[90dvw];
@@ -80,7 +76,6 @@ thead {
   }
   transition: all 0.16s ease-in-out;
 }
-
 .restaurant-current-option-title {
   @apply flex gap-[1rem] text-[2rem] my-[10px] pl-[2rem];
   @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
@@ -91,10 +86,6 @@ thead {
   @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
   place-items: center; 
 }
-
-
-
-
 button {
   @apply hover:cursor-pointer;
   transition: all 0.14s ease-in-out;
@@ -123,5 +114,3 @@ button {
   }
   transition: all 0.16s ease-in-out;
 }
-
-
