@@ -17,7 +17,7 @@
 }
 .order-item-quantity-group-menu {
     @apply flex gap-[10px];
-    > button {
+    .order-item-button {
         @apply text-[--remove-button-bg-color] w-[40px] bg-white;
         outline: 2px solid;
         &:active {
