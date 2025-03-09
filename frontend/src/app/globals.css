@@ -80,10 +80,7 @@ thead {
   }
   transition: all 0.16s ease-in-out;
 }
-.footer-component {
-  @apply fixed bottom-[20px] text-[--foreground] right-[50px];
-  @apply tablet:bottom-[80px] mobile:text-center right-[none];
-}
+
 .restaurant-current-option-title {
   @apply flex gap-[1rem] text-[2rem] my-[10px] pl-[2rem];
   @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
