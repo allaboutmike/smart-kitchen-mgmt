@@ -12,7 +12,8 @@ async function main() {
       profit: 0.63,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: false
     }
   })
 
@@ -25,7 +26,8 @@ async function main() {
       profit: 0.68,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -38,7 +40,8 @@ async function main() {
       profit: 0.73,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: false
     }
   })
 
@@ -51,7 +54,8 @@ async function main() {
       profit: 1.24,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -64,7 +68,8 @@ async function main() {
       profit: 1.31,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -77,7 +82,8 @@ async function main() {
       profit: 1.35,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: false
     }
   })
 
@@ -90,7 +96,8 @@ async function main() {
       profit: 0.54,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: false
     }
   })
 
@@ -103,7 +110,8 @@ async function main() {
       profit: 0.00,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -116,7 +124,8 @@ async function main() {
       profit: 0.42,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -129,7 +138,8 @@ async function main() {
       profit: 0.56,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: false
     }
   })
 
@@ -142,7 +152,8 @@ async function main() {
       profit: 1.36,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -155,7 +166,8 @@ async function main() {
       profit: 1.25,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Meals"
+      category: "Meals",
+      isPopular: true
     }
   })
 
@@ -168,7 +180,8 @@ async function main() {
       profit: 0.45,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: true
     }
   })
 
@@ -181,7 +194,8 @@ async function main() {
       profit: 0.51,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: true
     }
   })
 
@@ -194,7 +208,8 @@ async function main() {
       profit: 0.56,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: false
     }
   })
 
@@ -207,7 +222,8 @@ async function main() {
       profit: 1.02,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: false
     }
   })
 
@@ -220,7 +236,8 @@ async function main() {
       profit: 1.08,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: true
     }
   })
 
@@ -233,7 +250,8 @@ async function main() {
       profit: 1.12,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: false
     }
   })
 
@@ -246,7 +264,8 @@ async function main() {
       profit: 0.37,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: false
     }
   })
 
@@ -259,7 +278,8 @@ async function main() {
       profit: 0.73,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: true
     }
   })
 
@@ -272,7 +292,8 @@ async function main() {
       profit: 0.61,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Entrees"
+      category: "Entrees",
+      isPopular: true
     }
   })
 
@@ -285,7 +306,8 @@ async function main() {
       profit: 1.24,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Salads"
+      category: "Salads",
+      isPopular: false
     }
   })
 
@@ -298,7 +320,8 @@ async function main() {
       profit: 1.13,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Salads"
+      category: "Salads",
+      isPopular: true
     }
   })
 
@@ -311,7 +334,8 @@ async function main() {
       profit: 0.06,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: true
     }
   })
 
@@ -324,7 +348,8 @@ async function main() {
       profit: 0.11,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: false
     }
   })
 
@@ -337,7 +362,8 @@ async function main() {
       profit: 0.41,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: false
     }
   })
 
@@ -350,7 +376,8 @@ async function main() {
       profit: 0.42,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: false
     }
   })
 
@@ -363,7 +390,8 @@ async function main() {
       profit: 0.14,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: false
     }
   })
 
@@ -376,7 +404,8 @@ async function main() {
       profit: 0.01,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Sides"
+      category: "Sides",
+      isPopular: false
     }
   })
 
@@ -389,7 +418,8 @@ async function main() {
       profit: 0.02,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: false
     }
   })
 
@@ -402,7 +432,8 @@ async function main() {
       profit: 0.10,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: false
     }
   })
 
@@ -415,7 +446,8 @@ async function main() {
       profit: 0.16,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: true
     }
   })
 
@@ -428,7 +460,8 @@ async function main() {
       profit: 0.16,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: false
     }
   })
 
@@ -441,7 +474,8 @@ async function main() {
       profit: 0.15,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: false
     }
   })
 
@@ -454,7 +488,8 @@ async function main() {
       profit: 0.18,
       createdat: new Date(),
       updatedat: new Date(),
-      category: "Beverages"
+      category: "Beverages",
+      isPopular: false
     }
   })
   
