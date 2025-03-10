@@ -1,16 +1,41 @@
 import { NamedRouter } from "@server/routers";
 import { Router, Request, Response } from "express";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma, orders } from "@Prisma/client";
+// Prisma client renamed from prisma to Db to avoid confusion with the Prisma object
+import { Db } from "@server/server";
 
 const ordersRouter = Router() as NamedRouter;
-const prisma = new PrismaClient();
 ordersRouter.prefix = "orders";
+
+ordersRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const { completed } = req.query;
+    console.log("Retrieving orders with status:", completed);
+    let orders: orders[] = [];
+    if (completed) {
+      console.log("Retrieving orders with completed status:", completed);
+      orders = await Db.orders.findMany({
+        where: { completed: Boolean(completed) },
+      });
+    } else {
+      console.log("Retrieving all orders");
+      orders = await Db.orders.findMany();
+    }
+
+    res.status(200).json({
+      orders: orders,
+    });
+  } catch (error) {
+    console.error("Error retrieving order:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 ordersRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     // This is a placeholder for the actual order retrieval logic
     const orderId = Number(req.params["id"]);
-    const order = await prisma.orders.findUnique({
+    const order = await Db.orders.findUnique({
       where: { orderid: orderId },
       select: {
         orderid: true,
@@ -74,7 +99,7 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
     };
     console.log("Order created:", newOrder);
     // In a real application, you would save the order to the database here
-    await prisma.orders.create({
+    await Db.orders.create({
       data: {
         ordertimestamp: timePlaced,
         orderitems: {
@@ -101,14 +126,14 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
     const { newStatus } = req.body;
     console.log("Updating order with ID:", orderId);
 
-    // const order = await prisma.orders.findUnique({ where: { orderid: orderId } });
+    // const order = await Db.orders.findUnique({ where: { orderid: orderId } });
 
     // if (!order) {
     //     return res.status(404).json({ error: "Order not found" });
     // }
     // Update the order status
     console.log("New status:", newStatus);
-    await prisma.orders.update({
+    await Db.orders.update({
       where: { orderid: orderId },
       data: { completed: newStatus },
     });
