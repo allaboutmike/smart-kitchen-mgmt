@@ -1,0 +1,11 @@
+.food-type-sellers-container {
+    @apply flex flex-col items-center justify-center gap-y-2 w-[200px] mt-[2rem] px-[2rem] py-[6px];
+    @apply rounded-[17px] bg-[white] shadow-[var(--sellers-container-drop-shadow)];
+    box-shadow: var(--sellers-container-drop-shadow);
+  }
+  .food-type-sellers-container > div:first-of-type{
+    @apply text-[1rem] font-[700];
+  }
+  .food-type-sellers-container > div > div:nth-of-type(2) {
+    @apply h-[50px] w-[50px] outline-[1px] border-black;
+  }

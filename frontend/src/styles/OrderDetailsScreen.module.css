@@ -1,0 +1,3 @@
+.order-details-container{
+    @apply fixed w-[80%] bg-white rounded-[8px];
+}

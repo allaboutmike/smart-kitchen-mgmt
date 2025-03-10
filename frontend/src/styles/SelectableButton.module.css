@@ -1,0 +1,13 @@
+
+.selection-button {
+    --vertical-padding: 14px;
+    @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px];
+    @apply bg-white px-[35px] py-[--vertical-padding] border-none;
+    @apply tablet:text-[1rem] tablet:px-[5px];
+    @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
+    box-shadow: var(--sellers-container-drop-shadow);
+    &:hover {
+      @apply !text-white !bg-[--foreground];
+    }
+    transition: all 0.16s ease-in-out;
+  }

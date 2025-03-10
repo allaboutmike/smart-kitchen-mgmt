@@ -1,0 +1,22 @@
+.grid-metrics {
+    @apply grid gap-y-2;
+    .metrics-title {
+        @apply text-[2rem] font-[700] text-center text-[black] tablet:text-[1.6rem] text-[--foreground];
+    }
+    .metrics-cells-container {
+        @apply flex flex-col max-h-[400px] overflow-y-auto py-[6px];
+    }
+}
+
+.row-element {
+    @apply grid grid-cols-4 gap-x-2 text-center font-[550];
+    @apply px-4 my-[6px] rounded-sm bg-white text-black text-sm mx-[1rem];
+    @apply text-[1.2rem] tablet:text-[1rem] mobile:text-[0.6rem] text-[--foreground-2];
+    box-shadow: var(--rows-drop-shadow);
+}
+.thead-container{
+    @apply sticky top-[0px];
+    > .row-element {
+        @apply my-[0] text-black;
+    }
+}

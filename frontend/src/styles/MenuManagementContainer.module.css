@@ -1,0 +1,29 @@
+.restaurant-current-option-title {
+    @apply flex gap-[1rem] text-[2rem] my-[10px] pl-[2rem];
+    @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
+}
+.restaurant-current-option-title > span{ @apply font-semibold;}
+.restaurant-components-main-container {@apply flex flex-col items-center;}
+.restaurant-main-food-menu-container {@apply mb-[4rem];}
+.restaurant-sub-menu-container {
+    @apply grid gap-2 grid-cols-4 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
+    @apply tablet:p-[10px] tablet:w-[90dvw];
+    @apply mobile:grid-cols-2 mobile:w-[90dvw];
+    box-shadow: var(--sellers-container-drop-shadow);
+}
+.restaurant-sub-menu-button {
+    @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[25px] bg-white border-none;
+    @apply tablet:text-[1rem] tablet:px-[5px];
+    @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
+    box-shadow: var(--sellers-container-drop-shadow);
+    &:hover {
+      @apply !text-white !bg-[--foreground];
+    }
+    transition: all 0.16s ease-in-out;
+  }
+
+  .current-menu-items-container {
+    @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
+    @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
+    place-items: center; 
+  }
