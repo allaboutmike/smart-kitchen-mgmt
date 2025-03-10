@@ -5,13 +5,13 @@ import { useFetch } from "@/customHooks/useFetch";
 import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
 
 export default function OrderTrackingPage() {
-  const { data: orders } = useFetch<Order[]>("/orders/1");
+  const { data: orders } = useFetch<Order[]>("/orders?");
   console.table(orders)
 
   return (
     <div className="main-container">
       <OrderTrackingMenu />
-      <div>        
+      <div className="order-tracking-main-container">        
           <h1>{orders? "Orders": "No Orders"}</h1>
           <div className={"scrollable-orders-container"}>
             {(orders && orders.length > 0) &&
