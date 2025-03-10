@@ -5,3 +5,4 @@ export interface NamedRouter extends IRouter {
 }
 
 export { default as ordersRouter } from "@server/routers/orders.router";
+export { default as stockRouter } from "@server/routers/stock.router";
