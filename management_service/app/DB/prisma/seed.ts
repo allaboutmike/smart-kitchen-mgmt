@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const regularQueenwhichMeal = await prisma.menuitems.upsert({
+  const _regularQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 1},
     update: {},   
     create: {
@@ -17,7 +17,7 @@ async function main() {
     }
   })
 
-  const spicyQueenwhichMeal = await prisma.menuitems.upsert({
+  const _spicyQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 2},
     update: {},   
     create: {
@@ -31,7 +31,7 @@ async function main() {
     }
   })
 
-  const grilledQueenwhichMeal = await prisma.menuitems.upsert({
+  const _grilledQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 3},
     update: {},   
     create: {
@@ -45,7 +45,7 @@ async function main() {
     }
   })
 
-  const deluxeRegularQueenwhichMeal = await prisma.menuitems.upsert({
+  const _deluxeRegularQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 4},
     update: {},   
     create: {
@@ -59,7 +59,7 @@ async function main() {
     }
   })
 
-  const deluxeSpicyQueenwhichMeal = await prisma.menuitems.upsert({
+  const _deluxeSpicyQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 5},
     update: {},   
     create: {
@@ -73,7 +73,7 @@ async function main() {
     }
   })
 
-  const deluxeGrilledQueenwhichMeal = await prisma.menuitems.upsert({
+  const _deluxeGrilledQueenwhichMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 6},
     update: {},   
     create: {
@@ -87,7 +87,7 @@ async function main() {
     }
   })
 
-  const royalNuggetsMealFourPiece = await prisma.menuitems.upsert({
+  const _royalNuggetsMealFourPiece = await prisma.menuitems.upsert({
     where: {menuitemid: 7},
     update: {},   
     create: {
@@ -101,7 +101,7 @@ async function main() {
     }
   })
 
-  const royalNuggetsMealEightPiece = await prisma.menuitems.upsert({
+  const _royalNuggetsMealEightPiece = await prisma.menuitems.upsert({
     where: {menuitemid: 8},
     update: {},   
     create: {
@@ -115,7 +115,7 @@ async function main() {
     }
   })
 
-  const kidsRoyalNuggetsMeal = await prisma.menuitems.upsert({
+  const _kidsRoyalNuggetsMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 9},
     update: {},   
     create: {
@@ -129,7 +129,7 @@ async function main() {
     }
   })
 
-  const kidsSaladMeal = await prisma.menuitems.upsert({
+  const _kidsSaladMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 10},
     update: {},   
     create: {
@@ -143,7 +143,7 @@ async function main() {
     }
   })
 
-  const deluxeGardenSaladMeal = await prisma.menuitems.upsert({
+  const _deluxeGardenSaladMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 11},
     update: {},   
     create: {
@@ -157,7 +157,7 @@ async function main() {
     }
   })
 
-  const deluxeCrispyGardenSaladMeal = await prisma.menuitems.upsert({
+  const _deluxeCrispyGardenSaladMeal = await prisma.menuitems.upsert({
     where: {menuitemid: 12},
     update: {},   
     create: {
@@ -171,7 +171,7 @@ async function main() {
     }
   })
 
-  const regularQueenwhich = await prisma.menuitems.upsert({
+  const _regularQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 13},
     update: {},   
     create: {
@@ -185,7 +185,7 @@ async function main() {
     }
   })
 
-  const spicyQueenwhich = await prisma.menuitems.upsert({
+  const _spicyQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 14},
     update: {},   
     create: {
@@ -199,7 +199,7 @@ async function main() {
     }
   })
 
-  const grilledQueenwhich = await prisma.menuitems.upsert({
+  const _grilledQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 15},
     update: {},   
     create: {
@@ -213,7 +213,7 @@ async function main() {
     }
   })
 
-  const deluxeRegularQueenwhich = await prisma.menuitems.upsert({
+  const _deluxeRegularQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 16},
     update: {},   
     create: {
@@ -227,7 +227,7 @@ async function main() {
     }
   })
 
-  const deluxeSpicyQueenwhich = await prisma.menuitems.upsert({
+  const _deluxeSpicyQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 17},
     update: {},   
     create: {
@@ -241,7 +241,7 @@ async function main() {
     }
   })
 
-  const deluxeGrilledQueenwhich = await prisma.menuitems.upsert({
+  const _deluxeGrilledQueenwhich = await prisma.menuitems.upsert({
     where: {menuitemid: 18},
     update: {},   
     create: {
@@ -255,7 +255,7 @@ async function main() {
     }
   })
 
-  const royalNuggetsFourPiece = await prisma.menuitems.upsert({
+  const _royalNuggetsFourPiece = await prisma.menuitems.upsert({
     where: {menuitemid: 19},
     update: {},   
     create: {
@@ -269,7 +269,7 @@ async function main() {
     }
   })
 
-  const royalNuggetsEightPiece = await prisma.menuitems.upsert({
+  const _royalNuggetsEightPiece = await prisma.menuitems.upsert({
     where: {menuitemid: 20},
     update: {},   
     create: {
@@ -283,7 +283,7 @@ async function main() {
     }
   })
 
-  const countDannyFriedChickenStrips = await prisma.menuitems.upsert({
+  const _countDannyFriedChickenStrips = await prisma.menuitems.upsert({
     where: {menuitemid: 21},
     update: {},   
     create: {
@@ -297,7 +297,7 @@ async function main() {
     }
   })
 
-  const deluxeGardenSalad = await prisma.menuitems.upsert({
+  const _deluxeGardenSalad = await prisma.menuitems.upsert({
     where: {menuitemid: 22},
     update: {},   
     create: {
@@ -311,7 +311,7 @@ async function main() {
     }
   })
 
-  const deluxeCrispyGardenSalad = await prisma.menuitems.upsert({
+  const _deluxeCrispyGardenSalad = await prisma.menuitems.upsert({
     where: {menuitemid: 23},
     update: {},   
     create: {
@@ -325,7 +325,7 @@ async function main() {
     }
   })
 
-  const fries = await prisma.menuitems.upsert({
+  const _fries = await prisma.menuitems.upsert({
     where: {menuitemid: 24},
     update: {},   
     create: {
@@ -339,7 +339,7 @@ async function main() {
     }
   })
 
-  const deluxeFries = await prisma.menuitems.upsert({
+  const _deluxeFries = await prisma.menuitems.upsert({
     where: {menuitemid: 25},
     update: {},   
     create: {
@@ -353,7 +353,7 @@ async function main() {
     }
   })
 
-  const gardenSideSalad = await prisma.menuitems.upsert({
+  const _gardenSideSalad = await prisma.menuitems.upsert({
     where: {menuitemid: 26},
     update: {},   
     create: {
@@ -367,7 +367,7 @@ async function main() {
     }
   })
 
-  const caesarSideSalad = await prisma.menuitems.upsert({
+  const _caesarSideSalad = await prisma.menuitems.upsert({
     where: {menuitemid: 27},
     update: {},   
     create: {
@@ -381,7 +381,7 @@ async function main() {
     }
   })
 
-  const appleSlices = await prisma.menuitems.upsert({
+  const _appleSlices = await prisma.menuitems.upsert({
     where: {menuitemid: 28},
     update: {},   
     create: {
@@ -395,7 +395,7 @@ async function main() {
     }
   })
 
-  const plainBagOChips = await prisma.menuitems.upsert({
+  const _plainBagOChips = await prisma.menuitems.upsert({
     where: {menuitemid: 29},
     update: {},   
     create: {
@@ -409,7 +409,7 @@ async function main() {
     }
   })
 
-  const bottledWater = await prisma.menuitems.upsert({
+  const _bottledWater = await prisma.menuitems.upsert({
     where: {menuitemid: 30},
     update: {},   
     create: {
@@ -423,7 +423,7 @@ async function main() {
     }
   })
 
-  const bubblyWater = await prisma.menuitems.upsert({
+  const _bubblyWater = await prisma.menuitems.upsert({
     where: {menuitemid: 31},
     update: {},   
     create: {
@@ -437,7 +437,7 @@ async function main() {
     }
   })
 
-  const sweetIcedTea = await prisma.menuitems.upsert({
+  const _sweetIcedTea = await prisma.menuitems.upsert({
     where: {menuitemid: 32},
     update: {},   
     create: {
@@ -451,7 +451,7 @@ async function main() {
     }
   })
 
-  const unsweetenedIcedTea = await prisma.menuitems.upsert({
+  const _unsweetenedIcedTea = await prisma.menuitems.upsert({
     where: {menuitemid: 33},
     update: {},   
     create: {
@@ -465,7 +465,7 @@ async function main() {
     }
   })
 
-  const appleJuice = await prisma.menuitems.upsert({
+  const _appleJuice = await prisma.menuitems.upsert({
     where: {menuitemid: 34},
     update: {},   
     create: {
@@ -479,7 +479,7 @@ async function main() {
     }
   })
 
-  const strawberryMilk = await prisma.menuitems.upsert({
+  const _strawberryMilk = await prisma.menuitems.upsert({
     where: {menuitemid: 35},
     update: {},   
     create: {
