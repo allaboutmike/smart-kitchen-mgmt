@@ -24,10 +24,7 @@ export default function OrderTrackingPage() {
           <div className={"scrollable-orders-container"}>
             {(orders && orders.length) &&
               orders.map((order)=>{
-                return <OrderReceiptManager 
-                key={order.id} 
-                order={order} 
-              />
+                return <OrderReceiptManager key={order.id} order={order}/>
               })
             }
           </div>        
