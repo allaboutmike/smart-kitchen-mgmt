@@ -105,7 +105,6 @@ export default function TimeDropdown() {
     <div>
       TimeDropdown
       {orderTimeFrames.map((timeFrame: string, index) => {
-        console.log(timeFrame);
         return (
           <div
             className="collapse collapse-arrow bg-base-100 border border-base-300"
