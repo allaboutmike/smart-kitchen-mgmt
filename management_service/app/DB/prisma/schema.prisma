@@ -37,6 +37,8 @@ model ingredients {
   thresholdquantity   Int
   costperunit         Decimal               @db.Decimal(10, 2)
   shelflife           Int
+  category            ingredientCategory
+  servingSize         String                @db.VarChar(255)
   menuitemingredients menuitemingredients[]
   stock               stock[]
 }
@@ -58,6 +60,8 @@ model menuitems {
   profit              Decimal               @db.Decimal(10, 2)
   createdat           DateTime?             @default(now()) @db.Timestamptz(6)
   updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
+  category            menuItemCategory
+  isPopular           Boolean               @default(false)
   menuitemingredients menuitemingredients[]
   orderitems          orderitems[]
 }
@@ -69,15 +73,17 @@ model orderitems {
   served              Boolean?  @default(false)
   servedtimestamp     DateTime? @db.Timestamptz(6)
   customizationdetail String?
+  returned            Boolean?  @default(false)
   menuitems           menuitems @relation(fields: [menuitemid], references: [menuitemid], onDelete: NoAction, onUpdate: NoAction, map: "fk_menu_item")
   orders              orders    @relation(fields: [orderid], references: [orderid], onDelete: NoAction, onUpdate: NoAction, map: "fk_order")
 }
 
 model orders {
-  orderid        Int          @id @default(autoincrement())
-  ordertimestamp DateTime?    @default(now()) @db.Timestamptz(6)
-  completed      Boolean      @default(false)
-  orderitems     orderitems[]
+  orderid            Int          @id @default(autoincrement())
+  ordertimestamp     DateTime?    @default(now()) @db.Timestamptz(6)
+  completed          Boolean      @default(false)
+  completedTimeStamp DateTime?    @db.Timestamptz(6)
+  orderitems         orderitems[]
 }
 
 model shifts {
@@ -124,4 +130,24 @@ model waste {
 enum wastereason {
   Expired
   Over_prepped @map("Over-prepped")
+}
+
+enum menuItemCategory {
+  Meals
+  Entrees
+  Salads
+  Sides
+  Beverages
+}
+
+enum ingredientCategory {
+  Buns
+  Patties
+  Chicken
+  Fries
+  Cheese
+  Produce
+  Sauces
+  Drinks
+  Other
 }

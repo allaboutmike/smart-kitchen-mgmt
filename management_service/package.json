@@ -34,7 +34,8 @@
     "typescript-eslint": "^8.24.1"
   },
   "prisma": {
-    "schema": "app/DB/prisma/schema.prisma"
+    "schema": "app/DB/prisma/schema.prisma",
+    "seed": "tsx app/DB/prisma/seed.ts"
   },
   "engines": {
     "node": ">=22"
