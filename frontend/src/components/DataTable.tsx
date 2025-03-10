@@ -1,5 +1,6 @@
 import React from "react";
 import Row, { RowType } from "./Row";
+import styles from "../styles/DataTable.module.css"
 export type TableInfo = {
   tableTitle: string;
   headCellNames: string[];
@@ -7,11 +8,11 @@ export type TableInfo = {
 };
 export default function DataTable(tableInfo: TableInfo) {
   return (
-    <div className="grid-metrics">
-      <span className="metrics-title">{tableInfo.tableTitle}</span>
-      <table className="metrics-cells-container">
-        <thead >
-          <tr className="row-element">
+    <div className={styles["grid-metrics"]}>
+      <span className={styles["metrics-title"]}>{tableInfo.tableTitle}</span>
+      <table className={styles["metrics-cells-container"]}>
+        <thead className={styles["thead-container"]}>
+          <tr className={styles["row-element"]}>
             {tableInfo.headCellNames.map((entry: string, index: number) => {
               return <th key={index}>{entry}</th>;
             })}
