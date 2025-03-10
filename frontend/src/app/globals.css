@@ -30,7 +30,31 @@ body {
   display: none;
 }
 
+<<<<<<< HEAD
 button {
   @apply hover:cursor-pointer;
   transition: all 0.14s ease-in-out;
 }
+=======
+.food-type-sellers-container {
+  @apply flex flex-col items-center justify-center gap-y-2 w-[200px] mt-[2rem] px-[2rem] py-[6px];
+  @apply rounded-[17px] bg-[white] shadow-[var(--sellers-container-drop-shadow)];
+  box-shadow: var(--sellers-container-drop-shadow);
+  > div:first-of-type {
+    @apply text-[1rem] font-[700];
+  }
+  > div > div:nth-of-type(2) {
+    @apply h-[50px] w-[50px] outline-[1px] border-black;
+  }
+}
+
+
+
+
+button {
+  @apply hover:cursor-pointer;
+  transition: all 0.14s ease-in-out;
+}
+
+
+>>>>>>> 4a3ff70 (CRM-81 New css module created and populated -> /MenuManagementContainer.module.css)
