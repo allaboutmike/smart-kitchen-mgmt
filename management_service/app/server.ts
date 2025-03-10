@@ -1,12 +1,17 @@
 import express from "express";
 import cors from "cors";
 import { NamedRouter, ordersRouter } from "@server/routers";
+import { PrismaClient } from "@Prisma/client";
+
+// SINGLE INSTANCE OF PRISMA CLIENT that gets exported and used in all routers as opposed to creating a new instance in each router
+export const Db = new PrismaClient();
 
 console.log(
   "IF you run 'npm run dev', you will see this message in the console"
 );
 
 console.log("TYPESCRIPT IS BEING COMPILED ON THE FLY");
+console.log("yes");
 
 const server = express();
 server.use(express.json());
