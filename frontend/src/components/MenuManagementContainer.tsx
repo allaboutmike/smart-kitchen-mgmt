@@ -2,9 +2,9 @@
 import { useState } from "react";
 import MenuItem from "./MenuItem";
 import OrderReceiptManager, {AddedItem, OrderReceiptManagerDetails} from "./OrderReceiptManager"
-
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
+import styles from "../styles/MenuManagementContainer.module.css"
 
 const menuItems =
   "Popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(
@@ -89,14 +89,14 @@ export default function MenuManagementContainer() {
   }
 
   return (
-    <div className="restaurant-components-main-container">
-      <div className="restaurant-sub-menu-container">
+    <div className={styles["restaurant-components-main-container"]}>
+      <div className={styles["restaurant-sub-menu-container"]}>
         {menuItems.map((menuItem, index) => {
           return (
             <SelectableButton
               selected={isCurrentSelection(menuItem)}
               setCurrentSelection={setCurrentSelection}
-              buttonClassName={"restaurant-sub-menu-button"}
+              buttonClassName={styles["restaurant-sub-menu-button"]}
               text={menuItem.trimStart()}
               key={index}
             />
@@ -104,11 +104,11 @@ export default function MenuManagementContainer() {
         })}
       </div>
       {foods.length > 0 && (
-        <div className="restaurant-main-food-menu-container">
-          <span className="restaurant-current-option-title">
+        <div className={styles["restaurant-main-food-menu-container"]}>
+          <span className={styles["restaurant-current-option-title"]}>
             <span>{currentSelection}</span> Menu
           </span>
-          <div className="current-menu-items-container">
+          <div className={styles["current-menu-items-container"]}>
             {foods.map((menuItem: string, index: number) => {
               const formattedItem = menuItem.trimStart();
               return (
