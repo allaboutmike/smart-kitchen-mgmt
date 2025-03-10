@@ -1,0 +1,21 @@
+.side-nav-bar {
+    @apply flex flex-col fixed top-[0] left-[0] w-[100px] bg-[white] min-h-[100%] pt-[4rem] overflow-y-auto;
+    box-shadow: 0 0 10px 1px var(--drop-shadow-color);
+    @apply tablet:top-auto tablet:bottom-[0] tablet:pt-[0rem] tablet:w-[100%] tablet:flex-row tablet:min-h-[fit-content];
+
+    .side-nav-bar-button {
+        @apply flex flex-col items-center justify-center py-[15px] gap-y-[0.5rem] tablet:py-[1rem];
+        @apply w-[100%] border-none text-[var(--foreground)] bg-white;
+
+        &:hover {
+            background-color: var(--foreground) !important;
+            @apply !text-white cursor-pointer;
+        }
+
+        .selectable-button-text {
+            @apply text-center tablet:hidden;
+        }
+
+        transition: all 0.18s ease-in-out;
+    }
+}

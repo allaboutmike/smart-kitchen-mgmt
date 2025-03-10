@@ -2,6 +2,7 @@
 import InteractableOrderItem from "./InteractableOrderItem";
 import React from "react";
 import OrderStatusNotifier from "./OrderStatusNotifier";
+import styles from "../styles/OrderReceiptManager.module.css"
 export type Order = {
   id: string;
   items: AddedItem[];
@@ -25,14 +26,14 @@ export type OrderReceiptManagerDetails = {
 export default function OrderReceiptManager(orderDetails: OrderReceiptManagerDetails) {
   const isJustReceipt = orderDetails.order.status !== "new";
   return (
-    <div className="current-order-items-manager">
-      <div className="order-header-group">
-        <div>Order: #{orderDetails.order.id}</div>
+    <div className={styles["current-order-items-manager"]}>
+      <div className={styles["order-header-group"]}>
+        <div className={styles["order-id"]}>Order: #{orderDetails.order.id}</div>
         {isJustReceipt && <OrderStatusNotifier />}
       </div>
-      <span className="line-separator"></span>
+      <span className={styles["line-separator"]}></span>
 
-      <div className="order-items-container">
+      <div className={styles["order-items-container"]}>
         {orderDetails.order.items.map((currentOrder, orderIndex) => {
           return (
             <InteractableOrderItem
@@ -49,19 +50,19 @@ export default function OrderReceiptManager(orderDetails: OrderReceiptManagerDet
           );
         })}
       </div>
-      <span className="line-separator"></span>
-      <div className="order-total-container">
-        <div className="order-total-group">
+      <span className={styles["line-separator"]}></span>
+      <div className={styles["order-total-container"]}>
+        <div className={styles["order-total-group"]}>
           <div>Total</div>
-          <div className="order-total-value">$89.99</div>
+          <div className={styles["order-total-value"]}>$89.99</div>
         </div>
         {!isJustReceipt && (
-          <div className="order-buttons-group">
-            <button className="order-total-button continue-button">
+          <div className={styles["order-buttons-group"]}>
+            <button className={`${styles["order-total-button"]} ${styles["continue-button"]}`}>
               Continue
             </button>
             <button
-              className="order-total-button cancel-button"
+              className={`${styles["order-total-button"]} ${styles["cancel-button"]}`}
               onClick={orderDetails.cancelOrder}
             >
               Cancel

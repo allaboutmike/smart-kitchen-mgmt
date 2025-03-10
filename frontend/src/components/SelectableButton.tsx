@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import styles from "../styles/SideNavBar.module.css"
 interface SelectableButtonProps {
     svgIcon?: React.ReactNode;
     text: string;
@@ -25,7 +26,7 @@ export default function SelectableButton({svgIcon, buttonClassName, text, setCur
       if(!selected) setCurrentSelection(text);
     }}>
       {svgIcon && svgIcon}
-      <div>{text}</div>
+      <div className={styles["selectable-button-text"]}>{text}</div>
     </button>
   )
 }

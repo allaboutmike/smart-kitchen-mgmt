@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import styles from "../styles/InteractableOrderItem.module.css"
 interface InteractableOrderItemProps {
   name: string;
   price: number;
@@ -16,15 +17,15 @@ export default function InteractableOrderItem({
 }: InteractableOrderItemProps) {
   const [quantity, setQuantity] = useState(1);
   return (
-    <div className="interactable-order-item">
-      <div className="order-item-top-group">
-        <div className="order-item-name">{name}</div>
-        <div className="order-item-quantity-group-menu">
-          <div className="order-item-quantity">Qty {quantity}</div>
+    <div className={styles["interactable-order-item"]}>
+      <div className={styles["order-item-top-group"]}>
+        <div className={styles["order-item-name"]}>{name}</div>
+        <div className={styles["order-item-quantity-group-menu"]}>
+          <div className={styles["order-item-quantity"]}>Qty {quantity}</div>
           {!isJustReceipt && (
             <>
               <button
-                className="order-item-button decrease-buton"
+                className={`${styles["order-item-button"]} ${styles["decrease-buton"]}`}
                 onClick={() =>
                   setQuantity((currQuantity) => {
                     return currQuantity - 1 > 0 ? currQuantity - 1 : 1;
@@ -34,7 +35,7 @@ export default function InteractableOrderItem({
                 -
               </button>
               <button
-                className="order-item-button increase-button"
+                className={`${styles["order-item-button"]} ${styles["increase-buton"]}`}
                 onClick={() => setQuantity((currQuantity) => currQuantity + 1)}
               >
                 +
@@ -43,11 +44,11 @@ export default function InteractableOrderItem({
           )}
         </div>
       </div>
-      <div className="remove-and-price-group">
-        <div className="order-item-price">${price * quantity}</div>
+      <div className={styles["remove-and-price-group"]}>
+        <div className={styles["order-item-price"]}>${price * quantity}</div>
         {!isJustReceipt && (
           <button
-            className="order-item-remove-button"
+            className={styles["order-item-remove-button"]}
             onClick={() => removeItem !== undefined && removeItem(orderIndex)}
           >
             Remove
