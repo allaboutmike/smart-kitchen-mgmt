@@ -1,0 +1,36 @@
+ingredientname,thresholdquantity,costperunit,shelflife,servingSize,category
+Regular Bun,20,0.24,5,1 roll,Buns
+No Bun,0,0,0,0 rolls,Buns
+Crispy Patty,30,1.25,3,1 patty,Patties
+Spicy Patty,30,1.45,3,1 patty,Patties
+Grilled Patty,30,1.6,3,1 patty,Patties
+Royal Nuggets (Regular),50,0.3,5,4 nuggets,Chicken
+Royal Nuggets (Double),50,0.3,5,8 nuggets,Chicken
+Chicken Strips,40,0.5,5,4 nuggets,Chicken
+Regular Fries,60,0.06,14,80 grams,Fries
+Deluxe Fries,60,0.06,14,160 grams,Fries
+American Cheese Slice,50,0.16,14,1 slice,Cheese
+Shredded American Cheese,50,0.16,14,0.5 cups,Cheese
+Pepper Jack Cheese Slice,50,0.16,14,1 slice,Cheese
+Shredded Pepper Jack Cheese,50,0.16,14,0.5 cups,Cheese
+Lettuce,30,0.63,5,1 cup,Produce
+Heirloom Tomato,30,0.6,7,1 tomato,Produce
+Cherry Tomato,30,0.2,7,8 tomatoes,Produce
+Tomato Slice,120,0.15,7,1 slice,Produce
+Carrot Slices,30,0.09,10,0.5 cups,Produce
+Apple Slices,20,0.45,3,1 bag,Produce
+BBQ Sauce,40,0.02,30,1 packet,Sauces
+QUEEN Sauce,40,0.02,30,1 packet,Sauces
+Ranch,40,0.02,30,1 packet,Sauces
+Ranch Dressing,40,0.02,30,1 packet,Sauces
+Italian Dressing,40,0.02,30,1 packet,Sauces
+Mayo Packet,40,0.02,30,1 packet,Sauces
+Ketchup,40,0.02,30,1 packet,Sauces
+Bottled Water,24,0.05,90,1 bottle,Drinks
+Bubbly Water,24,0.3,90,1 bottle,Drinks
+Sweet Iced Tea,24,0.4,2,1 bottle,Drinks
+Unsweetened Iced Tea,24,0.4,2,1 bottle,Drinks
+Apple Juice,24,0.5,14,1 carton,Drinks
+Strawberry Milk,24,0.6,7,1 carton,Drinks
+Crouton Packet,40,0.03,30,1 packet,Other
+Bag O' Chips,40,0.03,14,1 bag,Other

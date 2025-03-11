@@ -37,8 +37,8 @@ model ingredients {
   thresholdquantity   Int
   costperunit         Decimal               @db.Decimal(10, 2)
   shelflife           Int
-  servingSize         String              @db.VarChar(255)
   category            ingredientCategory
+  servingSize         String                @db.VarChar(255)
   menuitemingredients menuitemingredients[]
   stock               stock[]
 }
@@ -61,6 +61,7 @@ model menuitems {
   createdat           DateTime?             @default(now()) @db.Timestamptz(6)
   updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
   category            menuItemCategory
+  isPopular           Boolean               @default(false)
   menuitemingredients menuitemingredients[]
   orderitems          orderitems[]
 }
@@ -78,11 +79,11 @@ model orderitems {
 }
 
 model orders {
-  orderid        Int          @id @default(autoincrement())
-  ordertimestamp DateTime?    @default(now()) @db.Timestamptz(6)
-  completed      Boolean      @default(false)
-  completedTimeStamp DateTime? @db.Timestamptz(6)
-  orderitems     orderitems[]
+  orderid            Int          @id @default(autoincrement())
+  ordertimestamp     DateTime?    @default(now()) @db.Timestamptz(6)
+  completed          Boolean      @default(false)
+  completedTimeStamp DateTime?    @db.Timestamptz(6)
+  orderitems         orderitems[]
 }
 
 model shifts {
@@ -142,8 +143,7 @@ enum menuItemCategory {
 enum ingredientCategory {
   Buns
   Patties
-  Nuggets
-  Chicken_strips @map("Chicken Strips")
+  Chicken
   Fries
   Cheese
   Produce
