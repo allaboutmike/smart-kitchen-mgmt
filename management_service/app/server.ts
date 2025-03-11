@@ -21,8 +21,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 const PublicAPIs: NamedRouter[] = [
-  ordersRouter,
-  // Add more routers here as needed
+  ordersRouter
 ];
 
 for (const api of PublicAPIs) {
