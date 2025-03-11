@@ -10,8 +10,8 @@ export function useFetch<T>(url: string) {
     const fetchData = async () => {
       setIsPending(true);
       try {
-        console.log("Fetching data from:", process.env.DATABASE_URL + url);
-        const response = await fetch(process.env.DATABASE_URL + url);
+        console.log("Fetching data from:", process.env.NEXT_PUBLIC_BASE_URL + url);
+        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + url);
         if (!response.ok) throw new Error(response.statusText);
         const json: T = await response.json();
         setData(json);
