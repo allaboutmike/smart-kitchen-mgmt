@@ -38,6 +38,6 @@
     "seed": "tsx app/DB/prisma/seed.ts"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=23"
   }
 }
