@@ -3,7 +3,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const _regularQueenwhichMeal = await prisma.menuitems.upsert({
+  
+  // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 1},
     update: {},   
     create: {
@@ -16,8 +18,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _spicyQueenwhichMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Spicy Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 2},
     update: {},   
     create: {
@@ -30,8 +32,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _grilledQueenwhichMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Grilled Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 3},
     update: {},   
     create: {
@@ -44,8 +46,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _deluxeRegularQueenwhichMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 4},
     update: {},   
     create: {
@@ -58,8 +60,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeSpicyQueenwhichMeal = await prisma.menuitems.upsert({
+// Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 5},
     update: {},   
     create: {
@@ -72,8 +74,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeGrilledQueenwhichMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwhich Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 6},
     update: {},   
     create: {
@@ -86,8 +88,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _royalNuggetsMealFourPiece = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (4 Piece) data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 7},
     update: {},   
     create: {
@@ -100,8 +102,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _royalNuggetsMealEightPiece = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (8 Piece) data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 8},
     update: {},   
     create: {
@@ -114,8 +116,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _kidsRoyalNuggetsMeal = await prisma.menuitems.upsert({
+// Checks db for existing data and if not found, seeds the db with the Kids Royal Nuggets Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 9},
     update: {},   
     create: {
@@ -128,8 +130,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _kidsSaladMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Kids Salad Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 10},
     update: {},   
     create: {
@@ -142,8 +144,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _deluxeGardenSaladMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 11},
     update: {},   
     create: {
@@ -156,8 +158,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeCrispyGardenSaladMeal = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad Meal data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 12},
     update: {},   
     create: {
@@ -170,8 +172,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _regularQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 13},
     update: {},   
     create: {
@@ -184,8 +186,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _spicyQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Spicy Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 14},
     update: {},   
     create: {
@@ -198,8 +200,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _grilledQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Grilled Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 15},
     update: {},   
     create: {
@@ -212,8 +214,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _deluxeRegularQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 16},
     update: {},   
     create: {
@@ -226,8 +228,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _deluxeSpicyQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 17},
     update: {},   
     create: {
@@ -240,8 +242,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeGrilledQueenwhich = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwhich data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 18},
     update: {},   
     create: {
@@ -254,8 +256,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _royalNuggetsFourPiece = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets (4 Piece) data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 19},
     update: {},   
     create: {
@@ -268,8 +270,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _royalNuggetsEightPiece = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets (8 Piece) data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 20},
     update: {},   
     create: {
@@ -282,8 +284,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _countDannyFriedChickenStrips = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Count Danny Fried Chicken Strips data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 21},
     update: {},   
     create: {
@@ -296,8 +298,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeGardenSalad = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 22},
     update: {},   
     create: {
@@ -310,8 +312,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _deluxeCrispyGardenSalad = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad
+  await prisma.menuitems.upsert({
     where: {menuitemid: 23},
     update: {},   
     create: {
@@ -324,8 +326,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _fries = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Fries data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 24},
     update: {},   
     create: {
@@ -338,8 +340,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _deluxeFries = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Fries data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 25},
     update: {},   
     create: {
@@ -352,8 +354,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _gardenSideSalad = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Garden Side Salad data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 26},
     update: {},   
     create: {
@@ -366,8 +368,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _caesarSideSalad = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Caesar Side Salad data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 27},
     update: {},   
     create: {
@@ -380,8 +382,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _appleSlices = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Apple Slices data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 28},
     update: {},   
     create: {
@@ -394,8 +396,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _plainBagOChips = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Plain Bag O' Chips data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 29},
     update: {},   
     create: {
@@ -408,8 +410,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _bottledWater = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Bottled Water data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 30},
     update: {},   
     create: {
@@ -422,8 +424,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _bubblyWater = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Bubbly Water data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 31},
     update: {},   
     create: {
@@ -436,8 +438,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _sweetIcedTea = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Sweet Iced Tea data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 32},
     update: {},   
     create: {
@@ -450,8 +452,8 @@ async function main() {
       isPopular: true
     }
   })
-
-  const _unsweetenedIcedTea = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Unsweetened Iced Tea data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 33},
     update: {},   
     create: {
@@ -464,8 +466,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _appleJuice = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Apple Juice data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 34},
     update: {},   
     create: {
@@ -478,8 +480,8 @@ async function main() {
       isPopular: false
     }
   })
-
-  const _strawberryMilk = await prisma.menuitems.upsert({
+  // Checks db for existing data and if not found, seeds the db with the Strawberry Milk data
+  await prisma.menuitems.upsert({
     where: {menuitemid: 35},
     update: {},   
     create: {
