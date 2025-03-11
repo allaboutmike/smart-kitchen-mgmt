@@ -62,6 +62,7 @@ model menuitems {
   updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
   category            menuItemCategory
   isPopular           Boolean               @default(false)
+  pictureUrl          String?              @db.VarChar(500)
   menuitemingredients menuitemingredients[]
   orderitems          orderitems[]
 }
