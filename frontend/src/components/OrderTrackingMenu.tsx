@@ -1,25 +1,22 @@
-"use client";
 import SelectableButton from "./SelectableButton";
-import useSelection from "@/customHooks/useSelection";
+import {SelectionObject} from "./SelectionObject"
 import styles from "../styles/OrderTrackingMenu.module.css"
 import selectionButtonStyles from "../styles/SelectableButton.module.css"
 
-export default function OrderTrackingMenu() {
-  const { setCurrentSelection, isCurrentSelection } = useSelection();
-
+export default function OrderTrackingMenu(selectionObject:SelectionObject) {
   return (
     <div className={styles["order-tracking-button-container"]}>
       <SelectableButton
         buttonClassName={`${selectionButtonStyles["order-tracking-button"]} ${selectionButtonStyles["selection-button"]}`}
-        setCurrentSelection={setCurrentSelection}
+        setCurrentSelection={selectionObject.setCurrentSelection}
         text="Current Orders"
-        selected={isCurrentSelection("Current Orders")}
+        selected={selectionObject.isCurrentSelection("Current Orders")}
       />
       <SelectableButton
         buttonClassName={`${selectionButtonStyles["order-tracking-button"]} ${selectionButtonStyles["selection-button"]}`}
-        setCurrentSelection={setCurrentSelection}
+        setCurrentSelection={selectionObject.setCurrentSelection}
         text="Completed Orders"
-        selected={isCurrentSelection("Completed Orders")}
+        selected={selectionObject.isCurrentSelection("Completed Orders")}
       />
     </div>
   );
