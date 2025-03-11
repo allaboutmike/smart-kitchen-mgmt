@@ -1,0 +1,44 @@
+.current-order-items-manager {
+    @apply flex flex-col w-[600px] gap-[1rem] px-[40px] py-[40px] rounded-[8px] bg-white;
+    box-shadow: 0 0 4px 4px var(--drop-shadow-color);
+}
+.order-header-group {
+    @apply flex flex-row justify-between;
+    .order-id {
+        @apply text-[2rem] text-[black] font-semibold;
+    }
+}
+.line-separator {
+    @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
+}
+.order-items-container {
+    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[400px] max-w-[100%];
+    justify-items: center;
+}
+.order-total-container {
+    @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
+}
+.order-total-group {
+    @apply flex content-center w-full justify-between text-[2rem] text-black my-[10px];
+}
+.order-buttons-group {
+    @apply flex flex-col gap-[10px] w-full py-[10px];
+}
+.order-total-button {
+    @apply text-[1.6rem] border-none rounded-[8px] py-[10px];
+}
+.order-total-button.continue-button {
+    @apply text-white bg-[#DE5BFF];
+
+    &:active {
+        background-color: #6063ff;
+    }
+}
+.order-total-button.cancel-button {
+    @apply text-[#EA484B] bg-transparent;
+    outline: 1px solid var(--custom-active-red-color);
+    &:active {
+        background-color: var(--custom-active-red-color);
+        color: white;
+    }
+}

@@ -1,10 +1,10 @@
 "use client";
-import {useState} from "react";
+import { useState } from "react";
 import MenuItem from "./MenuItem";
-import OrderReceiptManager, {OrderReceiptManagerDetails} from "./OrderReceiptManager"
-
+import OrderReceiptManager, {AddedItem, OrderReceiptManagerDetails} from "./OrderReceiptManager"
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
+import styles from "../styles/MenuManagementContainer.module.css"
 
 const menuItems =
   "Popular, Lunch, Dinner, Breakfast,  Desserts, Appetizers, Side Dishes, Beverages".split(
@@ -57,19 +57,19 @@ export default function MenuManagementContainer() {
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
   const orderNumber = 9384093;
-  const [orderAddedItems, setOrderAddedItems] = useState<orderType[]>([]);
+  const [orderAddedItems, setOrderAddedItems] = useState<AddedItem[]>([]);
   const updateOrder = (name: string, price: number) => {
     setOrderAddedItems((currentOrderItems) => [
       ...currentOrderItems,
-      { name: name, price: price, quantity: 1 },
+      { productName: name, price: price, quantity: 1, ingredients: {}, productId: "1", notes: "" },
     ]);
   };
-  const removeItem =(currentOrder: orderType)=>{
+  const removeItem =(currentOrder: AddedItem)=>{
     setOrderAddedItems((currentOrderItems) => {
       return currentOrderItems.filter(
         (orderItem) =>
           currentOrder.price !== orderItem.price &&
-          orderItem.name !== currentOrder.name
+          orderItem.productName !== currentOrder.productName
       );
     });
   }
@@ -77,22 +77,26 @@ export default function MenuManagementContainer() {
   const optionName = currentSelection.toLowerCase().trimStart();
   const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
   const orderReceiptDetails: OrderReceiptManagerDetails ={
-    orderNumber: orderNumber,
-    orderAddedItems: orderAddedItems,
     removeItem: removeItem,
     cancelOrder: cancelOrder,
-    isJustReceipt: false
+    order: {
+      id: `${orderNumber}`,
+  items: orderAddedItems,
+  status: "new",
+  total: 0,
+  timePlaced: "",
+    }
   }
 
   return (
-    <div className="restaurant-components-main-container">
-      <div className="restaurant-sub-menu-container">
+    <div className={styles["restaurant-components-main-container"]}>
+      <div className={styles["restaurant-sub-menu-container"]}>
         {menuItems.map((menuItem, index) => {
           return (
             <SelectableButton
               selected={isCurrentSelection(menuItem)}
               setCurrentSelection={setCurrentSelection}
-              buttonClassName={"restaurant-sub-menu-button"}
+              buttonClassName={styles["restaurant-sub-menu-button"]}
               text={menuItem.trimStart()}
               key={index}
             />
@@ -100,11 +104,11 @@ export default function MenuManagementContainer() {
         })}
       </div>
       {foods.length > 0 && (
-        <div className="restaurant-main-food-menu-container">
-          <span className="restaurant-current-option-title">
+        <div className={styles["restaurant-main-food-menu-container"]}>
+          <span className={styles["restaurant-current-option-title"]}>
             <span>{currentSelection}</span> Menu
           </span>
-          <div className="current-menu-items-container">
+          <div className={styles["current-menu-items-container"]}>
             {foods.map((menuItem: string, index: number) => {
               const formattedItem = menuItem.trimStart();
               return (
