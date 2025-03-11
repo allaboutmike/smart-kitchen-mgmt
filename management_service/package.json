@@ -3,8 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "generate": "npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "npm run generate && tsc",
     "dev": "tsx --watch --env-file ./config/.env.dev ./app/server.ts",
     "start": "tsx ./build/app/server.js"
   },
