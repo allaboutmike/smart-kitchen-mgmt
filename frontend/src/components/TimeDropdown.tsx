@@ -19,7 +19,7 @@ type faker = {
 
 const dummyData = [
   {
-    time: "2025-03-09T23:30:00Z",
+    time: "2025-03-10T20:30:00Z",
     total: 120.5,
     returned: false,
     orderId: "ORD12345",
@@ -103,7 +103,7 @@ function filterByDate(timeRange: string, dummyData: faker[]) {
 export default function TimeDropdown() {
   return (
     <div>
-      TimeDropdown
+      Completed Orders
       {orderTimeFrames.map((timeFrame: string, index) => {
         return (
           <div
