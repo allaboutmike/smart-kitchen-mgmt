@@ -1,6 +1,6 @@
 import { NamedRouter } from "@server/routers";
 import { Router, Request, Response } from "express";
-import { Prisma, orders } from "@Prisma/client";
+import { Prisma, orders } from "@prisma/client";
 // Prisma client renamed from prisma to Db to avoid confusion with the Prisma object
 import { Db } from "@server/server";
 
