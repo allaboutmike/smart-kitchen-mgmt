@@ -19,15 +19,23 @@ export default function SideNavBar() {
       case "Settings": {router.push("/settings");break;}
     }    
   }
- 
+  const buttonNames = ["Home", "Menu Manager", "Order Tracking", "Inventory Tracker", "Productivity Metrics", "Settings"]
+  const buttonIcons = [svgIcons.home, svgIcons.menuManager, svgIcons.orderTracking,
+    svgIcons.inventory, svgIcons.productivity, svgIcons.settings]
+  const buttonStyle = styles["side-nav-bar-button"]
   return (
     <div className={styles["side-nav-bar"]}>      
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.home} selected={isCurrentSelection("Home")} setCurrentSelection={updateCurrentSelection} text="Home"/>
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.menuManager} selected={isCurrentSelection("Menu Manager")} setCurrentSelection={updateCurrentSelection} text="Menu Manager"/>
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.orderTracking} selected={isCurrentSelection("Order Tracking")} setCurrentSelection={updateCurrentSelection} text="Order Tracking"/>
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.inventory} selected={isCurrentSelection("Inventory Tracker")} setCurrentSelection={updateCurrentSelection} text="Inventory Tracker"/>
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.productivity} selected={isCurrentSelection("Productivity Metrics")} setCurrentSelection={updateCurrentSelection} text="Productivity Metrics"/>
-        <SelectableButton buttonClassName={styles["side-nav-bar-button"]} svgIcon={svgIcons.settings} selected={isCurrentSelection("Settings")} setCurrentSelection={updateCurrentSelection} text="Settings"/>      
+      {buttonNames.map((buttonName, buttonIndex)=>{
+         return <SelectableButton 
+            key={buttonIndex}
+            buttonClassName={buttonStyle} 
+            svgIcon={buttonIcons[buttonIndex]} 
+            selected={isCurrentSelection(buttonName)} 
+            setCurrentSelection={updateCurrentSelection} 
+            text={buttonName}
+          />
+        }
+      )}
     </div>
   )
 }

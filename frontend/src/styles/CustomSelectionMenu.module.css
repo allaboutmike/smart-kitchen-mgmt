@@ -1,8 +1,10 @@
 
 .selection-button {
-    --vertical-padding: 14px;
+    --bg-color: white;
+    --button-padding-height: 15px;
+    --button-padding-width: 5px;
     @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px];
-    @apply px-[35px] py-[--vertical-padding] border-none;
+    @apply px-[35px] py-[--vertical-padding] bg-[--bg-color] border-none;
     @apply tablet:text-[1rem] tablet:px-[5px];
     @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
     box-shadow: var(--sellers-container-drop-shadow);
@@ -11,3 +13,8 @@
     }
     transition: all 0.16s ease-in-out;
   }
+
+.buttons-container{
+    --gap: 1rem;
+    @apply grid gap-[--gap];
+}

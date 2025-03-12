@@ -1,3 +1,4 @@
+'use client'
 import { useRef } from "react";
 import styles from "../styles/SideNavBar.module.css"
 interface SelectableButtonProps {
@@ -15,10 +16,10 @@ export default function SelectableButton({svgIcon, buttonClassName, text, setCur
     if(selected)
     {
       buttonRef.current.style.backgroundColor = "var(--foreground)";      
-      buttonRef.current.style.color = "var(--background)"; 
+      buttonRef.current.style.color = "white"; 
     }else{
-      buttonRef.current.style.backgroundColor = "initial";
-      buttonRef.current.style.color = "var(--foreground)";
+      buttonRef.current.style.backgroundColor = "white";
+      buttonRef.current.style.color = "unset";
     }
   }
   return (
