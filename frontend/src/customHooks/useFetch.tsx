@@ -14,6 +14,7 @@ export function useFetch<T>(url: string) {
         const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + url);
         if (!response.ok) throw new Error(response.statusText);
         const json: T = await response.json();
+        console.log("JSON", json)
         setData(json);
         setError(null);
       } catch (error) {
