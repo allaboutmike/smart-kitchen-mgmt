@@ -5,9 +5,9 @@
   "scripts": {
     "generate": "npx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run generate && tsc",
+    "build": "npm run generate && tsc && tsc-alias -p tsconfig.json",
     "dev": "tsx --watch --env-file ./config/.env.dev ./app/server.ts",
-    "start": "tsx ./build/app/server.js"
+    "start": "node ./build/app/server.js"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "prettier": "^3.5.2",
     "prettier-eslint": "^16.3.0",
     "prisma": "^6.4.1",
+    "tsc-alias": "^1.8.11",
     "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.1"
