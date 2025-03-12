@@ -1,63 +1,75 @@
 import { NamedRouter } from "@server/routers/index.js";
+// import { NamedRouter } from "@server/routers/index.js";
 import { Router, Request, Response } from "express";
+import { ingredients } from "@prisma/client";
+import { Db } from "@server/server.js";
 
 const stockRouter = Router() as NamedRouter;
 stockRouter.prefix = "stocks";
 
-// GET Inventory Items 
-
-stockRouter.get("/", ( _req: Request, res: Response) => {
-  try {
-    const sampleStockInvList = [
-      {id: "1", product: "Sample Product A", quantity: 50, lastUpdated: new Date().toISOString() },
-      {id: "2", product: "Sample Product B", quantity: 30, lastUpdated: new Date().toISOString() },
-      {id: "3", product: "Sample Product C", quantity: 100, lastUpdated: new Date().toISOString() },
-    ];
-
-    res.status(200).json({
-      stock: sampleStockInvList,
-    });
-  } catch (error) {
-      console.error("ERROR: Retrieving stock items:", error);
-        res.status(500).json({error: "Internal Server Error"});
+// GET Inventory Items or filter by low stock
+stockRouter.get("/", async ( _req: Request, res: Response) => {
+  try{
+    console.log("Retrieving Stock List" );
+    // Check for low stock, to be included in later version
+    // const { lowStock } = req.query;
+    // console.log("Retrieving stock items", lowStock ? "with low stock" : "");
+    let stockItems: ingredients[] = [];
+      stockItems = await Db.ingredients.findMany({
+        // where: { quantity: { lt: Number(lowStock) }},
+        select: {
+          ingredientid: true,
+          ingredientname: true, 
+          stock: {
+            select: {
+              stockid: true,
+              quantity: true,
+              cost: true,
+              isexpired: true,
+              receivedtimestamp: true,
+              expirationdate: true
+            },
+          },
+          thresholdquantity: true,
+          category: true,
+          costperunit: true,
+          shelflife: true,
+          servingSize: true,
+        }
+      });
+    
+    res.status(200).json({ stock: stockItems });
   }
-});
-
-stockRouter.get("/:id", (req: Request, res: Response) => {
-  try {
-    const sampleStockInvList = {
-      id: req.params["id"],
-      product: "Sample Product",
-      quantity: 100,
-      lastUpdated: new Date().toISOString(),
-    };
-
-    res.status(200).json({
-      message: "Stock retrieved successfully.",
-      stock: sampleStockInvList,
-    });
-  } catch (error) {
+  catch (error) {
     console.error("Error retrieving stock:", error);
-    res.status(500).json({error: "Internal server error"});
+    res.status(500).json({ error: "internal server error" });
   }
 });
 
-stockRouter.post("/", (req: Request, res: Response) => {
-  try {
-    const { product, quantity } = req.body;
+// Get a single stock item by ID
+stockRouter.get("/:id", async (req: Request, res: Response) => {
+  try{
+    const stockId = Number(req.params["id"]);
+    console.log("Retrieving stock item with ID:", stockId);
 
-    const newStock = {
-      id: "123",
-      product,
-      quantity,
-      lastUpdated: new Date().toISOString(),
-    };
-    console.log("Stock created:", newStock);
-
-    res.sendStatus(201);
-  }catch (error){
-    console.error("Error creating stock:", error);
-    res.status(500).json({ error: "Internal Server Error"});
+    const stockItem = await Db.stock.findUnique({
+      where: { stockid: stockId },
+      include: {
+        ingredients:{
+          select:{
+            ingredientname: true,
+          },
+        },
+      },
+    });
+    // if (!stockItem){
+    //   return res.status(404).json({ error: "Stock item not found "});
+    // }
+    res.status(200).json({ stock: stockItem });
+  }
+  catch (error) {
+    console.error("Error retrieving stock item:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
