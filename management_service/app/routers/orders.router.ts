@@ -1,8 +1,8 @@
-import { NamedRouter } from "@server/routers";
+import { NamedRouter } from "./index.js";
 import { Router, Request, Response } from "express";
 import { Prisma, orders } from "@prisma/client";
 // Prisma client renamed from prisma to Db to avoid confusion with the Prisma object
-import { Db } from "@server/server";
+import { Db } from "@server/server.js";
 
 const ordersRouter = Router() as NamedRouter;
 ordersRouter.prefix = "orders";
