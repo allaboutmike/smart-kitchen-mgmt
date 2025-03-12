@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { NamedRouter, ordersRouter } from "@server/routers/index.js";
+import { NamedRouter, ordersRouter, stockRouter} from "@server/routers/index.js";
 import { PrismaClient } from "@prisma/client";
 
 // SINGLE INSTANCE OF PRISMA CLIENT that gets exported and used in all routers as opposed to creating a new instance in each router
@@ -21,7 +21,9 @@ server.use(express.urlencoded({ extended: true }));
 server.use(cors());
 
 const PublicAPIs: NamedRouter[] = [
-  ordersRouter
+  ordersRouter, stockRouter
+  // Add more routers here as needed
+
 ];
 
 for (const api of PublicAPIs) {
