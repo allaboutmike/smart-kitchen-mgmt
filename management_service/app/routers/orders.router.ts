@@ -12,10 +12,11 @@ ordersRouter.get("/", async (req: Request, res: Response) => {
     const { completed } = req.query;
     console.log("Retrieving orders with status:", completed);
     let orders: orders[] = [];
-    if (completed) {
+    if (completed === "true" || completed === "false") {
       console.log("Retrieving orders with completed status:", completed);
+      const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
-        where: { completed: Boolean(completed) },
+        where: { completed: completedBoolean },
       });
     } else {
       console.log("Retrieving all orders");
