@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  
+//Menu Items
   // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 1},
@@ -494,8 +494,1814 @@ async function main() {
       isPopular: false
     }
   })
-  
-}
+//MenuItemIngredients
+  // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich Meal ingredients data
+  // Regular Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 1,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 1,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Regular Queenwhich Meal-Crispy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 1,
+          ingredientid: 3
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 1,
+      ingredientid: 3,
+      quantity: 1
+    }
+  })
+  // Regular Queenwhich Meal-Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 1,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 1,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Regular Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 1,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 1,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Spicy Queenwhich Meal ingredients data
+  // Spicy Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 2,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 2,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Spicy Queenwhich Meal-Spicy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 2,
+          ingredientid: 4
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 2,
+      ingredientid: 4,
+      quantity: 1
+    }
+  })
+  // Spicy Queenwhich Meal-Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 2,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 2,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Spicy Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 2,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 2,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Grilled Queenwhich Meal ingredients data
+  // Grilled Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 3,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 3,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Grilled Queenwhich Meal-Grilled Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 3,
+          ingredientid: 5
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 3,
+      ingredientid: 5,
+      quantity: 1
+    }
+  })
+  // Grilled Queenwhich Meal-Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 3,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 3,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Grilled Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 3,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 3,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwhich Meal ingredients data
+  // Deluxe Regular Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-Crispy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 3
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 3,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-American Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 11
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 11,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-Deluxe Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 10
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 10,
+      quantity: 6
+    }
+  })
+  // Deluxe Regular Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 4,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 4,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwhich Meal ingredients data
+  // Deluxe Spicy Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Spicy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 4
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 4,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Pepper Jack Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 13
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 13,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Deluxe Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 10
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 10,
+      quantity: 6
+    }
+  })
+  // Deluxe Spicy Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 5,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 5,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwhich Meal ingredients data
+  // Deluxe Grilled Queenwhich Meal-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-Grilled Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 5
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 5,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-American Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 11
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 11,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-Deluxe Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 10
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 10,
+      quantity: 6
+    }
+  })
+  // Deluxe Grilled Queenwhich Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 6,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 6,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (4 Piece) ingredients data
+  // Royal Nuggets Meal (4 Piece)-Single Order Nuggets
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 7,
+          ingredientid: 6
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 7,
+      ingredientid: 6,
+      quantity: 4
+    }
+  })
+  // Royal Nuggets Meal (4 Piece)-BBQ Sauce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 7,
+          ingredientid: 21
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 7,
+      ingredientid: 21,
+      quantity: 1
+    }
+  })
+  // Royal Nuggets Meal (4 Piece)-Regular Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 7,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 7,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Royal Nuggets Meal (4 Piece)-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 7,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 7,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (8 Piece) ingredients data
+  // Royal Nuggets Meal (8 Piece)-Double Order Nuggets
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 8,
+          ingredientid: 7
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 8,
+      ingredientid: 7,
+      quantity: 8
+    }
+  })
+  // Royal Nuggets Meal (8 Piece)-BBQ Sauce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 8,
+          ingredientid: 21
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 8,
+      ingredientid: 21,
+      quantity: 1
+    }
+  })
+  // Royal Nuggets Meal (8 Piece)-Regular Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 8,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 8,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Royal Nuggets Meal (8 Piece)-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 8,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 8,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Kids Royal Nuggets Meal ingredients data
+  // Kids Royal Nuggets Meal-Single Order Nuggets
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 9,
+          ingredientid: 6
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 9,
+      ingredientid: 6,
+      quantity: 4
+    }
+  })
+  // Kids Royal Nuggets Meal-BBQ Sauce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 9,
+          ingredientid: 21
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 9,
+      ingredientid: 21,
+      quantity: 1
+    }
+  })
+  // Kids Royal Nuggets Meal-Regular Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 9,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 9,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Kids Salad Meal ingredients data
+  // Kids Salad Meal-Garden Side Salad
+  // Kids Salad Meal-Cherry Tomatoes
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 17
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 17,
+      quantity: 4
+    }
+  })
+  // Kids Salad Meal-Carrots
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 19
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 19,
+      quantity: 2
+    }
+  })
+  // Kids Salad Meal-Shredded American Cheese
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 12
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 12,
+      quantity: 1
+    }
+  })
+  // Kids Salad Meal-Croutons
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 34
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 34,
+      quantity: 1
+    }
+  })
+  // Kids Salad Meal-Regular Fries
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 9
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 9,
+      quantity: 3
+    }
+  })
+  // Kids Salad Meal-Apple Juice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 10,
+          ingredientid: 32
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 10,
+      ingredientid: 32,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad Meal ingredients data
+  // Deluxe Garden Salad Meal-Grilled Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 5
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 5,
+      quantity: 1
+    }
+  })
+  // Deluxe Garden Salad Meal-Cherry Tomatoes
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 17
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 17,
+      quantity: 8
+    }
+  })
+  // Deluxe Garden Salad Meal-Carrots
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 19
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 19,
+      quantity: 4
+    }
+  })
+  // Deluxe Garden Salad Meal-Shredded American Cheese
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 12
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 12,
+      quantity: 1
+    }
+  })
+  // Deluxe Garden Salad Meal-Croutons
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 34
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 34,
+      quantity: 1
+    }
+  })
+  // Deluxe Garden Salad Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 11,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 11,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad Meal ingredients data
+  // Deluxe Crispy Garden Salad Meal-Crispy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 3
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 3,
+      quantity: 1
+    }
+  })
+  // Deluxe Crispy Garden Salad Meal-Cherry Tomatoes
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 17
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 17,
+      quantity: 8
+    }
+  })
+  // Deluxe Crispy Garden Salad Meal-Carrots
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 19
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 19,
+      quantity: 4
+    }
+  })
+  // Deluxe Crispy Garden Salad Meal-Shredded American Cheese
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 12
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 12,
+      quantity: 1
+    }
+  })
+  // Deluxe Crispy Garden Salad Meal-Croutons
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 34
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 34,
+      quantity: 1
+    }
+  })
+  // Deluxe Crispy Garden Salad Meal-Sweet Iced Tea
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 12,
+          ingredientid: 30
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 12,
+      ingredientid: 30,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Regular Queenwich ingredients data
+  // Regular Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 13,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 13,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Regular Queenwich-Crispy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 13,
+          ingredientid: 3
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 13,
+      ingredientid: 3,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Spicy Queenwich ingredients data
+  // Spicy Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 14,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 14,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Spicy Quueenwich-Spicy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 14,
+          ingredientid: 4
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 14,
+      ingredientid: 4,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Grilled Queenwich ingredients data
+  // Grilled Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 15,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 15,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Grilled Queenwich-Grilled Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 15,
+          ingredientid: 5
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 15,
+      ingredientid: 5,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwich ingredients data
+  // Deluxe Regular Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 16,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 16,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwich-Crispy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 16,
+          ingredientid: 3
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 16,
+      ingredientid: 3,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwich-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 16,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 16,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwich-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 16,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 16,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Regular Queenwich-American Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 16,
+          ingredientid: 11
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 16,
+      ingredientid: 11,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwich ingredients data
+  // Deluxe Spicy Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 17,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 17,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwich-Spicy Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 17,
+          ingredientid: 4
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 17,
+      ingredientid: 4,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwich-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 17,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 17,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwich-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 17,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 17,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Spicy Queenwich-Pepper Jack Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 17,
+          ingredientid: 13
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 17,
+      ingredientid: 13,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwich ingredients data
+  // Deluxe Grilled Queenwich-Bun
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 18,
+          ingredientid: 1
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 18,
+      ingredientid: 1,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwich-Grilled Patty
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 18,
+          ingredientid: 5
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 18,
+      ingredientid: 5,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwich-Lettuce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 18,
+          ingredientid: 15
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 18,
+      ingredientid: 15,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwich-Tomato Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 18,
+          ingredientid: 18
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 18,
+      ingredientid: 18,
+      quantity: 1
+    }
+  })
+  // Deluxe Grilled Queenwich-American Cheese Slice
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 18,
+          ingredientid: 11
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 18,
+      ingredientid: 11,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets(4pc) ingredients data
+  // Royal Nuggets-Single Order Nuggets
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 19,
+          ingredientid: 6
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 19,
+      ingredientid: 6,
+      quantity: 4
+    }
+  })
+  // Royal Nuggets-BBQ Sauce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 19,
+          ingredientid: 21
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 19,
+      ingredientid: 21,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets(8pc) ingredients data
+  // Royal Nuggets-Double Order Nuggets
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 20,
+          ingredientid: 7
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 20,
+      ingredientid: 7,
+      quantity: 8
+    }
+  })
+  // Royal Nuggets-BBQ Sauce
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 20,
+          ingredientid: 21
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 20,
+      ingredientid: 21,
+      quantity: 1
+    }
+  })
+  // Checks db for existing data and if not found, seeds the db with the Count Danny Fried Chicken Strips ingredients data
+  // Count Danny Fried Chicken Strips-Chicken Strips
+  await prisma.menuitemingredients.upsert({
+    where: {
+      menuitemid_ingredientid: {
+          menuitemid: 21,
+          ingredientid: 8
+      }
+    },
+    update: {},
+    create: {
+      menuitemid: 21,
+      ingredientid: 8,
+      quantity: 4
+    }
+  })
+    // Count Danny Fried Chicken Strips-BBQ Sauce
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 21,
+            ingredientid: 21
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 21,
+        ingredientid: 21,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad ingredients data
+    // Deluxe Garden Salad-Grilled Patty
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 22,
+            ingredientid: 5
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 22,
+        ingredientid: 5,
+        quantity: 1
+      }
+    })
+    // Deluxe Garden Salad-Cherry Tomatoes
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 22,
+            ingredientid: 17
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 22,
+        ingredientid: 17,
+        quantity: 8
+      }
+    })
+    // Deluxe Garden Salad-Carrots
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 22,
+            ingredientid: 19
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 22,
+        ingredientid: 19,
+        quantity: 4
+      }
+    })
+    // Deluxe Garden Salad-Shredded American Cheese
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 22,
+            ingredientid: 12
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 22,
+        ingredientid: 12,
+        quantity: 1
+      }
+    })
+    // Deluxe Garden Salad-Croutons
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 22,
+            ingredientid: 34
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 22,
+        ingredientid: 34,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad ingredients data
+    // Deluxe Crispy Garden Salad-Crispy Patty
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 23,
+            ingredientid: 3
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 23,
+        ingredientid: 3,
+        quantity: 1
+      }
+    })
+    // Deluxe Crispy Garden Salad-Cherry Tomatoes
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 23,
+            ingredientid: 17
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 23,
+        ingredientid: 17,
+        quantity: 8
+      }
+    })
+    // Deluxe Crispy Garden Salad-Carrots
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 23,
+            ingredientid: 19
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 23,
+        ingredientid: 19,
+        quantity: 4
+      }
+    })
+    // Deluxe Crispy Garden Salad-Shredded American Cheese
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 23,
+            ingredientid: 12
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 23,
+        ingredientid: 12,
+        quantity: 1
+      }
+    })
+    // Deluxe Crispy Garden Salad-Croutons
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 23,
+            ingredientid: 34
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 23,
+        ingredientid: 34,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Fries ingredients data
+    // Fries-Regular Fries
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 24,
+            ingredientid: 9
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 24,
+        ingredientid: 9,
+        quantity: 3
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Deluxe Fries ingredients data
+    // Deluxe Fries-Deluxe Fries
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 25,
+            ingredientid: 10
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 25,
+        ingredientid: 10,
+        quantity: 6
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Garden Side Salad ingredients data
+    // Garden Side Salad-Cherry Tomatoes
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 26,
+            ingredientid: 17
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 26,
+        ingredientid: 17,
+        quantity: 8
+      }
+    })
+    // Garden Side Salad-Carrots
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 26,
+            ingredientid: 19
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 26,
+        ingredientid: 19,
+        quantity: 2
+      }
+    })
+    // Garden Side Salad-Shredded American Cheese
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 26,
+            ingredientid: 12
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 26,
+        ingredientid: 12,
+        quantity: 1
+      }
+    })
+    // Garden Side Salad-Croutons
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 26,
+            ingredientid: 34
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 26,
+        ingredientid: 34,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Caesar Side Salad ingredients data
+    // Caesar Side Salad-Cherry Tomatoes
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 27,
+            ingredientid: 17
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 27,
+        ingredientid: 17,
+        quantity: 8
+      }
+    })
+    // Caesar Side Salad-Carrots
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 27,
+            ingredientid: 19
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 27,
+        ingredientid: 19,
+        quantity: 2
+      }
+    })
+    // Caesar Side Salad-Shredded American Cheese
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 27,
+            ingredientid: 12
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 27,
+        ingredientid: 12,
+        quantity: 1
+      }
+    })
+    // Caesar Side Salad-Croutons
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 27,
+            ingredientid: 34
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 27,
+        ingredientid: 34,
+        quantity: 1
+      }
+    })
+    // Caesar Side Salad-Italian Dressing
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 27,
+            ingredientid: 25
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 27,
+        ingredientid: 25,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Apple Slices ingredients data
+    // Apple Slices-Apple Slices
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 28,
+            ingredientid: 20
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 28,
+        ingredientid: 20,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Bag O' Chips ingredients data
+    // Bag O' Chips-Bag O' Chips
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 29,
+            ingredientid: 35
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 29,
+        ingredientid: 35,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Bottled Water ingredients data
+    // Bottled Water-Bottled Water
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 30,
+            ingredientid: 28
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 30,
+        ingredientid: 28,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Bubbly Water ingredients data
+    // Bubbly Water-Bubbly Water
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 31,
+            ingredientid: 29
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 31,
+        ingredientid: 29,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Sweet Iced Tea ingredients data
+    // Sweet Iced Tea-Sweet Iced Tea
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 32,
+            ingredientid: 30
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 32,
+        ingredientid: 30,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Unsweet Iced Tea ingredients data
+    // Unsweet Iced Tea-Unsweet Iced Tea
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 33,
+            ingredientid: 31
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 33,
+        ingredientid: 31,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Apple Juice ingredients data
+    // Apple Juice-Apple Juice
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 34,
+            ingredientid: 32
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 34,
+        ingredientid: 32,
+        quantity: 1
+      }
+    })
+    // Checks db for existing data and if not found, seeds the db with the Strawberry Milk ingredients data
+    // Strawberry Milk-Strawberry Milk
+    await prisma.menuitemingredients.upsert({
+      where: {
+        menuitemid_ingredientid: {
+            menuitemid: 35,
+            ingredientid: 33
+        }
+      },
+      update: {},
+      create: {
+        menuitemid: 35,
+        ingredientid: 33,
+        quantity: 1
+      }
+    })
+} 
 
   main()
   .then(async () => {
