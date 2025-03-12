@@ -1,4 +1,4 @@
-import { NamedRouter } from "@server/routers";
+import { NamedRouter } from "@server/routers/index.js";
 import { Router, Request, Response } from "express";
 
 const stockRouter = Router() as NamedRouter;

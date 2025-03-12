@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { NamedRouter, ordersRouter, stockRouter} from "@server/routers";
+import { NamedRouter, ordersRouter, stockRouter} from "@server/routers/index.js";
 import { PrismaClient } from "@prisma/client";
 
 // SINGLE INSTANCE OF PRISMA CLIENT that gets exported and used in all routers as opposed to creating a new instance in each router

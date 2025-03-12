@@ -4,5 +4,5 @@ export interface NamedRouter extends IRouter {
   prefix: string;
 }
 
-export { default as ordersRouter } from "@server/routers/orders.router";
-export { default as stockRouter } from "@server/routers/stock.router";
+export { default as ordersRouter } from "@server/routers/orders.router.js";
+export { default as stockRouter } from "@server/routers/stock.router.js";
