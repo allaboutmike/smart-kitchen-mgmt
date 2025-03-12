@@ -1,22 +1,51 @@
-import { NamedRouter } from "@server/routers";
+import { NamedRouter } from "./index.js";
 import { Router, Request, Response } from "express";
 import { Prisma, orders } from "@prisma/client";
 // Prisma client renamed from prisma to Db to avoid confusion with the Prisma object
-import { Db } from "@server/server";
+import { Db } from "@server/server.js";
 
 const ordersRouter = Router() as NamedRouter;
 ordersRouter.prefix = "orders";
 
 ordersRouter.get("/", async (req: Request, res: Response) => {
   try {
-    const { completed } = req.query;
+    const { completed, orderItemsDetails } = req.query;
     console.log("Retrieving orders with status:", completed);
+    console.log("Get order details:", orderItemsDetails);
     let orders: orders[] = [];
-    if (completed === "true" || completed === "false") {
+    if ((completed === "true" || completed === "false") && orderItemsDetails === "false") {
       console.log("Retrieving orders with completed status:", completed);
       const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
         where: { completed: completedBoolean },
+      });
+    } else if ((completed === "true" || completed === "false") && orderItemsDetails === "true") {
+      console.log("Retrieving orders with completed status:", completed);
+      console.log("Retrieving orders with order items details:", orderItemsDetails);
+      const completedBoolean = completed === "true";
+      orders = await Db.orders.findMany({
+        where: { completed: completedBoolean },
+        select: {
+          orderid: true,
+          orderitems: {
+            select: {
+              orderitemid: true,
+              served: true,
+              servedtimestamp: true,
+              returned: true,
+              menuitems: {
+                select: {
+                  name: true,
+                  price: true,
+                },
+              },
+              customizationdetail: true,
+            },
+          },
+          ordertimestamp: true,
+          completedTimeStamp: true,
+          completed: true,
+        },
       });
     } else {
       console.log("Retrieving all orders");
@@ -44,20 +73,12 @@ ordersRouter.get("/:id", async (req: Request, res: Response) => {
           select: {
             orderitemid: true,
             served: true,
+            servedtimestamp: true,
+            returned: true,
             menuitems: {
               select: {
                 name: true,
                 price: true,
-                menuitemingredients: {
-                  select: {
-                    ingredients: {
-                      select: {
-                        ingredientname: true,
-                      },
-                    },
-                    quantity: true,
-                  },
-                },
               },
             },
             customizationdetail: true,
