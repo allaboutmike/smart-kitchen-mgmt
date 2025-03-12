@@ -1,4 +1,3 @@
-import ProductInventoryContainer from '@/components/ProductInventoryContainer'
 import React from 'react'
 import IngredientInventoryContainer from '@/components/IngredientInventoryContainer'
 

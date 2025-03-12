@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useFetch } from '../customHooks/useFetch';
 
 interface InventoryItem {
   name: string;
@@ -12,16 +13,35 @@ interface InventoryItem {
   threshold?: number;
 }
 
+interface BackendStock {
+  stock: {
+    ingredientid: number;
+    ingredientname: string;
+    stock: {
+      stockid: number;
+      quantity: number;
+      cost: string;
+      isexpired: boolean;
+      receivedtimestamp: string;
+      expirationdate: string;
+    }[];
+    thresholdquantity: number;
+    category: string;
+    costperunit: string;
+    shelflife: number;
+    servingSize: string;
+  }[];
+}
+
 export const IngredientInventoryContainer: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
+  
+  const { data, isPending, error } = useFetch<BackendStock>('api/stocks');
 
   // Sample data for fallback/development
   const getSampleInventoryData = (): InventoryItem[] => [
-
     { name: 'Regular Bun', price: 0.50, status: 'In Stock', current: 100, capacity: 250, threshold: 125, category: 'Buns' },
     { name: 'No Bun', price: 0.00, status: 'Always Available', current: 0, capacity: 0, threshold: 0, category: 'Buns' },
     
@@ -39,56 +59,70 @@ export const IngredientInventoryContainer: React.FC = () => {
     { name: 'Mayo', price: 0.10, status: 'Well Stocked', current: 400, capacity: 600, threshold: 300, category: 'Sauces' },
   ];
 
-  // Fetch data from the backend
-  useEffect(() => {
-    const fetchInventoryData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/stock');
-        
-        if (response.status === 404) {
-          // If API endpoint not found, use sample data
-          console.warn('API endpoint not found (404); using sample data instead.');
-          const sampleData = getSampleInventoryData();
-          setInventoryData(processInventoryData(sampleData));
-          setIsUsingSampleData(true);
-          setError(null);
-          return;
-        }
-        
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        setInventoryData(processInventoryData(data));
-        setIsUsingSampleData(false);
-        setError(null);
-      } catch (err) {
-        console.error('Failed to fetch inventory data:', err);
-        
-        // Load sample data for any error
-        const sampleData = getSampleInventoryData();
-        setInventoryData(processInventoryData(sampleData));
-        setIsUsingSampleData(true);
-        
-        // Set error message for debugging
-        setError('Failed to load inventory data from API; using sample data instead.');
-      } finally {
-        setLoading(false);
+  // Modify the received backend data to the format expected by the component
+  const transformStockData = (data: BackendStock): InventoryItem[] => {
+    if (!data || !data.stock || !Array.isArray(data.stock)) {
+      console.log("Invalid data format:", data);
+      return [];
+    }
+    
+    return data.stock.map(ingredient => {
+      // Calculate total quantity from all stock items that aren't expired
+      const validStock = ingredient.stock.filter(item => !item.isexpired);
+      const currentQuantity = validStock.reduce((total, item) => total + item.quantity, 0);
+      
+      // Calculate total capacity (arbitrary - we'll use 2x threshold)
+      const capacity = ingredient.thresholdquantity * 2;
+      
+      // Determine status based on quantity and threshold
+      let status = 'In Stock';
+      if (ingredient.ingredientname === "No Bun") {
+        status = 'Always Available';
+      } else if (currentQuantity === 0) {
+        status = 'Out of Stock';
+      } else if (currentQuantity <= ingredient.thresholdquantity * 0.8) {
+        status = 'Low Stock';
+      } else if (currentQuantity <= ingredient.thresholdquantity * 1.2) {
+        status = 'In Stock';
+      } else {
+        status = 'Well Stocked';
       }
-    };
+      
+      return {
+        name: ingredient.ingredientname,
+        price: parseFloat(ingredient.costperunit),
+        status,
+        current: currentQuantity,
+        capacity,
+        category: ingredient.category,
+        threshold: ingredient.thresholdquantity
+      };
+    });
+  };
 
-    fetchInventoryData();
-  }, []);
+  // Process the data when it's available
+  useEffect(() => {
+    if (data) {
+      // Transform the backend data to match the expected format
+      const transformedData = transformStockData(data);
+      setInventoryData(transformedData);
+      setIsUsingSampleData(false);
+    } else if (error) {
+      // Load sample data if there's an error
+      console.error('Failed to fetch inventory data:', error);
+      const sampleData = getSampleInventoryData();
+      setInventoryData(processInventoryData(sampleData));
+      setIsUsingSampleData(true);
+    }
+  }, [data, error]);
 
-  // Process inventory data and calculate statuses
+  // Process inventory data and calculate statuses (used for sample data only)
   const processInventoryData = (data: InventoryItem[]): InventoryItem[] => {
     return data.map(item => {
       // Skip "Always Available" items
       if (item.status === 'Always Available') return item;
       
-      //threasholds obtained through python scripts 
+      // Thresholds obtained through python scripts 
       const threshold = item.threshold || item.capacity / 2; // Default threshold is half capacity
       
       if (item.current === 0) {
@@ -127,7 +161,7 @@ export const IngredientInventoryContainer: React.FC = () => {
   const getProgressBar = (item: InventoryItem) => {
     if (item.capacity === 0) return null;
     
-    const threshold = item.threshold || item.capacity / 2;
+    // Using status directly for color and width instead of recalculating with threshold
     let width = '30%';
     let color = 'bg-red-500';
     
@@ -155,9 +189,6 @@ export const IngredientInventoryContainer: React.FC = () => {
     );
   };
   
-  const currentDate = new Date();
-  const formattedDate = `Tuesday, March 11, 2025 ${currentDate.getHours()}:${String(currentDate.getMinutes()).padStart(2, '0')} PM`;
-  
   return (
     <div className="w-full max-w-[1000px] mx-auto flex flex-col h-full">
       <div className="mb-4">
@@ -175,7 +206,7 @@ export const IngredientInventoryContainer: React.FC = () => {
       </div>
       
       <div className="flex-1 overflow-hidden">
-        {loading ? (
+        {isPending ? (
           <div className="flex justify-center items-center h-[400px]">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
           </div>
