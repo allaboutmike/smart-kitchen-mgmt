@@ -5,6 +5,7 @@ export type TableInfo = {
   tableTitle: string;
   headCellNames: string[];
   rowData: RowType;
+  rows?: React.ReactElement[]
 };
 export default function DataTable(tableInfo: TableInfo) {
   return (

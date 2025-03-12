@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import DataTable, { TableInfo } from "./DataTable";
+import { RowType } from "./Row";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -17,9 +19,13 @@ type faker = {
   orderId: string;
 };
 
+function parseDate(order: faker) {
+  //const orderDate
+}
+
 const dummyData = [
   {
-    time: "2025-03-10T20:30:00Z",
+    time: "2025-03-10T20:30:00Z", // 8:30pm
     total: 120.5,
     returned: false,
     orderId: "ORD12345",
@@ -85,10 +91,10 @@ const timeRanges = new Map(
   Object.entries({
     "Last Hour": new Date(now.getTime() - 7 * 60 * 60 * 1000), // 1 hour ago
     "Last 12 Hours": new Date(now.getTime() - 18 * 60 * 60 * 1000), // 12 hours ago
-    "Yesterday": new Date(now.getTime() - 30 * 60 * 60 * 1000), // 24 hours ago
+    Yesterday: new Date(now.getTime() - 30 * 60 * 60 * 1000), // 24 hours ago
     "Last 7 Days": new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
     "Last 30 Days": new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-    "All": new Date(0), // All-time (epoch start)
+    All: new Date(0), // All-time (epoch start)
   })
 );
 
@@ -101,12 +107,33 @@ function filterByDate(timeRange: string, dummyData: faker[]) {
 }
 
 export default function TimeDropdown() {
+  console.log(new Date(dummyData[0].time).toLocaleString());
+
   return (
-    <div>
+    <div className="dropdown-container">
       Completed Orders
       {orderTimeFrames.map((timeFrame: string, index) => {
-        return (
-          <div
+        const { time, total, returned, orderId } = dummyData[index];
+        const data: TableInfo = {
+          tableTitle: timeFrame,
+          headCellNames: ["Time", "Total", "Returned", "OrderId"], // Ask Deja if we should include headings or not
+          rowData: {
+            columnNames: [
+              time,
+              total,
+              returned ? "RETURNED" : "NOT RETURNED",
+              orderId,
+            ],
+          } as RowType,
+        };
+        return <DataTable key={index} {...data} />;
+      })}
+    </div>
+  );
+}
+
+{
+  /* <div
             className="collapse collapse-arrow bg-base-100 border border-base-300"
             key={index}
           >
@@ -123,9 +150,5 @@ export default function TimeDropdown() {
                 );
               })}
             </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          </div> */
 }
