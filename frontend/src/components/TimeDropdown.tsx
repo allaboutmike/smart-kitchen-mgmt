@@ -25,7 +25,7 @@ function parseDate(order: faker) {
 
 const dummyData = [
   {
-    time: "2025-03-10T20:30:00Z", // 8:30pm
+    time: "2025-03-12T20:30:00Z", // 8:30pm
     total: 120.5,
     returned: false,
     orderId: "ORD12345",
@@ -107,7 +107,8 @@ function filterByDate(timeRange: string, dummyData: faker[]) {
 }
 
 export default function TimeDropdown() {
-  console.log(new Date(dummyData[0].time).toLocaleString());
+    console.log(new Date(dummyData[0].time).toLocaleString("en-US"));
+    console.log(filterByDate(orderTimeFrames[2], dummyData))
 
   return (
     <div className="dropdown-container">
