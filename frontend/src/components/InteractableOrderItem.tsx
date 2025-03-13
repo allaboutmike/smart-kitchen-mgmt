@@ -9,9 +9,6 @@ export default function InteractableOrderItem(itemDetails: ItemDetails) {
     <div className={styles["interactable-order-item"]}>
       <div className={styles["order-item-top-group"]}>
         <span className={styles["order-item-name"]}>{itemDetails.name}</span>
-        {/* <span className={styles["order-item-quantity-group-menu"]}>
-          <span className={styles["order-item-quantity"]}>Qty {itemDetails.quantity}</span>          
-        </span> */}
       </div>
       <span className={styles["remove-and-price-group"]}>
         <span className={styles["order-item-price"]}>${itemDetails.price}</span>        
