@@ -37,18 +37,18 @@ export interface OrderDetails{
   order: Order;
 }
 export default function OrderReceiptManager(orderDetails: Order) {
-  const calculateTotal = (passedOrder: Order) =>{
-    const items = passedOrder.orderitems
-    if(!items) return 0
-    let total = 0;
-    items.forEach((item, index) => {
-      const num = item.menuitems.price
-     if (index < items.length-1) total += num
-    })
-    return total
-  }   
-  
-  const totalCost = calculateTotal(orderDetails)
+    
+  const formatDate =(dateString: Date | '')=>{
+    
+    if(dateString){
+      const dateFormatOptions: Intl.DateTimeFormatOptions = {
+        month: 'short', day: '2-digit', year: 'numeric'
+      }
+       return dateString.toLocaleDateString('default', dateFormatOptions)
+    }
+    return ""
+  }
+  const timeStamp = orderDetails.completedTimeStamp? new Date(orderDetails.completedTimeStamp): "";
   return (
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
       <div className={styles["order-header-group"]}>
@@ -74,8 +74,9 @@ export default function OrderReceiptManager(orderDetails: Order) {
       <span className={styles["line-separator"]}></span>
         <div className={styles["order-total-group"]}>
           <span>Total</span>
-          <span className={styles["order-total-value"]}>${totalCost}</span>
+          <span className={styles["order-total-value"]}>${65.08}</span>
         </div>        
+        <span className="flex self-start text-black text-[1.6rem]">{formatDate(timeStamp)}</span>
       </div>
     </div>
   );

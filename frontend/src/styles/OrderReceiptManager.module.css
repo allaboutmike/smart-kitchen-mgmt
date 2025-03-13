@@ -1,5 +1,5 @@
 .current-order-items-manager {
-    @apply flex flex-col w-[400px] gap-[1rem] px-[40px] py-[40px] rounded-[8px] bg-white justify-between mt-[2rem];
+    @apply flex flex-col w-[400px] gap-[1rem] p-[40px] rounded-[8px] bg-white justify-between;
     box-shadow: 0 0 4px 4px var(--drop-shadow-color);
 }
 .order-header-group {
