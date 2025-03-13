@@ -6,9 +6,9 @@ interface MenuItemProps {
     price: number;
     picture: string;
     addedToOrder: boolean;
-    addItem: (name: string, price: number) => void;
+    viewItem?: (name: string, price: number) => void;
 }
-export default function MenuItem({ name, price, picture, addItem }: MenuItemProps) {
+export default function MenuItem({ name, price, picture, viewItem }: MenuItemProps) {
   const imageSize = 80;
   return (
     <div className={styles.menuItem}>
@@ -22,7 +22,9 @@ export default function MenuItem({ name, price, picture, addItem }: MenuItemProp
         </span>
       </span>
       <span className={styles.menuItemName}>{name}</span>
-      <button onClick={() => addItem(name, price)}>Add Item</button>
+      <button onClick={() => {
+        if(viewItem !== undefined)viewItem(name, price)
+        }}>View Item</button>
     </div>
   );
 }
