@@ -101,24 +101,37 @@ const timeRanges = new Map(
   })
 );
 
-function filterByDate(timeRange: string, dummyData: faker[]) {
+function filterByDate(timeRange: string, orderData: Order[]) {
   const timeFilter = timeRanges.get(timeRange) || new Date(0);
-  const filtered = dummyData.filter((order) => {
-    return new Date(order.time).getTime() > timeFilter.getTime();
+  const filtered = orderData.filter((order) => {
+    return new Date(order.ordertimestamp).getTime() > timeFilter.getTime();
   });
   return filtered;
 }
 
+// function orderTotal(order: Order) {
+//     totalShit = order.orderitems
+//     return totalShit
+// }
+
 export default function TimeDropdown() {
   console.log(filterByDate(orderTimeFrames[2], dummyData));
-  const { data } = useFetch<{ orders: Order[] }>("api/orders?completed=true");
+  const { data } = useFetch<{ orders: Order[] }>("/orders?completed=true");
     const [toggle, setToggle] = useState(false);
+    console.log("data:", data?.orders)
+    const orders = data?.orders
     
-    // let returnCount = 0
-
-    // function increaseReturnCount() {
-    //     for (let i = 0; i < data?.order.)
-    // }
+    const formatDate =(dateString: Date | '')=>{
+    
+        if(dateString){
+          const dateFormatOptions: Intl.DateTimeFormatOptions = {
+            hour: 'numeric', minute: 'numeric'
+          }
+           return dateString.toLocaleTimeString('default', dateFormatOptions)
+        }
+        return ""
+    }
+    
 
   return (
     <div className="dropdown-container">
@@ -132,13 +145,13 @@ export default function TimeDropdown() {
               </tr>
             </thead>
             <tbody>
-              {data?.orders.map((order: Order, orderIndex) => {
+              {orders  && filterByDate(timeFrame, orders).map((order: Order, orderIndex) => {
                 return (
                   <tr key={orderIndex}>
-                        <td>{order.timePlaced}</td>
-                        <td>{order.total}</td>
-                        <td>{order.status}</td>
-                        <td>{order.id}</td>
+                        <td>{formatDate(new Date(order.ordertimestamp))}</td>
+                        <td>{order.total || "BLOCKED"}</td>
+                        <td>{order.status || "Also BLOCKED"}</td>
+                        <td>ID: {order.orderid}</td>
                         <td>View Details</td>
                   </tr>
                 );
@@ -146,8 +159,6 @@ export default function TimeDropdown() {
             </tbody>
           </table>
         );
-
-        // return <DataTable key={index} {...data} />;
       })}
     </div>
   );
