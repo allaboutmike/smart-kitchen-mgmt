@@ -21,9 +21,9 @@ export default function OrderTrackingPage() {
     <div className="main-container">
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject}/>
-      <div className="flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px] ">
-          {currentSelection != "none" && <div key={currentSelection} className="carousel p-[2rem] carousel-start rounded-box bg-neutral
-          px-[1rem] gap-[1rem]  max-w-[80%]">
+      <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]`} >
+          {currentSelection != "none" && data && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
+           gap-[1rem] carousel-start w-full scroll-smooth outline`}>
             {
               (data?.orders && data.orders.length) &&
                 data?.orders.map((order)=>{
