@@ -48,7 +48,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
     }
     return ""
   }
-  const timeStamp = orderDetails.completedTimeStamp? new Date(orderDetails.completedTimeStamp): "";
+  const timeStamp = orderDetails.ordertimestamp? new Date(orderDetails.ordertimestamp): "";
   return (
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
       <div className={styles["order-header-group"]}>
