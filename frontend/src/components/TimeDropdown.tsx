@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import DataTable, { TableInfo } from "./DataTable";
 import { RowType } from "./Row";
+import { useFetch } from "@/customHooks/useFetch";
+import { Order } from "@/components/OrderReceiptManager";
+import { table } from "console";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -107,27 +110,44 @@ function filterByDate(timeRange: string, dummyData: faker[]) {
 }
 
 export default function TimeDropdown() {
-    console.log(new Date(dummyData[0].time).toLocaleString("en-US"));
-    console.log(filterByDate(orderTimeFrames[2], dummyData))
+  console.log(filterByDate(orderTimeFrames[2], dummyData));
+  const { data } = useFetch<{ orders: Order[] }>("api/orders?completed=true");
+    const [toggle, setToggle] = useState(false);
+    
+    // let returnCount = 0
+
+    // function increaseReturnCount() {
+    //     for (let i = 0; i < data?.order.)
+    // }
 
   return (
     <div className="dropdown-container">
       Completed Orders
       {orderTimeFrames.map((timeFrame: string, index) => {
-        const { time, total, returned, orderId } = dummyData[index];
-        const data: TableInfo = {
-          tableTitle: timeFrame,
-          headCellNames: ["Time", "Total", "Returned", "OrderId"], // Ask Deja if we should include headings or not
-          rowData: {
-            columnNames: [
-              time,
-              total,
-              returned ? "RETURNED" : "NOT RETURNED",
-              orderId,
-            ],
-          } as RowType,
-        };
-        return <DataTable key={index} {...data} />;
+        return (
+          <table key={index}>
+            <thead>
+              <tr>
+                <th onClick={() => !setToggle}>{timeFrame}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data?.orders.map((order: Order, orderIndex) => {
+                return (
+                  <tr key={orderIndex}>
+                        <td>{order.timePlaced}</td>
+                        <td>{order.total}</td>
+                        <td>{order.status}</td>
+                        <td>{order.id}</td>
+                        <td>View Details</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        );
+
+        // return <DataTable key={index} {...data} />;
       })}
     </div>
   );
@@ -153,3 +173,17 @@ export default function TimeDropdown() {
             </div>
           </div> */
 }
+
+// const { time, total, returned, orderId } = dummyData[index];
+//         const data: TableInfo = {
+//           tableTitle: timeFrame,
+//           headCellNames: ["Time", "Total", "Returned", "OrderId"], // Ask Deja if we should include headings or not
+//           rowData: {
+//             columnNames: [
+//               time,
+//               total,
+//               returned ? "RETURNED" : "NOT RETURNED",
+//               orderId,
+//             ],
+//           } as RowType,
+//         };
