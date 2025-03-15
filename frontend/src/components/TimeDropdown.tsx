@@ -1,10 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import DataTable, { TableInfo } from "./DataTable";
-import { RowType } from "./Row";
 import { useFetch } from "@/customHooks/useFetch";
 import { Order } from "@/components/OrderReceiptManager";
-import { table } from "console";
+import OrderDetailsScreen from "./OrderDetailsScreen";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -13,80 +11,6 @@ const orderTimeFrames = [
   "Last 7 Days",
   "Last 30 Days",
   "All",
-];
-
-type faker = {
-  time: string;
-  total: number;
-  returned: boolean;
-  orderId: string;
-};
-
-function parseDate(order: faker) {
-  //const orderDate
-}
-
-const dummyData = [
-  {
-    time: "2025-03-12T20:30:00Z", // 8:30pm
-    total: 120.5,
-    returned: false,
-    orderId: "ORD12345",
-  },
-  {
-    time: "2025-03-09T23:15:00Z",
-    total: 85.75,
-    returned: true,
-    orderId: "ORD12346",
-  },
-  {
-    time: "2025-03-07T10:00:00Z",
-    total: 200.0,
-    returned: false,
-    orderId: "ORD12347",
-  },
-  {
-    time: "2025-03-05T10:45:00Z",
-    total: 50.25,
-    returned: true,
-    orderId: "ORD12348",
-  },
-  {
-    time: "2025-03-01T11:30:00Z",
-    total: 175.9,
-    returned: false,
-    orderId: "ORD12349",
-  },
-  {
-    time: "2025-02-28T12:15:00Z",
-    total: 95.6,
-    returned: true,
-    orderId: "ORD12350",
-  },
-  {
-    time: "2025-02-21T13:00:00Z",
-    total: 300.45,
-    returned: false,
-    orderId: "ORD12351",
-  },
-  {
-    time: "2025-02-14T13:45:00Z",
-    total: 65.3,
-    returned: true,
-    orderId: "ORD12352",
-  },
-  {
-    time: "2025-01-28T14:30:00Z",
-    total: 110.8,
-    returned: false,
-    orderId: "ORD12353",
-  },
-  {
-    time: "2025-01-28T15:15:00Z",
-    total: 250.2,
-    returned: true,
-    orderId: "ORD12354",
-  },
 ];
 
 const now = new Date();
@@ -109,92 +33,61 @@ function filterByDate(timeRange: string, orderData: Order[]) {
   return filtered;
 }
 
-// function orderTotal(order: Order) {
-//     totalShit = order.orderitems
-//     return totalShit
-// }
-
 export default function TimeDropdown() {
-  console.log(filterByDate(orderTimeFrames[2], dummyData));
-  const { data } = useFetch<{ orders: Order[] }>("/orders?completed=true");
-    const [toggle, setToggle] = useState(false);
-    console.log("data:", data?.orders)
-    const orders = data?.orders
-    
-    const formatDate =(dateString: Date | '')=>{
-    
-        if(dateString){
-          const dateFormatOptions: Intl.DateTimeFormatOptions = {
-            hour: 'numeric', minute: 'numeric'
-          }
-           return dateString.toLocaleTimeString('default', dateFormatOptions)
-        }
-        return ""
+  const { data } = useFetch<{ orders: Order[] }>(
+    "/orders?completed=true&orderItemsDetails=true"
+  );
+  const [toggle, setToggle] = useState(false);
+  console.log("data:", data?.orders[0]);
+  const orders = data?.orders;
+
+  const formatDate = (dateString: Date | "") => {
+    if (dateString) {
+      const dateFormatOptions: Intl.DateTimeFormatOptions = {
+        hour: "numeric",
+        minute: "numeric",
+      };
+      return dateString.toLocaleTimeString("default", dateFormatOptions);
     }
-    
+    return "";
+  };
 
   return (
-    <div className="dropdown-container">
-      Completed Orders
-      {orderTimeFrames.map((timeFrame: string, index) => {
-        return (
-          <table key={index}>
-            <thead>
-              <tr>
-                <th onClick={() => !setToggle}>{timeFrame}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders  && filterByDate(timeFrame, orders).map((order: Order, orderIndex) => {
-                return (
-                  <tr key={orderIndex}>
-                        <td>{formatDate(new Date(order.ordertimestamp))}</td>
-                        <td>{order.total || "BLOCKED"}</td>
-                        <td>{order.status || "Also BLOCKED"}</td>
-                        <td>ID: {order.orderid}</td>
-                        <td>View Details</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        );
-      })}
-    </div>
+    <>
+      <div className="dropdown-container">
+        Completed Orders
+        {orderTimeFrames.map((timeFrame: string, index) => {
+          return (
+            <table key={index}>
+              <thead>
+                <tr>
+                  <th onClick={() => !setToggle}>{timeFrame}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders &&
+                  filterByDate(timeFrame, orders).map(
+                    (order: Order, orderIndex) => {
+                      return (
+                        <tr key={orderIndex}>
+                          <td>{formatDate(new Date(order.ordertimestamp))}</td>
+                          <td>{order.total || "BLOCKED"}</td>
+                              <td>{(order.orderitems.some((item) => item.returned === true)) ? "ITEMS RETURNED" : "NO RETURNS"}</td>
+                          <td>ID: {order.orderid}</td>
+                          <td>
+                            <button onClick={() => <OrderDetailsScreen />}>
+                              View Details
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
+              </tbody>
+            </table>
+          );
+        })}
+      </div>
+    </>
   );
 }
-
-{
-  /* <div
-            className="collapse collapse-arrow bg-base-100 border border-base-300"
-            key={index}
-          >
-            <input type="radio" name="my-accordion-2" defaultChecked />
-            <div className="collapse-title font-semibold">{timeFrame}</div>
-            <div className="collapse-content text-sm">
-              {filterByDate(timeFrame, dummyData).map((receipt) => {
-                return (
-                  <div key={receipt.orderId}>
-                    {`${receipt.time} $${receipt.total} ${
-                      receipt.returned ? "RETURNED" : "NOT RETURNED"
-                    } ID:${receipt.orderId} View Details`}
-                  </div>
-                );
-              })}
-            </div>
-          </div> */
-}
-
-// const { time, total, returned, orderId } = dummyData[index];
-//         const data: TableInfo = {
-//           tableTitle: timeFrame,
-//           headCellNames: ["Time", "Total", "Returned", "OrderId"], // Ask Deja if we should include headings or not
-//           rowData: {
-//             columnNames: [
-//               time,
-//               total,
-//               returned ? "RETURNED" : "NOT RETURNED",
-//               orderId,
-//             ],
-//           } as RowType,
-//         };
