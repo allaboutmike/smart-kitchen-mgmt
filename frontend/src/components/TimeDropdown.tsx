@@ -34,6 +34,7 @@ function filterByDate(timeRange: string, orderData: Order[]) {
 }
 
 export default function TimeDropdown() {
+    // TODO: ADD ACCORDION LOGIC TO DROPDOWNS
   const { data } = useFetch<{ orders: Order[] }>(
     "/orders?completed=true&orderItemsDetails=true"
   );
@@ -71,8 +72,26 @@ export default function TimeDropdown() {
                       return (
                         <tr key={orderIndex}>
                           <td>{formatDate(new Date(order.ordertimestamp))}</td>
-                          <td>{order.total || "BLOCKED"}</td>
-                              <td>{(order.orderitems.some((item) => item.returned === true)) ? "ITEMS RETURNED" : "NO RETURNS"}</td>
+                          <td>
+                            {order.orderitems
+                              .reduce(
+                                (prev, curr) =>
+                                  prev +
+                                  parseFloat(curr.menuitems.price.toString()),
+                                0
+                              )
+                              .toLocaleString("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                              })}
+                          </td>
+                          <td>
+                            {order.orderitems.some(
+                              (item) => item.returned === true
+                            )
+                              ? "ITEMS RETURNED"
+                              : "NO RETURNS"}
+                          </td>
                           <td>ID: {order.orderid}</td>
                           <td>
                             <button onClick={() => <OrderDetailsScreen />}>
