@@ -1,40 +1,37 @@
 "use client";
 import React from "react";
-// import OrderTrackingMenu from "@/components/OrderTrackingMenu";
-// import { useFetch } from "@/customHooks/useFetch";
-// import useSelection from "@/customHooks/useSelection"
-// import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
-// import { SelectionObject } from "@/components/SelectionObject";
+import OrderTrackingMenu from "@/components/OrderTrackingMenu";
+import { useFetch } from "@/customHooks/useFetch";
+import useSelection from "@/customHooks/useSelection"
+import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
+import { SelectionObject } from "@/components/SelectionObject";
 
 export default function OrderTrackingPage() {
-  // the orders coming from the backend look something like this {
-  //   "orderid": 54,
-  //     "ordertimestamp": "2025-01-15T13:09:19.000Z",
-  //       "completed": false,
-  //         "completedTimeStamp": null
-  // }, types do not match the only properties the orders have are the ones above 
-  // const { data } = useFetch<{ orders: Order[] }>("/orders?completed=false");
-  // const {isCurrentSelection, setCurrentSelection} =useSelection()
-  // console.table(orders)
-  // const selObject: SelectionObject={
-  //   setCurrentSelection: setCurrentSelection,
-  //   isCurrentSelection: isCurrentSelection
-  // }
-
-
+  const {currentSelection, isCurrentSelection, setCurrentSelection} =useSelection()
+  let fetchString = "api/orders?"
+  if(!isCurrentSelection("none")){
+    const showCompletedOrders = isCurrentSelection("Completed Orders")
+    fetchString = `api/orders?completed=${showCompletedOrders}&orderItemsDetails=true`
+  }
+  const { data } = useFetch<{ orders: Order[] }>(fetchString);
+  const selObject: SelectionObject={ setCurrentSelection: setCurrentSelection,
+    isCurrentSelection: isCurrentSelection
+  }
   return (
     <div className="main-container">
-      {/* <OrderTrackingMenu {...selObject}/>
-      <div className="order-tracking-main-container">        
-          <h1>{orders? "Orders": "No Orders"}</h1>
-          <div className={"scrollable-orders-container"}>
-            {(orders && orders.length) &&
-              orders.map((order)=>{
-                return <OrderReceiptManager key={order.id} order={order}/>
-              })
+      <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
+      <OrderTrackingMenu {...selObject}/>
+      <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]`} >
+          {currentSelection != "none" && data && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
+           gap-[1rem] carousel-start w-full scroll-smooth outline`}>
+            {
+              (data?.orders && data.orders.length) &&
+                data?.orders.map((order)=>{
+                  return <OrderReceiptManager key={order.orderid} {...order} />
+                })
             }
-          </div>        
-      </div> */}
+          </div>  }      
+      </div>
     </div>
   );
 }

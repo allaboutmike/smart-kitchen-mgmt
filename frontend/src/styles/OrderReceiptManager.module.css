@@ -1,9 +1,9 @@
 .current-order-items-manager {
-    @apply flex flex-col w-[600px] gap-[1rem] px-[40px] py-[40px] rounded-[8px] bg-white;
+    @apply flex flex-col w-[400px] gap-[1rem] p-[40px] rounded-[8px] bg-white justify-between;
     box-shadow: 0 0 4px 4px var(--drop-shadow-color);
 }
 .order-header-group {
-    @apply flex flex-row justify-between;
+    @apply flex flex-col justify-between;
     .order-id {
         @apply text-[2rem] text-[black] font-semibold;
     }
@@ -12,7 +12,7 @@
     @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
 }
 .order-items-container {
-    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[400px] max-w-[100%];
+    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[300px] max-w-[100%];
     justify-items: center;
 }
 .order-total-container {

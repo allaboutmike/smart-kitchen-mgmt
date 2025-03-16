@@ -1,14 +1,16 @@
 "use client";
-import InteractableOrderItem from "./InteractableOrderItem";
+import InteractableOrderItem, { ItemDetails } from "./InteractableOrderItem";
 import React from "react";
 import OrderStatusNotifier from "./OrderStatusNotifier";
 import styles from "../styles/OrderReceiptManager.module.css"
 export type Order = {
-  id: string;
-  items: AddedItem[];
-  status: string;
+  orderid: string;
+  orderitems: OrderItem[];
+  completed: boolean;
   total: number;
   timePlaced: string;
+  ordertimestamp: string;
+  completedTimeStamp: string | null;
 };
 export type AddedItem = {
   price: number;
@@ -18,57 +20,63 @@ export type AddedItem = {
   ingredients: { [key: string]: boolean };
   notes: string;
 };
-export type OrderReceiptManagerDetails = {
+export interface MenuItem{
+  name: string;
+  price: number;
+  customizationdetail: string| null
+}
+export interface OrderItem{
+  orderitemid: number;
+  served: boolean;
+  servedtimestamp: string;
+  returned: boolean;
+  menuitems: MenuItem;
+}
+
+export interface OrderDetails{
   order: Order;
-  removeItem?: (item: AddedItem) => void;
-  cancelOrder?: () => void;
-};
-export default function OrderReceiptManager(orderDetails: OrderReceiptManagerDetails) {
-  const isJustReceipt = orderDetails.order.status !== "new";
+}
+export default function OrderReceiptManager(orderDetails: Order) {
+    
+  const formatDate =(dateString: Date | '')=>{
+    
+    if(dateString){
+      const dateFormatOptions: Intl.DateTimeFormatOptions = {
+        month: 'short', day: '2-digit', year: 'numeric'
+      }
+       return dateString.toLocaleDateString('default', dateFormatOptions)
+    }
+    return ""
+  }
+  const timeStamp = orderDetails.ordertimestamp? new Date(orderDetails.ordertimestamp): "";
   return (
-    <div className={styles["current-order-items-manager"]}>
+    <div className={`${styles["current-order-items-manager"]} carousel-item`}>
       <div className={styles["order-header-group"]}>
-        <div className={styles["order-id"]}>Order: #{orderDetails.order.id}</div>
-        {isJustReceipt && <OrderStatusNotifier />}
+        <span className="flex justify-between align-center">
+          <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>
+          {orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
+        </span>
+        <span className={styles["line-separator"]}></span>
       </div>
-      <span className={styles["line-separator"]}></span>
 
       <div className={styles["order-items-container"]}>
-        {orderDetails.order.items.map((currentOrder, orderIndex) => {
-          return (
-            <InteractableOrderItem
-              key={orderIndex}
-              name={currentOrder.productName}
-              price={currentOrder.price}
-              orderIndex={orderIndex}
-              removeItem={() =>
-                orderDetails.removeItem !== undefined &&
-                orderDetails.removeItem(currentOrder)
-              }
-              isJustReceipt={isJustReceipt}
-            />
-          );
-        })}
+        {
+          orderDetails.orderitems && orderDetails.orderitems.map((details, index)=>{
+            const itemDetails: ItemDetails={
+              name: details.menuitems.name,
+              price: details.menuitems.price
+            }
+            return <InteractableOrderItem key={index} {...itemDetails}/>
+          })
+        }
       </div>
-      <span className={styles["line-separator"]}></span>
       <div className={styles["order-total-container"]}>
+      <span className={styles["line-separator"]}></span>
         <div className={styles["order-total-group"]}>
-          <div>Total</div>
-          <div className={styles["order-total-value"]}>$89.99</div>
-        </div>
-        {!isJustReceipt && (
-          <div className={styles["order-buttons-group"]}>
-            <button className={`${styles["order-total-button"]} ${styles["continue-button"]}`}>
-              Continue
-            </button>
-            <button
-              className={`${styles["order-total-button"]} ${styles["cancel-button"]}`}
-              onClick={orderDetails.cancelOrder}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
+          <span>Total</span>
+          <span className={styles["order-total-value"]}>${65.08}</span>
+        </div>        
+        <span className="flex self-start text-black text-[1.6rem]">{formatDate(timeStamp)}</span>
       </div>
     </div>
   );

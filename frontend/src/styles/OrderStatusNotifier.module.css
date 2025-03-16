@@ -3,4 +3,5 @@
     .order-complete {
         @apply text-[#4AC84A] place-self-center;
     }
+    transition: width 0.2s ease-in-out;
 }
