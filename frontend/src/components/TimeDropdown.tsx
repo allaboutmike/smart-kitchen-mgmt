@@ -30,7 +30,6 @@ function filterByDate(timeRange: string, orderData: Order[]) {
   const filtered = orderData.filter((order) => {
     return new Date(order.ordertimestamp).getTime() > timeFilter.getTime();
   });
-    console.log(filtered)
   return filtered;
 }
 
@@ -39,7 +38,6 @@ export default function TimeDropdown() {
   const { data } = useFetch<{ orders: Order[] }>(
     "/orders?completed=true&orderItemsDetails=true"
   );
-  const [toggle, setToggle] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
   console.log("data:", data?.orders);
   const orders = data?.orders;
@@ -66,8 +64,7 @@ export default function TimeDropdown() {
                 <tr>
                   <th
                     onClick={() => {
-                      setToggle(!toggle);
-                      setCurrentIndex(index);
+                      setCurrentIndex((prevIndex) => prevIndex !== index ? index : -1);
                     }}
                     className="toggle-trigger"
                   >
@@ -81,14 +78,14 @@ export default function TimeDropdown() {
                     //if orders.count != 0 { }       else { emptyState }
                     .sort(
                       (a, b) =>
-                        new Date(b.ordertimestamp) - new Date(a.ordertimestamp)
+                        new Date(b.ordertimestamp).getTime() - new Date(a.ordertimestamp).getTime()
                     )
                     .map((order: Order, orderIndex) => {
                       return (
                         <tr
                           key={orderIndex}
                           className={`order-data ${
-                            toggle && currentIndex === index
+                            currentIndex === index
                               ? "visible"
                               : "hidden"
                           }`}
