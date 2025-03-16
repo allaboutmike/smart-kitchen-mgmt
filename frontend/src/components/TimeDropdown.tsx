@@ -16,12 +16,12 @@ const orderTimeFrames = [
 const now = new Date();
 const timeRanges = new Map(
   Object.entries({
-    "Last Hour": new Date(now.getTime() - 7 * 60 * 60 * 1000), // 1 hour ago
-    "Last 12 Hours": new Date(now.getTime() - 18 * 60 * 60 * 1000), // 12 hours ago
-    Yesterday: new Date(now.getTime() - 30 * 60 * 60 * 1000), // 24 hours ago
+    "Last Hour": new Date(now.getTime() - 1 * 60 * 60 * 1000), // 1 hour ago
+    "Last 12 Hours": new Date(now.getTime() - 12 * 60 * 60 * 1000), // 12 hours ago
+    "Yesterday": new Date(now.getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
     "Last 7 Days": new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
     "Last 30 Days": new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-    All: new Date(0), // All-time (epoch start)
+    "All": new Date(0), // All-time (epoch start)
   })
 );
 
@@ -30,16 +30,18 @@ function filterByDate(timeRange: string, orderData: Order[]) {
   const filtered = orderData.filter((order) => {
     return new Date(order.ordertimestamp).getTime() > timeFilter.getTime();
   });
+    console.log(filtered)
   return filtered;
 }
 
 export default function TimeDropdown() {
-    // TODO: ADD ACCORDION LOGIC TO DROPDOWNS
+  // TODO: ADD ACCORDION LOGIC TO DROPDOWNS
   const { data } = useFetch<{ orders: Order[] }>(
     "/orders?completed=true&orderItemsDetails=true"
   );
   const [toggle, setToggle] = useState(false);
-  console.log("data:", data?.orders[0]);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+  console.log("data:", data?.orders);
   const orders = data?.orders;
 
   const formatDate = (dateString: Date | "") => {
@@ -62,15 +64,35 @@ export default function TimeDropdown() {
             <table key={index}>
               <thead>
                 <tr>
-                  <th onClick={() => !setToggle}>{timeFrame}</th>
+                  <th
+                    onClick={() => {
+                      setToggle(!toggle);
+                      setCurrentIndex(index);
+                    }}
+                    className="toggle-trigger"
+                  >
+                    {timeFrame}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {orders &&
-                  filterByDate(timeFrame, orders).map(
-                    (order: Order, orderIndex) => {
+                    filterByDate(timeFrame, orders)// -> [order1, order2]
+                    //if orders.count != 0 { }       else { emptyState }
+                    .sort(
+                      (a, b) =>
+                        new Date(b.ordertimestamp) - new Date(a.ordertimestamp)
+                    )
+                    .map((order: Order, orderIndex) => {
                       return (
-                        <tr key={orderIndex}>
+                        <tr
+                          key={orderIndex}
+                          className={`order-data ${
+                            toggle && currentIndex === index
+                              ? "visible"
+                              : "hidden"
+                          }`}
+                        >
                           <td>{formatDate(new Date(order.ordertimestamp))}</td>
                           <td>
                             {order.orderitems
@@ -100,8 +122,7 @@ export default function TimeDropdown() {
                           </td>
                         </tr>
                       );
-                    }
-                  )}
+                    })}
               </tbody>
             </table>
           );
