@@ -152,9 +152,7 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
 
 ordersRouter.put("/:id", async (req: Request, res: Response) => {
   try {
-    // This is a placeholder for the actual order update logic
     const orderId = Number(req.params["id"]);
-    const { newStatus } = req.body;
     console.log("Updating order with ID:", orderId);
 
     const order = await Db.orders.findUnique({
@@ -172,46 +170,65 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
       },
     });
 
-    console.log("Order found:", order);
-
     if (!order) {
       throw new Error(`Order with ID ${orderId} not found`);
     }
-    // RUN transaction
-    await Db.$transaction(async (tx) => {
-      await tx.orders.update({
-        where: { orderid: orderId },
-        data: {
-          completed: newStatus,
-        },
+
+    // update order status
+    await Db.orders.update({
+      where: { orderid: orderId },
+      data: { completed: !order.completed },
+    });
+
+    //this loop is for debugging purposes
+    for (const orderItem of order.orderitems) {
+      console.log("Updating stock for order item:", orderItem);
+      console.log("Menu item", orderItem.menuitems.name);
+      console.log(
+        "Item has the following ingridients",
+        orderItem.menuitems.menuitemingredients
+      );
+      for (const ingredient of orderItem.menuitems.menuitemingredients) {
+        console.log("Ingredient to update stock for:", ingredient.ingredientid);
+      }
+    }
+
+    if (order.completed) {
+      await Db.$transaction(async (tx) => {
+        //Collect stock update promises
+        const updates = order.orderitems.flatMap((orderItem) =>
+          orderItem.menuitems.menuitemingredients.map(async (ingredient) => {
+            console.log(
+              "Updating stock for ingredient:",
+              ingredient.ingredientid
+            );
+            const stockToUpdate = await tx.stock.findFirst({
+              where: {
+                ingredientid: ingredient.ingredientid,
+                isexpired: false,
+              },
+            });
+
+            if (stockToUpdate) {
+              return tx.stock.update({
+                where: { stockid: stockToUpdate.stockid },
+                data: {
+                  quantity: {
+                    decrement: ingredient.quantity,
+                  },
+                },
+              });
+            }
+            return null;
+          })
+        );
+
+        //Trigger all stock updates at the same time
+        await Promise.all(updates);
       });
+    }
 
-      // update stock
-      // for (const orderItem of order.orderitems) {
-      //   for (const ingredient of orderItem.menuitems.menuitemingredients) {
-      //     // console.log("Updating stock for ingredient:", ingridient);
-      //       await tx.stock.updateMany({
-      //       where: { ingredientid: ingredient.ingredientid },
-      //       data: {
-      //         quantity: {
-      //         decrement: ingredient.quantity,
-      //         },
-      //       },
-      //       });
-      //   }
-      // }
-    });
-
-    // console.log("New status:", newStatus);
-    // await Db.orders.update({
-    //   where: { orderid: orderId },
-    //   data: { completed: newStatus },
-    // });
-    // console.log("Order updated successfully");
-
-    res.status(200).json({
-      order: order,
-    });
+    res.sendStatus(200);
   } catch (error) {
     console.error("Error updating order:", error);
     res.status(500).json({ error: "Internal server error" });

@@ -41,10 +41,9 @@ export default function OrderReceiptManager(orderDetails: Order) {
   const { updateData } = useMutation("PUT", `/orders/${orderDetails.orderid}`);
   const [orderStatus, setOrderStatus] = React.useState(orderDetails.completed);
 
-  const toggleOrderStatus = async (orderId: string) => {
-    const payload = { newStatus: !orderStatus, orderId: orderId };
+  const toggleOrderStatus = async () => {
     setOrderStatus(!orderStatus);
-    const res = await updateData(payload);
+    const res = await updateData();
     if (!res.success) {
       setOrderStatus(!orderStatus);
     }
@@ -63,7 +62,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
   const timeStamp = orderDetails.ordertimestamp ? new Date(orderDetails.ordertimestamp) : "";
   return (
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
-      <button onClick={() => toggleOrderStatus(orderDetails.orderid)}>toggle order status</button>
+      <button onClick={() => toggleOrderStatus()}>toggle order status</button>
       <div>{orderStatus ? "completed" : "In Progress"}</div>
 
       <div className={styles["order-header-group"]}>
