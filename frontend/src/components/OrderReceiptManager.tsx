@@ -56,7 +56,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
       <div className={styles["order-header-group"]}>
         <span className="flex justify-between align-center">
           <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>
-          {orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
+          {!orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
         </span>
         <span className={styles["line-separator"]}></span>
       </div>
