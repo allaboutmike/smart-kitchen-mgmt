@@ -13,15 +13,24 @@ ordersRouter.get("/", async (req: Request, res: Response) => {
     console.log("Retrieving orders with status:", completed);
     console.log("Get order details:", orderItemsDetails);
     let orders: orders[] = [];
-    if ((completed === "true" || completed === "false") && orderItemsDetails === "false") {
+    if (
+      (completed === "true" || completed === "false") &&
+      orderItemsDetails === "false"
+    ) {
       console.log("Retrieving orders with completed status:", completed);
       const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
         where: { completed: completedBoolean },
       });
-    } else if ((completed === "true" || completed === "false") && orderItemsDetails === "true") {
+    } else if (
+      (completed === "true" || completed === "false") &&
+      orderItemsDetails === "true"
+    ) {
       console.log("Retrieving orders with completed status:", completed);
-      console.log("Retrieving orders with order items details:", orderItemsDetails);
+      console.log(
+        "Retrieving orders with order items details:",
+        orderItemsDetails
+      );
       const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
         where: { completed: completedBoolean },
@@ -148,22 +157,61 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
     const { newStatus } = req.body;
     console.log("Updating order with ID:", orderId);
 
-    // const order = await Db.orders.findUnique({ where: { orderid: orderId } });
-
-    // if (!order) {
-    //     return res.status(404).json({ error: "Order not found" });
-    // }
-    // Update the order status
-    console.log("New status:", newStatus);
-    await Db.orders.update({
+    const order = await Db.orders.findUnique({
       where: { orderid: orderId },
-      data: { completed: newStatus },
+      include: {
+        orderitems: {
+          include: {
+            menuitems: {
+              include: {
+                menuitemingredients: true,
+              },
+            },
+          },
+        },
+      },
     });
-    console.log("Order updated successfully");
 
-    // ONCE WEBSOCKET IS IMPLEMENTED, WE WILL NOTIFY THE CLIENT OF A A STATUS UPDATE
+    console.log("Order found:", order);
 
-    res.sendStatus(200);
+    if (!order) {
+      throw new Error(`Order with ID ${orderId} not found`);
+    }
+    // RUN transaction
+    await Db.$transaction(async (tx) => {
+      await tx.orders.update({
+        where: { orderid: orderId },
+        data: {
+          completed: newStatus,
+        },
+      });
+
+      // update stock
+      // for (const orderItem of order.orderitems) {
+      //   for (const ingredient of orderItem.menuitems.menuitemingredients) {
+      //     // console.log("Updating stock for ingredient:", ingridient);
+      //       await tx.stock.updateMany({
+      //       where: { ingredientid: ingredient.ingredientid },
+      //       data: {
+      //         quantity: {
+      //         decrement: ingredient.quantity,
+      //         },
+      //       },
+      //       });
+      //   }
+      // }
+    });
+
+    // console.log("New status:", newStatus);
+    // await Db.orders.update({
+    //   where: { orderid: orderId },
+    //   data: { completed: newStatus },
+    // });
+    // console.log("Order updated successfully");
+
+    res.status(200).json({
+      order: order,
+    });
   } catch (error) {
     console.error("Error updating order:", error);
     res.status(500).json({ error: "Internal server error" });
