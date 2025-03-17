@@ -38,7 +38,7 @@ export const IngredientInventoryContainer: React.FC = () => {
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
   
-  const { data, isPending, error } = useFetch<BackendStock>('api/stocks');
+  const { data, isPending, error } = useFetch<BackendStock>('stocks');
 
   // Sample data for fallback/development
   const getSampleInventoryData = (): InventoryItem[] => [
