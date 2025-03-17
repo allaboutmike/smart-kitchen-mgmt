@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
 import MenuItem from "./MenuItem";
-import OrderReceiptManager, {AddedItem, OrderReceiptManagerDetails} from "./OrderReceiptManager"
 import useSelection from "@/customHooks/useSelection";
 import SelectableButton from "./SelectableButton";
 import styles from "../styles/MenuManagementContainer.module.css"
@@ -56,38 +54,9 @@ export type orderType = {
 export default function MenuManagementContainer() {
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
-  const orderNumber = 9384093;
-  const [orderAddedItems, setOrderAddedItems] = useState<AddedItem[]>([]);
-  const updateOrder = (name: string, price: number) => {
-    setOrderAddedItems((currentOrderItems) => [
-      ...currentOrderItems,
-      { productName: name, price: price, quantity: 1, ingredients: {}, productId: "1", notes: "" },
-    ]);
-  };
-  const removeItem =(currentOrder: AddedItem)=>{
-    setOrderAddedItems((currentOrderItems) => {
-      return currentOrderItems.filter(
-        (orderItem) =>
-          currentOrder.price !== orderItem.price &&
-          orderItem.productName !== currentOrder.productName
-      );
-    });
-  }
-  const cancelOrder=()=> setOrderAddedItems([])
+
   const optionName = currentSelection.toLowerCase().trimStart();
   const foods = foodChoices[optionName] ? foodChoices[optionName] : [];
-  const orderReceiptDetails: OrderReceiptManagerDetails ={
-    removeItem: removeItem,
-    cancelOrder: cancelOrder,
-    order: {
-      id: `${orderNumber}`,
-  items: orderAddedItems,
-  status: "new",
-  total: 0,
-  timePlaced: "",
-    }
-  }
-
   return (
     <div className={styles["restaurant-components-main-container"]}>
       <div className={styles["restaurant-sub-menu-container"]}>
@@ -114,8 +83,7 @@ export default function MenuManagementContainer() {
               return (
                 <MenuItem
                   key={index}
-                  addedToOrder={false}
-                  addItem={updateOrder}
+                  addedToOrder={false}                  
                   name={formattedItem}
                   price={index * 10}
                   picture="https://i.imgur.com/D4qu3pD.png"
@@ -125,9 +93,6 @@ export default function MenuManagementContainer() {
           </div>
         </div>
       )}
-
-      {orderAddedItems.length > 0 &&
-       (<OrderReceiptManager {...orderReceiptDetails} />)}
     </div>
   );
 }

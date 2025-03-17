@@ -4,7 +4,6 @@ import IngredientInventoryContainer from '@/components/IngredientInventoryContai
 export default function InventoryTrackerPage() {
   return (
     <div className="main-container">
-
       <IngredientInventoryContainer />
     </div>
   )

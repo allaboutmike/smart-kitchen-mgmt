@@ -7,7 +7,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 1},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Regular_Queenwhich_Meal_krriil.png"
+    },   
     create: {
       name: "Regular Queenwhich Meal",
       price: 2.70,
@@ -21,7 +23,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Spicy Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 2},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Spicy_Queenwhich_Meal_r0zkea.png"
+    },
     create: {
       name: "Spicy Queenwhich Meal",
       price: 2.95,
@@ -35,7 +39,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Grilled Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 3},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Grilled_Queenwhich_Meal_adshws.png"
+    },   
     create: {
       name: "Grilled Queenwhich Meal",
       price: 3.25,
@@ -49,7 +55,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 4},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Deluxe_Regular_Queenwhich_coyalb.png"
+    },   
     create: {
       name: "Deluxe Regular Queenwhich Meal",
       price: 5.38,
@@ -63,7 +71,9 @@ async function main() {
 // Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 5},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Deluxe_Spicy_Queenwhich_cvk6hz.png"
+    },   
     create: {
       name: "Deluxe Spicy Queenwhich Meal",
       price: 5.65,
@@ -77,7 +87,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwhich Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 6},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Deluxe_Grilled_Queenwhich_lruu3r.png"
+    },   
     create: {
       name: "Deluxe Grilled Queenwhich Meal",
       price: 5.84,
@@ -88,10 +100,12 @@ async function main() {
       isPopular: false
     }
   })
-  // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (4 Piece) data
-  await prisma.menuitems.upsert({
+   // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (4 Piece) data
+   await prisma.menuitems.upsert({
     where: {menuitemid: 7},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Royal_Nuggets_Meal_4_pc_or_8_pc_ojxhia.png"
+    },   
     create: {
       name: "Royal Nuggets Meal (4 Piece)",
       price: 2.34,
@@ -99,13 +113,17 @@ async function main() {
       createdat: new Date(),
       updatedat: new Date(),
       category: "Meals",
-      isPopular: false
+      isPopular: false,
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Royal_Nuggets_Meal_4_pc_or_8_pc_ojxhia.png"
     }
   })
+
   // Checks db for existing data and if not found, seeds the db with the Royal Nuggets Meal (8 Piece) data
   await prisma.menuitems.upsert({
     where: {menuitemid: 8},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Royal_Nuggets_Meal_4_pc_or_8_pc_ojxhia.png"
+    },   
     create: {
       name: "Royal Nuggets Meal (8 Piece)",
       price: 3.90,
@@ -113,13 +131,16 @@ async function main() {
       createdat: new Date(),
       updatedat: new Date(),
       category: "Meals",
-      isPopular: true
+      isPopular: true,
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Royal_Nuggets_Meal_4_pc_or_8_pc_ojxhia.png"
     }
   })
 // Checks db for existing data and if not found, seeds the db with the Kids Royal Nuggets Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 9},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Kids_Royal_Nuggets_Meal_ibewwv.png"
+    },   
     create: {
       name: "Kids Royal Nuggets Meal",
       price: 1.82,
@@ -133,7 +154,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Kids Salad Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 10},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Kids_Salad_Meal_cwelx4.png"
+    },    
     create: {
       name: "Kids Salad Meal",
       price: 2.41,
@@ -147,7 +170,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 11},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Deluxe_Garden_Salad_Meal_zvhz10.png"
+    },    
     create: {
       name: "Deluxe Garden Salad Meal",
       price: 5.87,
@@ -161,7 +186,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad Meal data
   await prisma.menuitems.upsert({
     where: {menuitemid: 12},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950866/Deluxe_Crispy_Garden_Salad_Meal_eeul5v.png"
+    },   
     create: {
       name: "Deluxe Crispy Garden Salad Meal",
       price: 5.41,
@@ -175,7 +202,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Regular Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 13},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950884/Regular_Queenwhich_unyain.png"
+    },   
     create: {
       name: "Regular Queenwhich",
       price: 1.94,
@@ -189,7 +218,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Spicy Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 14},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950884/Spicy_Queenwhich_tg1vwo.png"
+    },   
     create: {
       name: "Spicy Queenwhich",
       price: 2.20,
@@ -203,7 +234,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Grilled Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 15},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950883/Grilled_Queenwhich_xugf2f.png"
+    },   
     create: {
       name: "Grilled Queenwhich",
       price: 2.40,
@@ -217,7 +250,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Regular Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 16},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950882/Deluxe_Regular_Queenwhich_hoiqpk.png"
+    },   
     create: {
       name: "Deluxe Regular Queenwhich",
       price: 4.40,
@@ -231,7 +266,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Spicy Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 17},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950882/Deluxe_Spicy_Queenwhich_spzpdp.png"
+    },   
     create: {
       name: "Deluxe Spicy Queenwhich",
       price: 4.66,
@@ -245,7 +282,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Grilled Queenwhich data
   await prisma.menuitems.upsert({
     where: {menuitemid: 18},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950881/Deluxe_Grilled_Queenwhich_csc4g1.png"
+    },   
     create: {
       name: "Deluxe Grilled Queenwhich",
       price: 4.85,
@@ -259,7 +298,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Royal Nuggets (4 Piece) data
   await prisma.menuitems.upsert({
     where: {menuitemid: 19},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950880/Count_Danny_Fried_Chicken_Strips_jevpvv.png"
+    },   
     create: {
       name: "Royal Nuggets (4 Piece)",
       price: 1.59,
@@ -273,7 +314,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Royal Nuggets (8 Piece) data
   await prisma.menuitems.upsert({
     where: {menuitemid: 20},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950879/8_pc_Royal_Nuggets_uqeg56.png"
+    },   
     create: {
       name: "Royal Nuggets (8 Piece)",
       price: 3.15,
@@ -287,7 +330,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Count Danny Fried Chicken Strips data
   await prisma.menuitems.upsert({
     where: {menuitemid: 21},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950880/Count_Danny_Fried_Chicken_Strips_jevpvv.png"
+    },   
     create: {
       name: "Count Danny Fried Chicken Strips",
       price: 2.63,
@@ -301,7 +346,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Garden Salad data
   await prisma.menuitems.upsert({
     where: {menuitemid: 22},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950881/Deluxe_Garden_Salad_t1xc2y.png"
+    },   
     create: {
       name: "Deluxe Garden Salad",
       price: 5.35,
@@ -315,7 +362,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Crispy Garden Salad
   await prisma.menuitems.upsert({
     where: {menuitemid: 23},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950881/Deluxe_Crispy_Garden_Salad_cg2zvk.png"
+    },   
     create: {
       name: "Deluxe Crispy Garden Salad",
       price: 4.89,
@@ -329,7 +378,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Fries data
   await prisma.menuitems.upsert({
     where: {menuitemid: 24},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950882/Fries_px5zo6.png"
+    },   
     create: {
       name: "Fries",
       price: 0.24,
@@ -343,7 +394,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Deluxe Fries data
   await prisma.menuitems.upsert({
     where: {menuitemid: 25},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950882/Fries_px5zo6.png"
+    },   
     create: {
       name: "Deluxe Fries",
       price: 0.47,
@@ -357,7 +410,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Garden Side Salad data
   await prisma.menuitems.upsert({
     where: {menuitemid: 26},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950883/Garden_Side_Salad_j6uubr.png"
+    },   
     create: {
       name: "Garden Side Salad",
       price: 1.76,
@@ -371,7 +426,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Caesar Side Salad data
   await prisma.menuitems.upsert({
     where: {menuitemid: 27},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950880/Caesar_Side_Salad_tzppyb.png"
+    },   
     create: {
       name: "Caesar Side Salad",
       price: 1.79,
@@ -385,7 +442,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Apple Slices data
   await prisma.menuitems.upsert({
     where: {menuitemid: 28},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950879/Apple_Slices_cg2anw.png"
+    },   
     create: {
       name: "Apple Slices",
       price: 0.59,
@@ -399,7 +458,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Plain Bag O' Chips data
   await prisma.menuitems.upsert({
     where: {menuitemid: 29},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950883/Plain_Bag_o_Chips_puiwul.png"
+    },   
     create: {
       name: "Plain Bag O' Chips",
       price: 0.04,
@@ -413,7 +474,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Bottled Water data
   await prisma.menuitems.upsert({
     where: {menuitemid: 30},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950880/Bottled_Water_m6v8ub.png"
+    },   
     create: {
       name: "Bottled Water",
       price: 0.07,
@@ -427,7 +490,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Bubbly Water data
   await prisma.menuitems.upsert({
     where: {menuitemid: 31},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950880/Bubbly_Water_lh7i6d.png"
+    },   
     create: {
       name: "Bubbly Water",
       price: 0.40,
@@ -441,7 +506,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Sweet Iced Tea data
   await prisma.menuitems.upsert({
     where: {menuitemid: 32},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950885/Sweet_Iced_Tea_ahyj9n.png"
+    },   
     create: {
       name: "Sweet Iced Tea",
       price: 0.56,
@@ -455,7 +522,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Unsweetened Iced Tea data
   await prisma.menuitems.upsert({
     where: {menuitemid: 33},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950885/Sweet_Iced_Tea_ahyj9n.png"
+    },   
     create: {
       name: "Unsweetened Iced Tea",
       price: 0.56,
@@ -469,7 +538,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Apple Juice data
   await prisma.menuitems.upsert({
     where: {menuitemid: 34},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950879/Apple_Juice_wdhoar.png"
+    },   
     create: {
       name: "Apple Juice",
       price: 0.65,
@@ -483,7 +554,9 @@ async function main() {
   // Checks db for existing data and if not found, seeds the db with the Strawberry Milk data
   await prisma.menuitems.upsert({
     where: {menuitemid: 35},
-    update: {},   
+    update: {
+      pictureUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1741950884/Strawberry_Milk_bqlvpq.png"
+    },   
     create: {
       name: "Strawberry Milk",
       price: 0.78,
