@@ -1,5 +1,5 @@
 .interactable-order-item {
-    @apply grid text-[1.4rem] grid-rows-2 p-[10px] outline-[1px] outline-[black] rounded-[15px] w-[95%];
+    @apply grid text-[1.4rem] grid-rows-2 p-[10px] outline-[1px] outline-[black] h-[100px] rounded-[15px] w-[95%];
     outline: solid 2px var(--foreground);
 
     .remove-and-price-group {

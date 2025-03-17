@@ -12,6 +12,7 @@ export type Order = {
   timePlaced: string;
   ordertimestamp: string;
   completedTimeStamp: string | null;
+  toggleOrderDetails?: ()=> void;
 };
 export type AddedItem = {
   price: number;
@@ -64,11 +65,11 @@ export default function OrderReceiptManager(orderDetails: Order) {
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
       <button onClick={() => toggleOrderStatus()}>toggle order status</button>
       <div>{orderStatus ? "completed" : "In Progress"}</div>
-
+      <span className={`${styles["order-details-container-bg"]}`}></span>
       <div className={styles["order-header-group"]}>
         <span className="flex justify-between align-center">
           <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>
-          {orderDetails.completed && <OrderStatusNotifier orderComplete={orderDetails.completed} />}
+          {!orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
         </span>
         <span className={styles["line-separator"]}></span>
       </div>

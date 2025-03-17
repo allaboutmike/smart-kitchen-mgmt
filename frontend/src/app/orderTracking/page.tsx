@@ -7,11 +7,13 @@ import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
 import { SelectionObject } from "@/components/SelectionObject";
 
 export default function OrderTrackingPage() {
-  const { currentSelection, isCurrentSelection, setCurrentSelection } = useSelection()
-  let fetchString = "/orders?"
-  if (!isCurrentSelection("none")) {
+
+  const {currentSelection, isCurrentSelection, setCurrentSelection} =useSelection()
+  
+  let fetchString = "orders?"
+  if(!isCurrentSelection("none")){
     const showCompletedOrders = isCurrentSelection("Completed Orders")
-    fetchString = `/orders?completed=${showCompletedOrders}&orderItemsDetails=true`
+    fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
   const selObject: SelectionObject = {
@@ -23,15 +25,15 @@ export default function OrderTrackingPage() {
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject} />
       <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]`} >
-        {currentSelection != "none" && data && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
+          {data && isCurrentSelection("Current Orders") && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
            gap-[1rem] carousel-start w-full scroll-smooth outline`}>
-          {
-            (data?.orders && data.orders.length) &&
-            data?.orders.map((order) => {
-              return <OrderReceiptManager key={order.orderid} {...order} />
-            })
-          }
-        </div>}
+            {
+              (data?.orders && data.orders.length) &&
+                data?.orders.map((order)=>{
+                  return <OrderReceiptManager key={order.orderid} {...order} />
+                })
+            }
+          </div>}      
       </div>
     </div>
   );
