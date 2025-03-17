@@ -11,6 +11,7 @@ export type Order = {
   timePlaced: string;
   ordertimestamp: string;
   completedTimeStamp: string | null;
+  toggleOrderDetails?: ()=> void;
 };
 export type AddedItem = {
   price: number;
@@ -51,6 +52,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
   const timeStamp = orderDetails.ordertimestamp? new Date(orderDetails.ordertimestamp): "";
   return (
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
+      <span className={`${styles["order-details-container-bg"]}`}></span>
       <div className={styles["order-header-group"]}>
         <span className="flex justify-between align-center">
           <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>

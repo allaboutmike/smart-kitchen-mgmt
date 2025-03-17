@@ -6,7 +6,10 @@ export default function OrderDetailsScreen(orderDetails: Order) {
   return (
     <dialog className={styles["order-details-container"]}>
       <h1 className={styles["order-details-title"]}>OrderDetails</h1>
-      <button className={styles["exit-button"]}>Exit</button>
+      <button className={styles["exit-button"]} onClick={()=> {
+        if(orderDetails.toggleOrderDetails !== undefined) orderDetails.toggleOrderDetails()
+        }
+      }>Exit</button>
       <span className="flex gap-[1rem] mt-[40px] justify-center">        
         <span className={styles["full-order-details-container"]}>
           <span className={styles["order-details-header"]}>
@@ -15,7 +18,7 @@ export default function OrderDetailsScreen(orderDetails: Order) {
             <span>Order Date</span>
           </span>
           <span className={styles["items-list-container"]}>
-            {orderDetails.orderitems.map((elem, index)=>{
+            {orderDetails.orderitems && orderDetails?.orderitems.map((elem, index)=>{
                 return(
                     <ul key={index}>
                         <li>Order Name {elem.menuitems.name}</li>
@@ -49,7 +52,9 @@ export default function OrderDetailsScreen(orderDetails: Order) {
               Mark Refunded / Dissatisfied
             </button>
           </span>
-          <button className="btn w-[max-content] bg-[--foreground] border-none text-white">
+          <button className="btn w-[max-content] bg-[--foreground] border-none text-white"
+            onClick={()=> window.print()}
+          >
             Print Receipt
           </button>
         </span>

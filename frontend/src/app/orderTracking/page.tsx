@@ -8,6 +8,7 @@ import { SelectionObject } from "@/components/SelectionObject";
 
 export default function OrderTrackingPage() {
   const {currentSelection, isCurrentSelection, setCurrentSelection} =useSelection()
+  
   let fetchString = "api/orders?"
   if(!isCurrentSelection("none")){
     const showCompletedOrders = isCurrentSelection("Completed Orders")
@@ -22,7 +23,7 @@ export default function OrderTrackingPage() {
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject}/>
       <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]`} >
-          {currentSelection != "none" && data && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
+          {data && isCurrentSelection("Current Orders") && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
            gap-[1rem] carousel-start w-full scroll-smooth outline`}>
             {
               (data?.orders && data.orders.length) &&
@@ -30,7 +31,7 @@ export default function OrderTrackingPage() {
                   return <OrderReceiptManager key={order.orderid} {...order} />
                 })
             }
-          </div>  }      
+          </div>}      
       </div>
     </div>
   );

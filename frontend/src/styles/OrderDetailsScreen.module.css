@@ -1,19 +1,13 @@
-.order-details-container::before{
-    @apply bg-[#ffffff91];
+.order-details-container-bg{
+    @apply bg-[#ffffff91] fixed w-full h-full;
     content: "";
-    position: fixed;
-    inset: 0;
     backdrop-filter: blur(10px);
-    color: #ffffff91;
-    z-index: -10;
  }
 .order-details-container{
-    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline;
+    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline translate-y-[50%];
     @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center;    
-    z-index: 100;
+    z-index: 1000;
 }
-
-
 .order-details-title{
     @apply flex self-center text-[1.6rem] font-semibold;
     grid-area: order-details-title;
