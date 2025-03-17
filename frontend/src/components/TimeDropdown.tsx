@@ -16,12 +16,12 @@ const orderTimeFrames = [
 const now = new Date();
 const timeRanges = new Map(
   Object.entries({
-    "Last Hour": new Date(now.getTime() - 1 * 60 * 60 * 1000), // 1 hour ago
-    "Last 12 Hours": new Date(now.getTime() - 12 * 60 * 60 * 1000), // 12 hours ago
-    "Yesterday": new Date(now.getTime() - 24 * 60 * 60 * 1000), // 24 hours ago
-    "Last 7 Days": new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
-    "Last 30 Days": new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000), // 30 days ago
-    "All": new Date(0), // All-time (epoch start)
+    "Last Hour": new Date(now.getTime() - 1 * 60 * 60 * 1000),
+    "Last 12 Hours": new Date(now.getTime() - 12 * 60 * 60 * 1000),
+    Yesterday: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+    "Last 7 Days": new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+    "Last 30 Days": new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000),
+    All: new Date(0),
   })
 );
 
@@ -30,16 +30,18 @@ function filterByDate(timeRange: string, orderData: Order[]) {
   const filtered = orderData.filter((order) => {
     return new Date(order.ordertimestamp).getTime() > timeFilter.getTime();
   });
-  return filtered;
+  return filtered.sort(
+    (a, b) =>
+      new Date(b.ordertimestamp).getTime() -
+      new Date(a.ordertimestamp).getTime()
+  );
 }
 
 export default function TimeDropdown() {
-  // TODO: ADD ACCORDION LOGIC TO DROPDOWNS
   const { data } = useFetch<{ orders: Order[] }>(
     "/orders?completed=true&orderItemsDetails=true"
   );
   const [currentIndex, setCurrentIndex] = useState(-1);
-  console.log("data:", data?.orders);
   const orders = data?.orders;
 
   const formatDate = (dateString: Date | "") => {
@@ -54,17 +56,19 @@ export default function TimeDropdown() {
   };
 
   return (
-    <>
       <div className="dropdown-container">
         Completed Orders
-        {orderTimeFrames.map((timeFrame: string, index) => {
+              {orderTimeFrames.map((timeFrame: string, index) => {
+            const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
           return (
             <table key={index}>
               <thead>
                 <tr>
                   <th
                     onClick={() => {
-                      setCurrentIndex((prevIndex) => prevIndex !== index ? index : -1);
+                      setCurrentIndex((prevIndex) =>
+                        prevIndex !== index ? index : -1
+                      );
                     }}
                     className="toggle-trigger"
                   >
@@ -73,21 +77,13 @@ export default function TimeDropdown() {
                 </tr>
               </thead>
               <tbody>
-                {orders &&
-                    filterByDate(timeFrame, orders)// -> [order1, order2]
-                    //if orders.count != 0 { }       else { emptyState }
-                    .sort(
-                      (a, b) =>
-                        new Date(b.ordertimestamp).getTime() - new Date(a.ordertimestamp).getTime()
-                    )
-                    .map((order: Order, orderIndex) => {
+                {filteredOrders &&
+                  filteredOrders.map((order: Order, orderIndex) => {
                       return (
                         <tr
                           key={orderIndex}
                           className={`order-data ${
-                            currentIndex === index
-                              ? "visible"
-                              : "hidden"
+                            currentIndex === index ? "visible" : "hidden"
                           }`}
                         >
                           <td>{formatDate(new Date(order.ordertimestamp))}</td>
@@ -120,11 +116,15 @@ export default function TimeDropdown() {
                         </tr>
                       );
                     })}
+                {index === currentIndex && !filteredOrders.length &&
+                    <tr>
+                      <td>No orders to display.</td>
+                    </tr>
+                  }
               </tbody>
             </table>
           );
         })}
       </div>
-    </>
   );
 }
