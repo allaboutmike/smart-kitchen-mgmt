@@ -9,10 +9,10 @@ import { SelectionObject } from "@/components/SelectionObject";
 export default function OrderTrackingPage() {
   const {currentSelection, isCurrentSelection, setCurrentSelection} =useSelection()
   
-  let fetchString = "api/orders?"
+  let fetchString = "orders?"
   if(!isCurrentSelection("none")){
     const showCompletedOrders = isCurrentSelection("Completed Orders")
-    fetchString = `api/orders?completed=${showCompletedOrders}&orderItemsDetails=true`
+    fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
   const selObject: SelectionObject={ setCurrentSelection: setCurrentSelection,
