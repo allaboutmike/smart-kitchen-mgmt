@@ -1,5 +1,5 @@
 .current-order-items-manager {
-    @apply flex flex-col w-[400px] gap-[1rem] p-[40px] rounded-[8px] bg-white justify-between;
+    @apply flex flex-col w-[400px] gap-[1rem] p-[40px] rounded-[8px] bg-white ;
     box-shadow: 0 0 4px 4px var(--drop-shadow-color);
 }
 .order-header-group {
@@ -12,11 +12,11 @@
     @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
 }
 .order-items-container {
-    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll max-h-[300px] max-w-[100%];
+    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll h-[300px] max-w-[100%];
     justify-items: center;
 }
 .order-total-container {
-    @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px];
+    @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px] justify-self-end;
 }
 .order-total-group {
     @apply flex content-center w-full justify-between text-[2rem] text-black my-[10px];

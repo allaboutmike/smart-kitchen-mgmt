@@ -1,3 +1,58 @@
+.order-details-container-bg{
+    @apply bg-[#ffffff91] fixed w-full h-full;
+    content: "";
+    backdrop-filter: blur(10px);
+ }
 .order-details-container{
-    @apply fixed w-[80%] bg-white rounded-[8px];
+    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline translate-y-[50%];
+    @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center;    
+    z-index: 1000;
+}
+.order-details-title{
+    @apply flex self-center text-[1.6rem] font-semibold;
+    grid-area: order-details-title;
+}
+
+.exit-button{
+    @apply btn top-[10px];
+    @apply border-none bg-[--custom-active-red-color] rounded-[4px] text-white absolute right-[20px];
+    grid-area: exit-button;    
+}
+
+.modify-order-container{
+    h2{ @apply text-[1.2rem] font-semibold;}
+    @apply flex items-center gap-[40px] flex-col justify-center outline w-[400px] rounded-[10px] p-[20px];
+}
+
+.full-order-details-container{
+    @apply flex flex-col max-w-[50%] gap-y-[0.4rem] max-h-[500px] overflow-y-auto;
+}
+.full-order-details-container > * :is(:not(.items-list-container)){
+    @apply grid gap-y-[0.2rem]; 
+}
+.message-and-payment-method-container{
+    @apply grid gap-y-[0.1rem]; 
+}
+.message-and-payment-method-container > :first-child, .order-details-header > :first-child{
+    @apply font-semibold;
+}
+
+.current-state-container{
+    @apply flex flex-col justify-center w-[max-content] text-center;
+}
+
+.order-details-header{
+    @apply flex flex-col gap-[4px];
+}
+
+.items-list-container{
+    @apply flex gap-y-[10px] mx-[10px] py-[10px] my-[20px] rounded-[4px] p-[10px] flex-col h-[400px] overflow-y-auto outline;
+}
+
+.items-list-container li{
+    @apply pl-[5px] border-b-4;
+}
+
+.items-list-container ul{
+    @apply list-disc;
 }
