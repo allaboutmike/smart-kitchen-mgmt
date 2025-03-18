@@ -1,3 +1,10 @@
-export default function Home() {
-  return <div className="main-container">Home</div>;
+import React from "react";
+import RestaurantDashboard from "@/components/HomePage";
+
+export default function Home(): React.ReactElement {
+  return (
+    <div className="main-page">
+      <RestaurantDashboard />
+    </div>
+  );
 }

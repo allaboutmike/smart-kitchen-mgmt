@@ -34,3 +34,8 @@ button {
   @apply hover:cursor-pointer;
   transition: all 0.14s ease-in-out;
 }
+
+.main-page {
+  @apply flex justify-center pl-[120px] items-center flex-col;
+  @apply tablet:pl-[0] mobile:pl-[0];
+}
