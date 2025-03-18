@@ -11,7 +11,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
   const oDetails = orderDetails.order
   return (
     <dialog className={styles["order-details-container"]}>
-      <h1 className={styles["order-details-title"]}>OrderDetails</h1>
+      <h1 className={styles["order-details-title"]}>Order Details</h1>
       <button className={styles["exit-button"]} onClick={()=> {
         if (oDetails?.toggleOrderDetails !== undefined) {
           oDetails.toggleOrderDetails()
@@ -38,7 +38,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
           </span>
           <span className={styles["purchase-cost-details"]}>
             <span>Subtotal: ............$20.00</span>
-            <span>Taxt: ............$6.00</span>
+            <span>Tax: ............$6.00</span>
             <span>Total: ............$26.00</span>
           </span>
           <span className={styles["message-and-payment-method-container"]}>
