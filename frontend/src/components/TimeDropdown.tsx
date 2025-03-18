@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useFetch } from "@/customHooks/useFetch";
 import { Order } from "@/components/OrderReceiptManager";
-import OrderDetailsScreen from "./OrderDetailsScreen";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -37,12 +35,14 @@ function filterByDate(timeRange: string, orderData: Order[]) {
   );
 }
 
-export default function TimeDropdown() {
-  const { data } = useFetch<{ orders: Order[] }>(
-    "/orders?completed=true&orderItemsDetails=true"
-  );
+export interface TimeDropdownProps {
+  orders: Order[] | undefined;
+  setOrderDetails: (order: Order) => void;
+}
+
+export default function TimeDropdown(orderData: TimeDropdownProps) {
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const orders = data?.orders;
+  const orders = orderData?.orders;
 
   const formatDate = (dateString: Date | "") => {
     if (dateString) {
@@ -56,75 +56,76 @@ export default function TimeDropdown() {
   };
 
   return (
-      <div className="dropdown-container">
-        Completed Orders
-              {orderTimeFrames.map((timeFrame: string, index) => {
-            const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
-          return (
-            <table key={index}>
-              <thead>
-                <tr>
-                  <th
-                    onClick={() => {
-                      setCurrentIndex((prevIndex) =>
-                        prevIndex !== index ? index : -1
-                      );
-                    }}
-                    className="toggle-trigger"
-                  >
-                    {timeFrame}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredOrders &&
-                  filteredOrders.map((order: Order, orderIndex) => {
-                      return (
-                        <tr
-                          key={orderIndex}
-                          className={`order-data ${
-                            currentIndex === index ? "visible" : "hidden"
-                          }`}
-                        >
-                          <td>{formatDate(new Date(order.ordertimestamp))}</td>
-                          <td>
-                            {order.orderitems
-                              .reduce(
-                                (prev, curr) =>
-                                  prev +
-                                  parseFloat(curr.menuitems.price.toString()),
-                                0
-                              )
-                              .toLocaleString("en-US", {
-                                style: "currency",
-                                currency: "USD",
-                              })}
-                          </td>
-                          <td>
-                            {order.orderitems.some(
-                              (item) => item.returned === true
+    <div className="dropdown-container">
+      Completed Orders
+      {orderTimeFrames.map((timeFrame: string, index) => {
+        const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
+        return (
+          <table key={index}>
+            <thead>
+              <tr>
+                <th
+                  onClick={() => {
+                    setCurrentIndex((prevIndex) =>
+                      prevIndex !== index ? index : -1
+                    );
+                  }}
+                  className="toggle-trigger"
+                >
+                  {timeFrame}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredOrders &&
+                filteredOrders.map((order: Order, orderIndex) => {
+                  return (
+                    <tr
+                      key={orderIndex}
+                      className={`order-data ${
+                        currentIndex === index ? "visible" : "hidden"
+                      }`}
+                    >
+                      <td>{formatDate(new Date(order.ordertimestamp))}</td>
+                      <td>
+                        {(order.orderitems ?? []) // ?? means if the left comes back null or undefined, then use the value on the right. Also applies on line 103.
+                          .reduce(
+                            (prev, curr) =>
+                              prev + Number(curr.menuitems?.price ?? 0),
+                            0
+                          )
+                          .toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                      </td>
+                      <td>
+                            {(order.orderitems ?? []).some(
+                              (item) => item?.returned === true
                             )
                               ? "ITEMS RETURNED"
                               : "NO RETURNS"}
                           </td>
-                          <td>ID: {order.orderid}</td>
-                          <td>
-                            <button onClick={() => <OrderDetailsScreen />}>
-                              View Details
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                {index === currentIndex && !filteredOrders.length &&
-                    <tr>
-                      <td>No orders to display.</td>
+                      <td>ID: {order.orderid}</td>
+                      <td>
+                        <button
+                          onClick={() => orderData.setOrderDetails(order)} // Ask Gilbert about the modal not appearing
+                        >
+                          View Details
+                        </button>
+                      </td>
                     </tr>
-                  }
-              </tbody>
-            </table>
-          );
-        })}
-      </div>
+                  );
+                })}
+              {index === currentIndex && !filteredOrders.length && (
+                <tr>
+                  <td>No orders to display.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        );
+      })}
+    </div>
   );
 }
