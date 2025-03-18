@@ -48,7 +48,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
           </span>
         </span>
         <span className={styles["modify-order-container"]}>
-          <h2>Modify Order</h2>
+          <h2 className={styles["modify-order-button"]}>Modify Order</h2>
           <span className={styles["current-state-container"]}>
             <span>Current State: </span>
             <button className="btn bg-[--foreground] border-none text-white">
