@@ -7,6 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+model expenses {
+  expenseid   Int       @id @default(autoincrement())
+  stock       stock     @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_expenses_stockid")
+  stockid     Int       @unique
+  amount      Decimal   @db.Decimal(12, 2)
+  expensedate DateTime? @default(now()) @db.Timestamptz(6)
+}
+
 model employees {
   employeeid     Int              @id @default(autoincrement())
   employeerole   String?
@@ -62,7 +71,7 @@ model menuitems {
   updatedat           DateTime?             @default(now()) @db.Timestamptz(6)
   category            menuItemCategory
   isPopular           Boolean               @default(false)
-  pictureUrl          String?              @db.VarChar(500)
+  pictureUrl          String?               @db.VarChar(500)
   menuitemingredients menuitemingredients[]
   orderitems          orderitems[]
 }
@@ -92,18 +101,6 @@ model shifts {
   starttime       DateTime?         @db.Timestamptz(6)
   endtime         DateTime?         @db.Timestamptz(6)
   employeeshifts  employeeshifts[]
-  shiftstockusage shiftstockusage[]
-}
-
-model shiftstockusage {
-  shiftid    Int
-  stockid    Int
-  quantity   Int
-  recordedat DateTime? @default(now()) @db.Timestamptz(6)
-  shifts     shifts    @relation(fields: [shiftid], references: [shiftid], onDelete: NoAction, onUpdate: NoAction, map: "fk_shiftstockusage_shiftid")
-  stock      stock     @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_shiftstockusage_stockid")
-
-  @@id([shiftid, stockid])
 }
 
 model stock {
@@ -114,9 +111,9 @@ model stock {
   receivedtimestamp DateTime?         @default(now()) @db.Timestamptz(6)
   cost              Decimal           @db.Decimal(10, 2)
   isexpired         Boolean           @default(false)
-  shiftstockusage   shiftstockusage[]
   ingredients       ingredients       @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredient")
   waste             waste[]
+  expenses          expenses?
 }
 
 model waste {
