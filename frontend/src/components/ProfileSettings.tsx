@@ -7,7 +7,6 @@ import Chicken from '../../assets/fashion-chicken.png';
 
 const ProfileSettings: React.FC = () => {
   // Mock data for the profile - using a ref instead since we're not updating it
-  // This avoids the 'setProfile is assigned a value but never used' error
   const [profile] = useState({
     accountNumber: 'A802JDJKH20978D',
     name: 'Chicken Queen',
@@ -128,9 +127,9 @@ const ProfileSettings: React.FC = () => {
         <div className="bg-white rounded-lg shadow-sm p-4 sm:p-6">
           <h2 className="text-lg sm:text-xl font-bold text-blue-500 mb-3 sm:mb-4">Need Assistance?</h2>
           
-          {/* Flex container with responsive layout */}
+          {/* Flex container */}
           <div className="flex flex-col-reverse md:flex-row">
-            {/* Right half - Info section (appears on top on mobile) */}
+            {/* Right half */}
             <div className="w-full md:w-1/2 md:pl-4 mt-4 md:mt-0">
               <h3 className="font-bold text-gray-700 mb-2 text-sm md:text-base">Your Customer Support Rep</h3>
               <p className="mb-1 text-xs sm:text-sm md:text-base">{profile.customerSupportRep.name}</p>
@@ -141,7 +140,7 @@ const ProfileSettings: React.FC = () => {
               </button>
             </div>
             
-            {/* Left half - Image section (appears on bottom on mobile) */}
+            {/* Left half */}
             <div className="w-full md:w-1/2 md:border-r md:border-gray-200 flex justify-center md:justify-end">
               <div className="w-32 h-32 bg-white flex items-center justify-center border border-gray-300 rounded-lg overflow-hidden">
                 <Image 
@@ -155,11 +154,6 @@ const ProfileSettings: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Last Updated Footer */}
-      <div className="text-right text-gray-500 text-xs sm:text-sm mt-auto">
-        <p>Last updated: March 18, 2025, 2:00 PM</p>
       </div>
     </div>
   );
