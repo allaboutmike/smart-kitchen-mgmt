@@ -1,5 +1,10 @@
+import React from "react";
+import ProfileSettings from "@/components/ProfileSettings";
+
 export default function SettingsPage() {
   return (
-    <div className="main-container">Settings</div>
+    <div className="main-page">
+      <ProfileSettings />
+    </div>
   );
 }
