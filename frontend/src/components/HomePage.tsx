@@ -27,6 +27,29 @@ const RestaurantDashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Function to get notification style based on severity
+  const getNotificationStyle = (severity: Notification['severity']): string => {
+    switch (severity) {
+      case 'critical':
+        return 'bg-red-50 border-l-4 border-red-500';
+      case 'warning':
+        return 'bg-yellow-50 border-l-4 border-yellow-500';
+      case 'success':
+        return 'bg-green-50 border-l-4 border-green-500';
+      case 'info':
+      default:
+        return 'bg-blue-50 border-l-4 border-blue-500';
+    }
+  };
+
+  // Helper function to check if an inventory notification is for low inventory
+  const isLowInventory = (notification: Notification): boolean => {
+    if (notification.type === 'inventory') {
+      return notification.severity === 'warning' || notification.severity === 'critical';
+    }
+    return false;
+  };
+
   // Simulate fetching notifications from backend
   useEffect(() => {
     const fetchNotifications = async (): Promise<void> => {
@@ -55,7 +78,8 @@ const RestaurantDashboard: React.FC = () => {
           setNotifications(data);
           setIsLoading(false);
         }, 500);
-      } catch (err) {
+      } catch {
+        // Error caught but not used
         setError('Failed to load notifications. Please try again later.');
         setIsLoading(false);
       }
@@ -74,42 +98,6 @@ const RestaurantDashboard: React.FC = () => {
     // In a real implementation, would navigate to order page or open modal
     console.log(`Placing order for ${item}`);
     // Example: router.push(`/inventory/order/${item.toLowerCase()}`);
-  };
-
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric'
-  });
-  
-  const formattedTime = currentDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit'
-  });
-
-  // Function to get notification style based on severity
-  const getNotificationStyle = (severity: Notification['severity']): string => {
-    switch (severity) {
-      case 'critical':
-        return 'bg-red-50 border-l-4 border-red-500';
-      case 'warning':
-        return 'bg-yellow-50 border-l-4 border-yellow-500';
-      case 'success':
-        return 'bg-green-50 border-l-4 border-green-500';
-      case 'info':
-      default:
-        return 'bg-blue-50 border-l-4 border-blue-500';
-    }
-  };
-
-  // Helper function to check if an inventory notification is for low inventory
-  const isLowInventory = (notification: Notification): boolean => {
-    if (notification.type === 'inventory') {
-      return notification.severity === 'warning' || notification.severity === 'critical';
-    }
-    return false;
   };
 
   return (
