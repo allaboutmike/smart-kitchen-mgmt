@@ -23,8 +23,6 @@ body {
 .main-container {
   @apply flex justify-center pl-[120px] items-center flex-col;
   @apply tablet:pl-[0] mobile:pl-[0];
-  @apply flex justify-center pl-[120px] items-center flex-col;
-  @apply tablet:pl-[0] mobile:pl-[0];
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
