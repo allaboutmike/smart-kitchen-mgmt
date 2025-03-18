@@ -4,7 +4,7 @@
     backdrop-filter: blur(10px);
  }
 .order-details-container{
-    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline translate-y-[50%];
+    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline;
     @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center;    
     z-index: 1000;
 }

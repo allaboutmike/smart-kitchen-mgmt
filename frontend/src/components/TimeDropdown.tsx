@@ -88,7 +88,7 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                     >
                       <td>{formatDate(new Date(order.ordertimestamp))}</td>
                       <td>
-                        {(order.orderitems ?? []) // ?? means if the left comes back null or undefined, then use the value on the right. Also applies on line 103.
+                        {(order.orderitems ?? [])
                           .reduce(
                             (prev, curr) =>
                               prev + Number(curr.menuitems?.price ?? 0),
@@ -111,8 +111,7 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                         <button
                                   onClick={() => {
                                       orderData.setOrderDetails(order)
-                                      console.log(orderData.setOrderDetails(order))
-                                  }} // Ask Gilbert about this getting undefined, tho it may be cuz it's a setter function
+                                  }}
                         >
                           View Details
                         </button>
