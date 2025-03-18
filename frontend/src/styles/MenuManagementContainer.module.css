@@ -6,7 +6,7 @@
 .restaurant-components-main-container {@apply flex flex-col items-center;}
 .restaurant-main-food-menu-container {@apply mb-[4rem];}
 .restaurant-sub-menu-container {
-    @apply grid gap-2 grid-cols-4 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
+    @apply grid gap-2 grid-cols-3 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
     @apply tablet:p-[10px] tablet:w-[90dvw];
     @apply mobile:grid-cols-2 mobile:w-[90dvw];
     box-shadow: var(--sellers-container-drop-shadow);
