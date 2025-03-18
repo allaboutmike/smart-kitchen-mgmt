@@ -109,7 +109,10 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                       <td>ID: {order.orderid}</td>
                       <td>
                         <button
-                          onClick={() => orderData.setOrderDetails(order)} // Ask Gilbert about the modal not appearing
+                                  onClick={() => {
+                                      orderData.setOrderDetails(order)
+                                      console.log(orderData.setOrderDetails(order))
+                                  }} // Ask Gilbert about this getting undefined, tho it may be cuz it's a setter function
                         >
                           View Details
                         </button>
