@@ -39,7 +39,7 @@ export interface OrderDetails {
   order: Order;
 }
 export default function OrderReceiptManager(orderDetails: Order) {
-  const { updateData } = useMutation("PUT", `/orders/${orderDetails.orderid}`);
+  const { updateData } = useMutation("PUT", `orders/${orderDetails.orderid}`);
   const [orderStatus, setOrderStatus] = React.useState(orderDetails.completed);
 
   const toggleOrderStatus = async () => {
