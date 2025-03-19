@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import ProfileSettings from "@/components/ProfileSettings";
 import StaffDirectory from "@/components/StaffDirectory";
+import KeyInventory from "@/components/KeyInventory";
 import NavigationTabs from "@/components/NavigationTabs";
 
 export default function SettingsPage() {
@@ -17,14 +18,7 @@ export default function SettingsPage() {
       case 'Staff and Team':
         return <StaffDirectory hideNavigation={true} />;
       case 'Key Inventory':
-        return (
-          <div className="px-4 pb-8">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Key Inventory</h1>
-            <div className="bg-white rounded-lg shadow-sm p-8">
-              <p>Key Inventory content will go here.</p>
-            </div>
-          </div>
-        );
+        return <KeyInventory hideNavigation={true} />;
       default:
         return <ProfileSettings hideNavigation={true} />;
     }
