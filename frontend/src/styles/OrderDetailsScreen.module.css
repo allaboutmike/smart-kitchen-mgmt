@@ -7,6 +7,7 @@
     @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline;
     @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center;    
     z-index: 1000;
+    top: 16%;
 }
 .order-details-title{
     @apply flex self-center text-[1.6rem] font-semibold;
