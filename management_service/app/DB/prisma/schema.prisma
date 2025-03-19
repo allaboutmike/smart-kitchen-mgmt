@@ -47,6 +47,7 @@ model ingredients {
   shelflife           Int
   category            ingredientCategory
   servingSize         String                @db.VarChar(255)
+  bulkOrderQuantity   Int                   @default(75)
   menuitemingredients menuitemingredients[]
   stock               stock[]
 }

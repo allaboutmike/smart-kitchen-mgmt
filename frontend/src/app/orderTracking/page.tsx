@@ -1,14 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import OrderTrackingMenu from "@/components/OrderTrackingMenu";
 import { useFetch } from "@/customHooks/useFetch";
 import useSelection from "@/customHooks/useSelection"
 import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
 import { SelectionObject } from "@/components/SelectionObject";
+import OrderDetailsScreen, { OrderDetails } from "@/components/OrderDetailsScreen";
+import TimeDropdown, { TimeDropdownProps } from "@/components/TimeDropdown";
 
 export default function OrderTrackingPage() {
-
-  const {currentSelection, isCurrentSelection, setCurrentSelection} =useSelection()
+  const { currentSelection, isCurrentSelection, setCurrentSelection } = useSelection()
   
   let fetchString = "orders?"
   if(!isCurrentSelection("none")){
@@ -20,7 +21,20 @@ export default function OrderTrackingPage() {
     setCurrentSelection: setCurrentSelection,
     isCurrentSelection: isCurrentSelection
   }
-  
+  const [currentOrderDetails, setCurrentOrderDetails] = useState<Order | null>(null)
+  const updateOrderDetails = (order: Order | null) => {
+    setCurrentOrderDetails(order)
+  }
+  const orderDetailsObj: OrderDetails = {
+    order: currentOrderDetails,
+    updateOrderDetailsScreen: updateOrderDetails
+  }
+
+  const completedOrders: TimeDropdownProps = {
+    orders: data?.orders,
+    setOrderDetails: setCurrentOrderDetails
+  }
+
   return (
     <div className="main-container">
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
@@ -34,8 +48,10 @@ export default function OrderTrackingPage() {
                   return <OrderReceiptManager key={order.orderid} {...order} />
                 })
             }
-          </div>}      
+        </div>} 
+        {data && isCurrentSelection("Completed Orders") && <TimeDropdown {...completedOrders} />}
       </div>
+      {currentOrderDetails && <OrderDetailsScreen {...orderDetailsObj} />}
     </div>
   );
 }
