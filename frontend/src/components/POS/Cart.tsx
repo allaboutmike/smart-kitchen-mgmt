@@ -1,6 +1,4 @@
 "use client"
-import { useContext } from "react";
-
 export interface CartContextType{
   cancelOrder: ()=> void;
 }
@@ -31,11 +29,10 @@ export interface ItemProps{
 }
 export default function Cart(orderInfo: CartInfo) {
   const cartTotalCost = orderInfo.items.reduce((prevVal, currVal)=> prevVal + currVal.foodPrice, 0).toFixed(2)
-  // const cartContext = useContext<CartContextType>()
   return (
-    <div className="flex flex-col px-[40px] gap-[1rem] py-[20px] rounded-[8px] w-[600px] bg-white h-[500px] outline">
+    <div className="flex flex-col px-[40px] gap-[1rem] py-[20px] rounded-[8px] max-w-[500px] min-w-[300px] bg-white h-[500px] outline">
       <span className="max-h-[fit-content] text-2xl">Order:#{orderInfo.orderid}</span>
-      <span className=" h-[200px] overflow-y-auto">
+      <span className="flex flex-col h-[200px] overflow-y-auto">
         {
             orderInfo.items?.map((item, index)=>{
                 const currItem: ItemProps={
@@ -62,9 +59,6 @@ export default function Cart(orderInfo: CartInfo) {
     </div>
   );
 }
-
-
-
 const ItemComponent=(itemInfo: ItemProps)=>{
     return(
         <span className="grid grid-rows-2 h-[100px]">

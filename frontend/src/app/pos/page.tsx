@@ -21,7 +21,7 @@ export default function POS() {
   const svgSize = 20
     console.table(menuItems)
   return (
-    <div className="main-container">
+    <div className="main-container pos-container">
         <button className="btn btn-square text-[--foreground] self-end mr-[20px] bg-[--background] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px]" onClick={()=> setIsCartVisible(prevVisibility=> !prevVisibility)}>
         <svg width={svgSize} height={svgSize} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 .75H1a1 1 0 0 0-1 1v.5a1 1 0 0 0 1 1h2.012l2.724 11.481A4.25 4.25 0 0 0 9.765 18h7.822a4 4 0 0 0 3.943-3.325l1.256-7.338A2 2 0 0 0 20.814 5H5.997l-.78-3.289A1.25 1.25 0 0 0 4 .75M10 21a2 2 0 1 1-4 0 2 2 0 0 1 4 0m11 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0" fill="currentColor"/></svg>
         </button>

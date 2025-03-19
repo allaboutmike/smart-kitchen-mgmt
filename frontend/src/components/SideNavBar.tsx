@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import {svgIcons} from "../app/svgIcons";
-import {useRouter} from 'next/navigation';
+import {useRouter, usePathname} from 'next/navigation';
 import useSelection from '@/customHooks/useSelection';
 import SelectableButton from './SelectableButton';
 import styles from '../styles/SideNavBar.module.css'
@@ -24,18 +24,22 @@ export default function SideNavBar() {
     svgIcons.inventory, svgIcons.productivity, svgIcons.settings]
   const buttonStyle = styles["side-nav-bar-button"]
   return (
-    <div className={styles["side-nav-bar"]}>      
-      {buttonNames.map((buttonName, buttonIndex)=>{
-         return <SelectableButton 
-            key={buttonIndex}
-            buttonClassName={buttonStyle} 
-            svgIcon={buttonIcons[buttonIndex]} 
-            selected={isCurrentSelection(buttonName)} 
-            setCurrentSelection={updateCurrentSelection} 
-            text={buttonName}
-          />
-        }
-      )}
-    </div>
+    
+      <>
+        { usePathname() !== "/pos" && <div className={styles["side-nav-bar"]}>      
+          {buttonNames.map((buttonName, buttonIndex)=>{
+            return <SelectableButton 
+                key={buttonIndex}
+                buttonClassName={buttonStyle} 
+                svgIcon={buttonIcons[buttonIndex]} 
+                selected={isCurrentSelection(buttonName)} 
+                setCurrentSelection={updateCurrentSelection} 
+                text={buttonName}
+              />
+            }
+          )}
+        </div>}
+      </>
+      
   )
 }
