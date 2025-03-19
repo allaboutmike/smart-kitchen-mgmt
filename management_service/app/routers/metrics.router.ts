@@ -50,41 +50,158 @@ metricsRouter.get("/waste", async (_, res: Response) => {
 // Will include other metrics later once identified 
 
 
-// Profit Tracking Router (Stretch Goal, currently using sample data)
-metricsRouter.get("/profit", (_, res: Response) => {
+// Productivity Tracking Router (Stretch Goal, currently using sample data)
+metricsRouter.get("/Productivity", async (_, res: Response) => {
   try{
     console.log("Retrieving Profit Metrics: ");
+    // Refreshing profit materialized view data
+    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_today;`;
+    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_seven_days;`;
+    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_one_year;`;
+    
+    const profitMetricsToday = await Db.$queryRaw`SELECT * FROM profit_view_today;`;
+    const profitMetricsSevenDays = await Db.$queryRaw`SELECT * FROM profit_view_seven_days;`;
+    const profitMetricsOneYear = await Db.$queryRaw`SELECT * FROM profit_view_one_year;`;
+
+    const successfulOrdersToday = await Db.orders.aggregate({
+      where: {
+        completed: true,
+        ordertimestamp: {
+          gte: new Date(new Date().setHours(0, 0, 0, 0)),
+          lt: new Date(new Date().setHours(23, 59, 59, 999)),
+        },
+      },
+      _count: {
+        completed: true,
+      },
+    })
+    const totalOrdersToday = await Db.orders.count({
+      where: {
+        ordertimestamp: {
+        gte: new Date(new Date().setHours(0, 0, 0, 0)),
+        lt: new Date(new Date().setHours(23, 59, 59, 999)),
+        },
+      },     
+    })
+    const successfulOrdersSevenDays = await Db.orders.aggregate({
+      where: {
+        completed: true,
+        ordertimestamp: {
+          gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+          lt: new Date(),
+        },
+      },
+      _count: {
+        completed: true,
+      },
+    })
+    const totalOrdersSevenDays = await Db.orders.count({
+      where: {
+        ordertimestamp: {
+          gte: new Date(new Date().setDate(new Date().getDate() - 7)),
+          lt: new Date(),
+        },
+      },
+    })
+    const successfulOrdersOneYear = await Db.orders.aggregate({
+      where: {
+        completed: true,
+        ordertimestamp: {
+          gte: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+          lt: new Date(),
+        },
+      },
+      _count: {
+        completed: true,
+      },
+    })
+    const totalOrdersOneYear = await Db.orders.count({
+      where: {
+        ordertimestamp: {
+          gte: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+          lt: new Date(),
+        },
+      },
+    })
+    const bestSellingItemToday = await Db.$queryRaw`
+      SELECT 
+	      menuitems.name
+      FROM
+      	orderitems
+      	INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= CURRENT_DATE
+      GROUP BY
+      	menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) DESC
+      LIMIT 1;`;
+    
+    const worstSellingItemToday = await Db.$queryRaw`
+      SELECT 
+        menuitems.name
+      FROM
+        orderitems
+      INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= CURRENT_DATE
+      GROUP BY
+        menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) ASC
+      LIMIT 1;`;
+    
+    const bestSellingItemLastSevenDays = await Db.$queryRaw`
+      SELECT 
+        menuitems.name
+      FROM
+        orderitems
+      INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '7 days'::interval)
+      GROUP BY
+        menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) DESC
+      LIMIT 1;`;
+    
+    const worstSellingItemLastSevenDays = await Db.$queryRaw`
+      SELECT 
+        menuitems.name
+      FROM
+        orderitems
+      INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '7 days'::interval)
+      GROUP BY
+        menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) ASC
+      LIMIT 1;`;
+
+    const bestSellingItemYearToDate = await Db.$queryRaw`
+      SELECT 
+        menuitems.name
+      FROM
+        orderitems
+      INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '1 year'::interval)
+      GROUP BY
+        menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) DESC
+      LIMIT 1;`;
+
+    const worstSellingItemYearToDate = await Db.$queryRaw`
+      SELECT 
+        menuitems.name
+      FROM
+        orderitems
+      INNER JOIN menuitems USING (menuitemid)
+      WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '1 year'::interval)
+      GROUP BY
+        menuitems.name
+      ORDER BY COUNT(menuitems.menuitemid) ASC
+      LIMIT 1;`;
 
 
-    /* Sample profit metrics data for a period of 30 days. */
-    const today = new Date();
-    const profitMetrics = Array.from({ length: 30 }, (_, index) => {
-      const date = new Date();
-      date.setDate(today.getDate() - index);
-
-      /* Part of the logic for generating sample profit metrics data. */
-      return {
-        id: index + 1,
-        date: date.toISOString().split("T")[0],
-      /* Random values for revenue and expenses
-      for each entry in the `profitMetrics` array. Here's a breakdown of what it does: */
-        revenue: Math.floor(Math.random() * 1000) + 500,
-        expenses: Math.floor(Math.random() * 700) + 300,
-      };
-   /* Using the `map` function to transform each entry in the `profitMetrics`
-   array. */
-    }).map((entry) => ({
-      ...entry,
-      profit: entry.revenue - entry.expenses,
-    }));
-    res.status(200).json({ profit:profitMetrics });
+    res.status(200).json({ profitMetricsToday, profitMetricsSevenDays, profitMetricsOneYear, successfulOrdersToday, totalOrdersToday, successfulOrdersSevenDays, totalOrdersSevenDays, successfulOrdersOneYear, totalOrdersOneYear, bestSellingItemToday, worstSellingItemToday, bestSellingItemLastSevenDays, worstSellingItemLastSevenDays, bestSellingItemYearToDate, worstSellingItemYearToDate });
   } catch (error){
     console.error("Error retrieving profit metrics:", error);
     res.status(500).json({ error: "Internal server error "});
   }
 });
-
-
 
 // Attach the routers to the main metricsRouter
 

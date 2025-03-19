@@ -1,13 +1,10 @@
 CREATE MATERIALIZED VIEW IF NOT EXISTS profit_view_today
 AS
-SELECT
-  SUM(menuitems.price) - (
-    SELECT
-      SUM(expenses.amount)
-    FROM
-      expenses
-    ) AS profit
-FROM
-  menuitems INNER JOIN orderitems on menuitems.menuitemid = orderitems.menuitemid
-WHERE servedtimestamp >= current_date;
+ SELECT COALESCE(( SELECT sum(menuitems.price) AS sum
+           FROM menuitems
+             JOIN orderitems ON menuitems.menuitemid = orderitems.menuitemid
+          WHERE orderitems.servedtimestamp::date >= CURRENT_DATE), 0::numeric) - 
+          COALESCE(( SELECT sum(expenses.amount) AS sum
+           FROM expenses
+          WHERE expenses.expensedate::date >= CURRENT_DATE), 0::numeric) AS profit;
 
