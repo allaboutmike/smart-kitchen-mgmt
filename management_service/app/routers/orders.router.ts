@@ -195,40 +195,30 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
       }
     }
 
-    if (order.completed) {
-      await Db.$transaction(async (tx) => {
-        //Collect stock update promises
-        const updates = order.orderitems.flatMap((orderItem) =>
-          orderItem.menuitems.menuitemingredients.map(async (ingredient) => {
-            console.log(
-              "Updating stock for ingredient:",
-              ingredient.ingredientid
-            );
-            const stockToUpdate = await tx.stock.findFirst({
-              where: {
-                ingredientid: ingredient.ingredientid,
-                isexpired: false,
-              },
-            });
-
-            if (stockToUpdate) {
-              return tx.stock.update({
-                where: { stockid: stockToUpdate.stockid },
-                data: {
-                  quantity: {
-                    decrement: ingredient.quantity,
-                  },
-                },
-              });
-            }
-            return null;
-          })
-        );
-
-        //Trigger all stock updates at the same time
-        await Promise.all(updates);
-      });
-    }
+    await Db.$transaction(async (tx) => {
+      //Collect stock update promises
+      const updates = order.orderitems.flatMap((orderItem) =>
+        orderItem.menuitems.menuitemingredients.map(async (ingredient) => {
+          console.log(
+            "Updating stock for ingredient:",
+            ingredient.ingredientid
+          );
+          const stockToUpdate = await tx.stock.findFirst({
+            where: {
+              ingredientid: ingredient.ingredientid,
+              isexpired: false,
+            },
+          });
+          if (stockToUpdate) {
+            console.log("Stock updated for ingredient:", ingredient.ingredientid);
+            return tx.$queryRaw`SELECT updateStock(CAST(${ingredient.ingredientid} AS INT), CAST(${ingredient.quantity} AS INT));`;
+          }
+          return null;
+        })
+      );
+      //Trigger all stock updates at the same time
+      await Promise.all(updates);
+    });
 
     res.sendStatus(200);
   } catch (error) {

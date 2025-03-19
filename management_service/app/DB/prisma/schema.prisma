@@ -7,13 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model expenses {
   expenseid   Int       @id @default(autoincrement())
-  stock       stock     @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_expenses_stockid")
   stockid     Int       @unique
   amount      Decimal   @db.Decimal(12, 2)
   expensedate DateTime? @default(now()) @db.Timestamptz(6)
+  stock       stock     @relation(fields: [stockid], references: [stockid], onDelete: NoAction, onUpdate: NoAction, map: "fk_expenses_stockid")
 }
 
 model employees {
@@ -97,23 +96,23 @@ model orders {
 }
 
 model shifts {
-  shiftid         Int               @id @default(autoincrement())
-  starttime       DateTime?         @db.Timestamptz(6)
-  endtime         DateTime?         @db.Timestamptz(6)
-  employeeshifts  employeeshifts[]
+  shiftid        Int              @id @default(autoincrement())
+  starttime      DateTime?        @db.Timestamptz(6)
+  endtime        DateTime?        @db.Timestamptz(6)
+  employeeshifts employeeshifts[]
 }
 
 model stock {
-  stockid           Int               @id @default(autoincrement())
+  stockid           Int         @id @default(autoincrement())
   ingredientid      Int
   quantity          Int
-  expirationdate    DateTime?         @db.Timestamptz(6)
-  receivedtimestamp DateTime?         @default(now()) @db.Timestamptz(6)
-  cost              Decimal           @db.Decimal(10, 2)
-  isexpired         Boolean           @default(false)
-  ingredients       ingredients       @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredient")
-  waste             waste[]
+  expirationdate    DateTime?   @db.Timestamptz(6)
+  receivedtimestamp DateTime?   @default(now()) @db.Timestamptz(6)
+  cost              Decimal     @db.Decimal(10, 2)
+  isexpired         Boolean     @default(false)
   expenses          expenses?
+  ingredients       ingredients @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredient")
+  waste             waste[]
 }
 
 model waste {
