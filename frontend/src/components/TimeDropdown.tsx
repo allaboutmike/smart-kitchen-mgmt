@@ -43,7 +43,6 @@ export interface TimeDropdownProps {
 export default function TimeDropdown(orderData: TimeDropdownProps) {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const orders = orderData?.orders;
-
   const formatDate = (dateString: Date | "") => {
     if (dateString) {
       const dateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -100,18 +99,19 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                           })}
                       </td>
                       <td>
-                            {(order.orderitems ?? []).some(
-                              (item) => item?.returned === true
-                            )
-                              ? "ITEMS RETURNED"
-                              : "NO RETURNS"}
-                          </td>
+                        {(order.orderitems ?? []).some(
+                          (item) => item?.returned === true
+                        )
+                          ? "ITEMS RETURNED"
+                          : "NO RETURNS"}
+                      </td>
                       <td>ID: {order.orderid}</td>
                       <td>
                         <button
-                                  onClick={() => {
-                                      orderData.setOrderDetails(order)
-                                  }}
+                          id={order.orderid}
+                          onClick={() => {
+                            orderData.setOrderDetails(order);
+                          }}
                         >
                           View Details
                         </button>
