@@ -4,8 +4,13 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Logo from '../../assets/chicken-queen-high-resolution-logo.png';
 import Chicken from '../../assets/fashion-chicken.png';
+import NavigationTabs from './NavigationTabs';
 
-const ProfileSettings: React.FC = () => {
+interface ProfileSettingsProps {
+  hideNavigation?: boolean;
+}
+
+const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = false }) => {
   // Mock data for the profile
   const [profile] = useState({
     accountNumber: 'A802JDJKH20978D',
@@ -32,31 +37,20 @@ const ProfileSettings: React.FC = () => {
 
   return (
     <div className="w-full max-w-[1000px] mx-auto flex flex-col bg-gray-50">
-      {/* Account Number Header */}
-      <div className="text-right p-4">
-        <p className="text-sm text-gray-700">Account Number: {profile.accountNumber}</p>
-      </div>
+      {!hideNavigation && (
+        <>
+          {/* Account Number Header */}
+          <div className="text-right p-4">
+            <p className="text-sm text-gray-700">Account Number: {profile.accountNumber}</p>
+          </div>
 
-      {/* Navigation Tabs */}
-      <div className="flex justify-center mb-6">
-        <div className="bg-white rounded-md shadow-sm inline-flex">
-          {['Profile Settings', 'Staff and Team', 'Key Inventory'].map((tab) => (
-            <button
-              key={tab}
-              className={`px-4 py-2 text-sm ${activeTab === tab
-                ? 'text-blue-600 font-medium bg-blue-50'
-                : 'text-gray-600 hover:text-blue-500 hover:bg-gray-50'
-                }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-      </div>
+          {/* Navigation Tabs */}
+          <NavigationTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        </>
+      )}
 
-           {/* Main Content with Header & Logo Area */}
-           <div className="px-4 pb-8">
+      {/* Main Content with Header & Logo Area */}
+      <div className="px-4 pb-8">
         <div className="flex justify-between items-start mb-6 w-full">
           <h1 className="text-2xl font-bold text-gray-800">Profile Settings</h1>
           

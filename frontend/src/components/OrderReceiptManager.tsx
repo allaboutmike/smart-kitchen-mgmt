@@ -1,6 +1,6 @@
 "use client";
 import InteractableOrderItem, { ItemDetails } from "./InteractableOrderItem";
-import React from "react";
+import {useState} from "react";
 import { useMutation } from "@/customHooks/useMutation";
 import OrderStatusNotifier from "./OrderStatusNotifier";
 import styles from "../styles/OrderReceiptManager.module.css"
@@ -39,9 +39,9 @@ export interface OrderDetails {
   order: Order;
 }
 export default function OrderReceiptManager(orderDetails: Order) {
-  const { updateData } = useMutation("PUT", `/orders/${orderDetails.orderid}`);
-  const [orderStatus, setOrderStatus] = React.useState(orderDetails.completed);
-
+  const { updateData } = useMutation("PUT", `orders/${orderDetails.orderid}`);
+  const [orderStatus, setOrderStatus] = useState(orderDetails.completed);
+  // const [orderTotalCost, setOrderTotalCost] = useState(0)
   const toggleOrderStatus = async () => {
     setOrderStatus(!orderStatus);
     const res = await updateData();
@@ -49,6 +49,10 @@ export default function OrderReceiptManager(orderDetails: Order) {
       setOrderStatus(!orderStatus);
     }
   }
+  const tempTotalCost = orderDetails.orderitems?.reduce((prevVal, currVal)=>{
+    return prevVal + parseFloat(currVal.menuitems.price.toString())
+  }, 0).toFixed(2)
+  
 
   const formatDate = (dateString: Date | '') => {
 
@@ -63,9 +67,9 @@ export default function OrderReceiptManager(orderDetails: Order) {
   const timeStamp = orderDetails.ordertimestamp ? new Date(orderDetails.ordertimestamp) : "";
   return (
     <div className={`${styles["current-order-items-manager"]} carousel-item`}>
-      <button onClick={() => toggleOrderStatus()}>toggle order status</button>
-      <div>{orderStatus ? "completed" : "In Progress"}</div>
-      <span className={`${styles["order-details-container-bg"]}`}></span>
+      <button className={`${styles["order-status-toggle-button"]}`} onClick={() => toggleOrderStatus()}>Toggle Order Status</button>
+      <span className={`${styles["order-status"]}`}>{orderStatus ? "Completed" : "In Progress"}</span>
+      <span className={`${styles["order-details-container-bg"]} `}></span>
       <div className={styles["order-header-group"]}>
         <span className="flex justify-between align-center">
           <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>
@@ -89,7 +93,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
         <span className={styles["line-separator"]}></span>
         <div className={styles["order-total-group"]}>
           <span>Total</span>
-          <span className={styles["order-total-value"]}>${65.08}</span>
+          <span className={styles["order-total-value"]}>${tempTotalCost}</span>
         </div>
         <span className="flex self-start text-black text-[1.6rem]">{formatDate(timeStamp)}</span>
       </div>
