@@ -125,73 +125,85 @@ metricsRouter.get("/Productivity", async (_, res: Response) => {
     })
     const bestSellingItemToday = await Db.$queryRaw`
       SELECT 
-	      menuitems.name
+	      menuitems.name,
+		    "pictureUrl"
       FROM
       	orderitems
       	INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= CURRENT_DATE
       GROUP BY
-      	menuitems.name
+      	menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) DESC
       LIMIT 1;`;
     
     const worstSellingItemToday = await Db.$queryRaw`
       SELECT 
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       FROM
         orderitems
       INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= CURRENT_DATE
       GROUP BY
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) ASC
       LIMIT 1;`;
     
     const bestSellingItemLastSevenDays = await Db.$queryRaw`
       SELECT 
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       FROM
         orderitems
       INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '7 days'::interval)
       GROUP BY
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) DESC
       LIMIT 1;`;
     
     const worstSellingItemLastSevenDays = await Db.$queryRaw`
       SELECT 
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       FROM
         orderitems
       INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '7 days'::interval)
       GROUP BY
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) ASC
       LIMIT 1;`;
 
     const bestSellingItemYearToDate = await Db.$queryRaw`
       SELECT 
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       FROM
         orderitems
       INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '1 year'::interval)
       GROUP BY
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) DESC
       LIMIT 1;`;
 
     const worstSellingItemYearToDate = await Db.$queryRaw`
       SELECT 
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       FROM
         orderitems
       INNER JOIN menuitems USING (menuitemid)
       WHERE orderitems.servedtimestamp >= (CURRENT_DATE - '1 year'::interval)
       GROUP BY
-        menuitems.name
+        menuitems.name,
+		    "pictureUrl"
       ORDER BY COUNT(menuitems.menuitemid) ASC
       LIMIT 1;`;
 
