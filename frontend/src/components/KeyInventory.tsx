@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import NavigationTabs from './NavigationTabs';
 import Image from 'next/image';
-import Chicken from '../../assets/fashion-chicken.png'; 
 import { useFetch } from '../customHooks/useFetch';
 
 interface KeyInventoryProps {
@@ -44,7 +43,7 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
   const [activeTab, setActiveTab] = useState('Key Inventory');
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
-  
+
   // Fetch data from backend
   const { data, isPending, error } = useFetch<BackendStock>('stocks');
 
@@ -82,15 +81,15 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
       console.log("Invalid data format:", data);
       return [];
     }
-    
+
     return data.stock.map(ingredient => {
       // Calculate total quantity from all stock items that aren't expired
       const validStock = ingredient.stock.filter(item => !item.isexpired);
       const currentQuantity = validStock.reduce((total, item) => total + item.quantity, 0);
-      
+
       // Calculate total capacity (we'll use 2x threshold)
       const capacity = ingredient.thresholdquantity * 2;
-      
+
       // Determine status based on quantity and threshold
       let status = 'In Stock';
       if (ingredient.ingredientname === "No Bun") {
@@ -104,7 +103,7 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
       } else {
         status = 'Well Stocked';
       }
-      
+
       return {
         name: ingredient.ingredientname,
         price: parseFloat(ingredient.costperunit),
@@ -142,13 +141,13 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
   const getItemsByCategory = () => {
     const categories = getCategories();
     const itemsByCategory: { [key: string]: InventoryItem[] } = {};
-    
+
     categories.forEach(category => {
-      itemsByCategory[category] = inventoryData.filter(item => 
-        item.category === category 
+      itemsByCategory[category] = inventoryData.filter(item =>
+        item.category === category
       );
     });
-    
+
     return itemsByCategory;
   };
 
@@ -166,9 +165,9 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
 
   // Customer support data
   const customerSupport = {
-    name: 'Tabitha Hill',
-    email: 'T.Hill@OurCompany.com',
-    phone: '(770)554-9089'
+    name: 'Jordan Reed',
+    email: 'J.Reed@OurCompany.com',
+    phone: '(770)555-9089'
   };
 
   // Group the items by category
@@ -239,7 +238,7 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
                 </div>
               )}
             </div>
-            
+
             {/* Scroll indicator */}
             <div className="text-center text-gray-500 mt-4">
               <div className="mx-auto w-0 h-0 border-l-[10px] border-l-transparent border-t-[10px] border-t-gray-400 border-r-[10px] border-r-transparent"></div>
@@ -247,8 +246,8 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
           </div>
         )}
 
-         {/* Customer Support Section */}
-         <div className="bg-white rounded-lg shadow-sm p-6 inline-block mx-auto">
+        {/* Customer Support Section */}
+        <div className="bg-white rounded-lg shadow-sm p-6 inline-block mx-auto">
           <h2 className="text-xl font-bold text-gray-800 mb-6">Need Assistance?</h2>
 
           <div className="flex flex-col items-center">
@@ -256,8 +255,8 @@ const KeyInventory: React.FC<KeyInventoryProps> = ({ hideNavigation = false }) =
             <div className="mb-4">
               <div className="w-32 h-32 bg-gray-100 flex items-center justify-center border border-gray-200 rounded-lg overflow-hidden">
                 <Image
-                  src={Chicken}
-                  alt="Chicken CEO"
+                  src='https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_5_aswoz0.png'
+                  alt="Jordan Reed Profile"
                   width={128}
                   height={128}
                   className="object-cover w-full h-full"

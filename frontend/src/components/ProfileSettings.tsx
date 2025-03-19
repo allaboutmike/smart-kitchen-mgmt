@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Logo from '../../assets/chicken-queen-high-resolution-logo.png';
-import Chicken from '../../assets/fashion-chicken.png';
 import NavigationTabs from './NavigationTabs';
 
 interface ProfileSettingsProps {
@@ -19,9 +18,9 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = fals
     brandColors: ['#74C3C8', '#F6EAB6', '#F6D0C7', '#FFAAAA', '#D0D5ED', '#FFFF00', '#B10DC9'],
     hexCode: '74C3C8',
     customerSupportRep: {
-      name: 'Tabitha Hill',
-      email: 'T.Hill@OurCompany.com',
-      phone: '(770)554-9089'
+      name: 'Jordan Reed',
+      email: 'J.Reed@OurCompany.com',
+      phone: '(770)555-9089'
     }
   });
 
@@ -112,8 +111,8 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = fals
             <div className="mb-4">
               <div className="w-32 h-32 bg-gray-100 flex items-center justify-center border border-gray-200 rounded-lg overflow-hidden">
                 <Image
-                  src={Chicken}
-                  alt="Chicken CEO"
+                  src='https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_5_aswoz0.png'
+                  alt="Jordan Reed Profile"
                   width={128}
                   height={128}
                   className="object-cover w-full h-full"

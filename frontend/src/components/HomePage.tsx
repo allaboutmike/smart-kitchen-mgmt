@@ -62,7 +62,7 @@ const RestaurantDashboard: React.FC = () => {
         // Simulated backend response with more mock data
         const data: Notification[] = [
           { id: 1, item: 'Tomato', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' },
-          { id: 2, item: 'BUN', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' },
+          { id: 2, item: 'Bun', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' },
           { id: 3, message: 'Heavy Traffic is expected tomorrow starting at 2pm.', type: 'alert', severity: 'info' },
           { id: 4, item: 'Lettuce', type: 'inventory', message: 'inventory is critically low.', severity: 'critical' },
           { id: 5, message: 'New employee training scheduled for Friday at 9am.', type: 'alert', severity: 'info' },
@@ -70,7 +70,7 @@ const RestaurantDashboard: React.FC = () => {
           { id: 7, message: 'System maintenance scheduled for tonight at 2am.', type: 'alert', severity: 'warning' },
           { id: 8, item: 'Chicken', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' },
           { id: 9, message: 'New menu items have been added to the system.', type: 'alert', severity: 'success' },
-          { id: 10, item: 'Napkins', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' }
+          { id: 10, item: 'Fries', type: 'inventory', message: 'inventory is getting low.', severity: 'warning' }
         ];
         
         // Delay to simulate network request
@@ -171,7 +171,7 @@ const RestaurantDashboard: React.FC = () => {
               <h3 className="text-lg font-bold">New Updates</h3>
             </div>
             <p className="text-center">
-              Get ready for the next phaser of ServerWise with online ordering dashboards.
+              Get ready for the next phaser of Dine Flow with online ordering dashboards.
             </p>
           </div>
 
@@ -182,7 +182,7 @@ const RestaurantDashboard: React.FC = () => {
               <h3 className="text-lg font-bold">Blog Articles</h3>
             </div>
             <p className="text-center">
-              Check out the ServerWise blog for daily articles on restaurant management and trending subjects.
+              Check out the Dine Flow blog for daily articles on restaurant management and trending subjects.
             </p>
           </div>
 

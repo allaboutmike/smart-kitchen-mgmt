@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import NavigationTabs from './NavigationTabs';
 import StaffDetailsModal from './StaffDetailsModal';
 
@@ -19,6 +20,7 @@ interface StaffMember {
         [key: string]: string;
     };
     comments?: string;
+    imageUrl?: string;
 }
 
 const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false }) => {
@@ -56,15 +58,15 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
     // Shuffle the comments once to ensure randomness but consistency across renders
     const shuffledComments = shuffleArray(staffComments);
 
-    // Mock data for the staff directory with extended information
+    // Mock data for the staff directory with extended information and image URLs
+    // Updated with the new staff data
     const staffMembers: StaffMember[] = [
         {
-            //Jenny Allen's will be same since she's big boss 
             id: 1,
-            name: 'Jenny Allen',
+            name: 'Alex Taylor',
             position: 'General Manager',
             tier: 'leadership',
-            startDate: '03/25/1996',
+            startDate: '03/25/2018',
             employmentType: 'Full Time',
             availableHours: {
                 'Monday': '6am-7pm',
@@ -75,30 +77,15 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Saturday': '6am - 7pm',
                 'Sunday': '6am - 7pm'
             },
-            comments: "Has been with the company since its founding. Excellent at staff development and retention. Known for implementing efficient scheduling systems."
+            comments: "Has been with the company since its founding. Excellent at staff development and retention. Known for implementing efficient scheduling systems.",
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_12_ljuxra.png"
         },
         {
             id: 2,
-            name: 'Sarah Brent',
-            position: 'Manager',
+            name: 'Casey Grant',
+            position: 'Shift Supervisor',
             tier: 'management',
-            startDate: '05/12/2005',
-            employmentType: 'Full Time',
-            availableHours: {
-                'Monday': '8am-4pm',
-                'Tuesday': '8am-4pm',
-                'Wednesday': '8am-4pm',
-                'Thursday': '8am-4pm',
-                'Friday': '8am-4pm'
-            },
-            comments: shuffledComments[0]
-        },
-        {
-            id: 3,
-            name: 'Thoman Hart',
-            position: 'Manager',
-            tier: 'management',
-            startDate: '11/05/2010',
+            startDate: '11/05/2020',
             employmentType: 'Full Time',
             availableHours: {
                 'Monday': '2pm-10pm',
@@ -107,14 +94,15 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Thursday': '2pm-10pm',
                 'Friday': '2pm-10pm'
             },
-            comments: shuffledComments[1]
+            comments: shuffledComments[1],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_2_gkldbr.png"
         },
         {
-            id: 4,
-            name: 'Dan Carter',
-            position: 'FT Staff',
-            tier: 'staff',
-            startDate: '06/15/2018',
+            id: 3,
+            name: 'Quinn Parker',
+            position: 'Shift Supervisor',
+            tier: 'management',
+            startDate: '06/15/2020',
             employmentType: 'Full Time',
             availableHours: {
                 'Monday': '9am-5pm',
@@ -123,14 +111,15 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Thursday': '9am-5pm',
                 'Friday': '9am-5pm'
             },
-            comments: shuffledComments[2]
+            comments: shuffledComments[2],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_1_nwrekp.png"
         },
         {
-            id: 5,
-            name: 'Kiana Stock',
-            position: 'FT Staff',
+            id: 4,
+            name: 'Avery Bailey',
+            position: 'Cook',
             tier: 'staff',
-            startDate: '03/12/2020',
+            startDate: '03/12/2021',
             employmentType: 'Full Time',
             availableHours: {
                 'Monday': '11am-7pm',
@@ -139,12 +128,13 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Friday': '11am-7pm',
                 'Saturday': '10am-6pm'
             },
-            comments: shuffledComments[3]
+            comments: shuffledComments[3],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_6_i2bwlo.png"
         },
         {
-            id: 6,
-            name: 'Tom Cruise',
-            position: 'FT Staff',
+            id: 5,
+            name: 'Riley Hunter',
+            position: 'Cook',
             tier: 'staff',
             startDate: '09/22/2021',
             employmentType: 'Full Time',
@@ -155,21 +145,104 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Friday': '8am-4pm',
                 'Saturday': '8am-4pm'
             },
-            comments: shuffledComments[4]
+            comments: shuffledComments[4],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_9_wocajz.png"
         },
         {
-            id: 7,
-            name: 'Dan',
-            position: 'PT',
+            id: 6,
+            name: 'Cameron Brooks',
+            position: 'Cashier',
             tier: 'staff',
-            startDate: '04/01/2023',
-            employmentType: 'Part Time',
+            startDate: '04/01/2022',
+            employmentType: 'Full Time',
             availableHours: {
                 'Friday': '4pm-10pm',
                 'Saturday': '12pm-8pm',
                 'Sunday': '12pm-8pm'
             },
-            comments: shuffledComments[5]
+            comments: shuffledComments[5],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_10_kug3ao.png"
+        },
+        {
+            id: 7,
+            name: 'Skyler Hart',
+            position: 'Cashier',
+            tier: 'staff',
+            startDate: '06/15/2022',
+            employmentType: 'Part Time',
+            availableHours: {
+                'Wednesday': '4pm-10pm',
+                'Thursday': '4pm-10pm',
+                'Sunday': '12pm-8pm'
+            },
+            comments: shuffledComments[6],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416514/TEAM_11_ckolbo.png"
+        },
+        {
+            id: 8,
+            name: 'Charlie Finley',
+            position: 'Drive-Thru Attendant',
+            tier: 'staff',
+            startDate: '08/10/2022',
+            employmentType: 'Full Time',
+            availableHours: {
+                'Monday': '10am-6pm',
+                'Tuesday': '10am-6pm',
+                'Wednesday': '10am-6pm',
+                'Thursday': '10am-6pm',
+                'Friday': '10am-6pm'
+            },
+            comments: shuffledComments[7],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_8_hgkval.png"
+        },
+        {
+            id: 9,
+            name: 'Rowan Ellis',
+            position: 'Drive-Thru Attendant',
+            tier: 'staff',
+            startDate: '09/05/2022',
+            employmentType: 'Part Time',
+            availableHours: {
+                'Thursday': '4pm-10pm',
+                'Friday': '4pm-10pm',
+                'Saturday': '12pm-8pm',
+                'Sunday': '12pm-8pm'
+            },
+            comments: shuffledComments[8],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_4_df367n.png"
+        },
+        {
+            id: 10,
+            name: 'Jesse Monroe',
+            position: 'Prep Staff',
+            tier: 'staff',
+            startDate: '11/15/2022',
+            employmentType: 'Full Time',
+            availableHours: {
+                'Monday': '6am-2pm',
+                'Tuesday': '6am-2pm',
+                'Wednesday': '6am-2pm',
+                'Thursday': '6am-2pm',
+                'Friday': '6am-2pm'
+            },
+            comments: shuffledComments[9],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_7_z4h3hn.png"
+        },
+        {
+            id: 11,
+            name: 'Jalen Carter',
+            position: 'Prep Staff',
+            tier: 'staff',
+            startDate: '02/20/2023',
+            employmentType: 'Part Time',
+            availableHours: {
+                'Monday': '5am-10am',
+                'Wednesday': '5am-10am',
+                'Friday': '5am-10am',
+                'Saturday': '5am-10am'
+            },
+            comments: shuffledComments[10],
+            imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_3_rh2tas.png"
         }
     ];
 
@@ -184,7 +257,16 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
         setIsModalOpen(true);
     };
 
-    // Staff profile card component
+    // Function to get initials from name (for placeholder)
+    const getInitials = (name: string): string => {
+        return name
+            .split(' ')
+            .map(part => part.charAt(0))
+            .join('')
+            .toUpperCase();
+    };
+
+    // Staff profile card component with image URL support
     interface StaffCardProps {
         name: string;
         position: string;
@@ -196,8 +278,23 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
             className="flex flex-col items-center mr-6 mb-8 cursor-pointer hover:opacity-90"
             onClick={() => handleStaffClick(staff)}
         >
-            <div className="w-36 h-36 bg-gray-100 border border-gray-200 rounded-lg mb-2 flex items-center justify-center">
-                <p className="text-sm text-gray-800">Picture Here</p>
+            <div className="w-36 h-36 bg-gray-100 border border-gray-200 rounded-lg mb-2 overflow-hidden">
+                {staff.imageUrl ? (
+                    <Image
+                        src={staff.imageUrl}
+                        alt={`${name} profile photo`}
+                        width={144}
+                        height={144}
+                        className="object-cover w-full h-full"
+                    />
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600">
+                        <div className="text-center">
+                            <div className="text-2xl font-bold">{getInitials(name)}</div>
+                            <div className="text-xs mt-1">Photo Pending</div>
+                        </div>
+                    </div>
+                )}
             </div>
             <h3 className="font-medium text-gray-800">{name}</h3>
             <p className="text-gray-600 italic">{position}</p>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { StaticImageData } from 'next/image';
 
 interface StaffDetailsModalProps {
   isOpen: boolean;
@@ -10,7 +9,7 @@ interface StaffDetailsModalProps {
   staffMember: {
     name: string;
     position: string;
-    image?: StaticImageData | null;
+    imageUrl?: string;
     startDate?: string;
     employmentType?: string;
     availableHours?: {
@@ -66,9 +65,9 @@ const StaffDetailsModal: React.FC<StaffDetailsModalProps> = ({
           <div className="flex flex-col sm:flex-row items-center sm:items-start mb-6">
             {/* Image */}
             <div className="w-36 h-36 bg-gray-100 border border-gray-200 rounded-lg mb-4 sm:mb-0 sm:mr-6 overflow-hidden flex-shrink-0">
-              {staffMember.image ? (
+              {staffMember.imageUrl ? (
                 <Image
-                  src={staffMember.image}
+                  src={staffMember.imageUrl}
                   alt={`${staffMember.name} profile photo`}
                   width={144}
                   height={144}
