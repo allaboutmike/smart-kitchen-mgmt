@@ -1,5 +1,6 @@
 "use client";
 
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 // Define types for our notification data
@@ -104,6 +105,9 @@ const RestaurantDashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="mb-8">
         <h1 className="text-xl font-bold italic">Welcome Back!</h1>
+        <span>
+          Click <Link className="font-semibold link" href="/pos">Here</Link> to visit the POS page.
+        </span>
       </div>
 
       {/* Notification Hub */}
