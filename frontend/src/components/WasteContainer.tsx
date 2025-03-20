@@ -6,6 +6,7 @@ import { useFetch } from '../customHooks/useFetch';
 interface Ingredient {
   ingredientname: string;
   category: string;
+  costperunit: string;
 }
 
 interface Stock {
@@ -19,52 +20,21 @@ interface WasteItem {
   wastetimestamp: string;
   quantity: number;
   stock: Stock;
-  wasteCost?: number; // We'll calculate this
+  wasteCost?: number; // FE is calculating this
 }
 
 interface WasteData {
   waste: WasteItem[];
 }
 
-// Interface for stock cost data
-interface StockCostItem {
-  stockid: number;
-  quantity: number;
-  cost: string;
-  isexpired: boolean;
-  receivedtimestamp: string;
-  expirationdate: string;
-}
-
-interface IngredientItem {
-  ingredientid: number;
-  ingredientname: string;
-  bulkOrderQuantity: number;
-  stock: StockCostItem[];
-  thresholdquantity: number;
-  category: string;
-  costperunit: string;
-  shelflife: number;
-  servingSize: string;
-}
-
-interface StockCostData {
-  stock: IngredientItem[];
-}
-
 export const WasteTrackingTable: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [wasteData, setWasteData] = useState<WasteItem[]>([]);
-  const [stockCostData, setStockCostData] = useState<Map<number, string>>(new Map());
-  const [ingredientCostData, setIngredientCostData] = useState<Map<string, string>>(new Map());
   const [totalCost, setTotalCost] = useState<number>(0);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
   
   // Fetch waste data from backend using the useFetch hook
-  const { data: wasteApiData, isPending: isWastePending, error: wasteError } = useFetch<WasteData>('metrics/Waste');
-  
-  // Fetch stock cost data
-  const { data: stockApiData, isPending: isStockPending } = useFetch<StockCostData>('stocks');
+  const { data: wasteApiData, isPending, error: wasteError } = useFetch<WasteData>('metrics/waste');
 
   // Sample data for fallback/development
   const getSampleWasteData = (): WasteItem[] => [
@@ -77,7 +47,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Regular Bun',
-          category: 'Buns'
+          category: 'Buns',
+          costperunit: '0.24'
         }
       },
       wasteCost: 17.28
@@ -91,7 +62,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Regular Bun',
-          category: 'Buns'
+          category: 'Buns',
+          costperunit: '0.24'
         }
       },
       wasteCost: 14.16
@@ -105,7 +77,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Regular Bun',
-          category: 'Buns'
+          category: 'Buns',
+          costperunit: '0.24'
         }
       },
       wasteCost: 12.48
@@ -119,7 +92,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Regular Bun',
-          category: 'Buns'
+          category: 'Buns',
+          costperunit: '0.24'
         }
       },
       wasteCost: 4.56
@@ -133,7 +107,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Crispy Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.25'
         }
       },
       wasteCost: 43.75
@@ -147,7 +122,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Crispy Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.25'
         }
       },
       wasteCost: 20.00
@@ -161,7 +137,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Spicy Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.45'
         }
       },
       wasteCost: 63.80
@@ -175,7 +152,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Spicy Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.45'
         }
       },
       wasteCost: 40.60
@@ -189,7 +167,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Spicy Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.45'
         }
       },
       wasteCost: 31.90
@@ -203,7 +182,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Grilled Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.62'
         }
       },
       wasteCost: 27.54
@@ -217,7 +197,8 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Grilled Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.62'
         }
       },
       wasteCost: 22.68
@@ -231,48 +212,19 @@ export const WasteTrackingTable: React.FC = () => {
       stock: {
         ingredients: {
           ingredientname: 'Grilled Patty',
-          category: 'Patties'
+          category: 'Patties',
+          costperunit: '1.62'
         }
       },
       wasteCost: 12.96
     }
   ];
 
-  // Process stock cost data to create a mapping of stockId to cost and ingredient name to costperunit
-  useEffect(() => {
-    if (stockApiData && stockApiData.stock) {
-      const stockMap = new Map<number, string>();
-      const ingredientMap = new Map<string, string>();
-      
-      // Process each ingredient and its stock items
-      stockApiData.stock.forEach(ingredient => {
-        // Store costperunit for each ingredient name
-        ingredientMap.set(ingredient.ingredientname, ingredient.costperunit);
-        
-        // Store cost for each stock item
-        ingredient.stock.forEach(stockItem => {
-          stockMap.set(stockItem.stockid, stockItem.cost);
-        });
-      });
-      
-      setStockCostData(stockMap);
-      setIngredientCostData(ingredientMap);
-    }
-  }, [stockApiData]);
-
-  // Calculate waste cost based on quantity and available cost data
+  // Calculate waste cost based on quantity and the costperunit from the API
   const calculateWasteCost = React.useCallback((item: WasteItem): number => {
-    // If we have stock-specific cost data, use that first
-    if (stockCostData.has(item.stockid)) {
-      const stockCost = parseFloat(stockCostData.get(item.stockid) || '0');
-      // Assuming the cost is for the entire stock batch, calculate the proportion
-      return parseFloat((stockCost * (item.quantity / 100)).toFixed(2));
-    }
-    
-    // If we have ingredient-specific cost data, use that next
-    const ingredientName = item.stock?.ingredients?.ingredientname;
-    if (ingredientName && ingredientCostData.has(ingredientName)) {
-      const costPerUnit = parseFloat(ingredientCostData.get(ingredientName) || '0');
+    // If we have the costperunit directly in the item
+    if (item.stock?.ingredients?.costperunit) {
+      const costPerUnit = parseFloat(item.stock.ingredients.costperunit);
       return parseFloat((costPerUnit * item.quantity).toFixed(2));
     }
     
@@ -301,7 +253,7 @@ export const WasteTrackingTable: React.FC = () => {
     }
     
     return parseFloat((item.quantity * costPerUnit).toFixed(2));
-  }, [stockCostData, ingredientCostData]);
+  }, []);
 
   // Update state when waste data is fetched
   useEffect(() => {
@@ -331,7 +283,7 @@ export const WasteTrackingTable: React.FC = () => {
       const total = sampleData.reduce((sum, item) => sum + (item.wasteCost || 0), 0);
       setTotalCost(total);
     }
-  }, [wasteApiData, wasteError, stockCostData, ingredientCostData, calculateWasteCost]);
+  }, [wasteApiData, wasteError, calculateWasteCost]);
 
   // Format timestamp for readability
   const formatTimestamp = (timestamp: string): string => {
@@ -391,7 +343,7 @@ export const WasteTrackingTable: React.FC = () => {
         />
       </div>
       
-      {isWastePending || isStockPending ? (
+      {isPending ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
         </div>
