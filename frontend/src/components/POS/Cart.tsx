@@ -77,12 +77,12 @@ const ItemComponent=(itemInfo: ItemProps)=>{
                 <h3>${itemInfo.quantity? (itemInfo.foodPrice * itemInfo.quantity).toFixed(2): itemInfo.foodPrice}</h3>
                 <span>
                   <span>Qty: {itemInfo.quantity}</span>
-                  <button className="btn btn-outline btn-primary"   onClick={()=>itemInfo.actions.increaseQty(itemInfo.foodName)}>+</button>
-                  <button className="btn btn-outline btn-secondary" onClick={()=>itemInfo.actions.decreaseQty(itemInfo.foodName)}>-</button>
+                  <button className="btn btn-outline btn-primary"   onClick={()=>itemInfo.actions?.increaseQty(itemInfo.foodName)}>+</button>
+                  <button className="btn btn-outline btn-secondary" onClick={()=>itemInfo.actions?.decreaseQty(itemInfo.foodName)}>-</button>
                 </span>
             </span>
             <span className="flex justify-between">
-              <button className="btn btn-outline bg-[--remove-button-bg-color] hover:bg-none hover:outline-[--remove-button-bg-color] text-white" onClick={()=>itemInfo.actions.removeItem(itemInfo.foodName)}>Remove</button>
+              <button className="btn btn-outline bg-[--remove-button-bg-color] hover:bg-none hover:outline-[--remove-button-bg-color] text-white" onClick={()=>itemInfo.actions?.removeItem(itemInfo.foodName)}>Remove</button>
             </span>
         </span>
     )
