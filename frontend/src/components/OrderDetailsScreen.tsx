@@ -9,16 +9,21 @@ export interface OrderDetails{
 
 export default function OrderDetailsScreen(orderDetails: OrderDetails) {
   const oDetails = orderDetails.order
+  const disableModal =()=>{
+    orderDetails.updateOrderDetailsScreen(null)
+  }
   return (
-    <dialog className={styles["order-details-container"]}>
+    <dialog className={styles["order-details-container"]} 
+    onLoadStart={(e)=> e.currentTarget.focus()}
+    onKeyDown={(e)=> {
+      if(e.key ===  'Escape') disableModal()
+     }}
+    >
+      <span className={styles["order-details-container-bg"]} onClick={disableModal}></span>
       <h1 className={styles["order-details-title"]}>Order Details</h1>
-      <button className={styles["exit-button"]} onClick={()=> {
-        if (oDetails?.toggleOrderDetails !== undefined) {
-          oDetails.toggleOrderDetails()
-          orderDetails.updateOrderDetailsScreen(null)
-        }
-        }
-      }>Exit</button>
+      <button className={styles["exit-button"]}
+       onClick={disableModal}
+       >Exit</button>
       <span className="flex gap-[1rem] mt-[40px] justify-center">        
         <span className={styles["full-order-details-container"]}>
           <span className={styles["order-details-header"]}>
