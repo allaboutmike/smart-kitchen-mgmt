@@ -1,25 +1,29 @@
 import React from "react";
 import Image from "next/image";
 import styles from "../styles/MenuItem.module.css"
-interface MenuItemProps {
-    name: string;
-    price: string;
-    picture: string;
+export interface MenuItemProps {
+    name: string | null | undefined;
+    price: string | null | undefined;
+    picture: string | null | undefined;
+    updateItem?: (item: MenuItemProps)=>void;
+    modalToggle?: ()=>void;
 }
-export default function MenuItem({ name, price, picture }: MenuItemProps) {
+export default function MenuItem(itemInfo: MenuItemProps) {
   const imageSize = 80;
   return (
-    <div className={styles.menuItem}>
+    <div className={styles.menuItem} onClick={()=> {
+      if(itemInfo.updateItem) itemInfo.updateItem(itemInfo)
+    }}>
       <span className={styles.menuItemPictureAndPriceGroup}>
         <span className={styles.menuItemPicture}>
-          <Image src={picture} width={imageSize} height={imageSize} alt={name}/>
+          {itemInfo.picture && itemInfo.name && <Image src={itemInfo.picture} width={imageSize} height={imageSize} alt={itemInfo.name}/>}
         </span>
         <span className={styles.menuPricingGroup}>
           <span>Price:</span>
-          <span className="menu-item-price">${price}</span>
+          <span className="menu-item-price">${itemInfo.price}</span>
         </span>
       </span>
-      <span className={styles.menuItemName}>{name}</span>
+      <span className={styles.menuItemName}>{itemInfo.name}</span>
     </div>
   );
 }
