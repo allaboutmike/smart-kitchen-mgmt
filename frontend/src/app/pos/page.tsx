@@ -3,7 +3,7 @@ import Cart, { CartInfo, ItemProps } from '@/components/POS/Cart'
 import { useFetch } from '@/customHooks/useFetch'
 import { useState } from 'react'
 import useSelection from '@/customHooks/useSelection'
-import { MenuItemType } from '@/components/MenuManagementContainer'
+import type { MenuItemType } from '@/components/MenuManagementContainer'
 import SelectableButton from '@/components/SelectableButton'
 import styles from "../../styles/MenuManagementContainer.module.css"
 import Image from 'next/image'
