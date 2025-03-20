@@ -40,7 +40,7 @@ export default function Cart(orderInfo: CartInfo) {
   const cartTotalCost = orderInfo.items.reduce((prevVal, currVal)=> prevVal + (currVal.quantity? (currVal.foodPrice * currVal.quantity): currVal.foodPrice), 0).toFixed(2)
   return (
     <div className="flex flex-col px-[40px] gap-[1rem] py-[20px] rounded-[8px] max-w-[500px] min-w-[300px] bg-white h-[500px] outline">
-      <span className="max-h-[fit-content] text-2xl">Order:#{orderInfo.orderid}</span>
+      <span className="max-h-[fit-content] text-2xl">Cart</span>
       <span className="flex flex-col h-[200px] overflow-y-auto">
         {
             orderInfo.items?.map((item, index)=>{
