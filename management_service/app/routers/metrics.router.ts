@@ -27,6 +27,7 @@ metricsRouter.get("/waste", async (_, res: Response) => {
               select:{
                 ingredientname: true,
                 category: true,
+                costperunit: true,
               },
             },
           },
