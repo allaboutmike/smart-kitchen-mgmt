@@ -1,10 +1,8 @@
-import React from "react";
-import RestaurantDashboard from "@/components/HomePage";
+"use client"
+
+import React from 'react';
+import SplashScreen from '@/components/SplashScreen';
 
 export default function Home(): React.ReactElement {
-  return (
-    <div className="main-page">
-      <RestaurantDashboard />
-    </div>
-  );
+  return <SplashScreen />;
 }
