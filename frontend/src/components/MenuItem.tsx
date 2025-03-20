@@ -3,12 +3,10 @@ import Image from "next/image";
 import styles from "../styles/MenuItem.module.css"
 interface MenuItemProps {
     name: string;
-    price: number;
+    price: string;
     picture: string;
-    addedToOrder: boolean;
-    viewItem?: (name: string, price: number) => void;
 }
-export default function MenuItem({ name, price, picture, viewItem }: MenuItemProps) {
+export default function MenuItem({ name, price, picture }: MenuItemProps) {
   const imageSize = 80;
   return (
     <div className={styles.menuItem}>
@@ -22,9 +20,6 @@ export default function MenuItem({ name, price, picture, viewItem }: MenuItemPro
         </span>
       </span>
       <span className={styles.menuItemName}>{name}</span>
-      <button onClick={() => {
-        if(viewItem !== undefined)viewItem(name, price)
-        }}>View Item</button>
     </div>
   );
 }

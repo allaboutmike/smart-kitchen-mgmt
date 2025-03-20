@@ -42,3 +42,11 @@
         color: white;
     }
 }
+
+.order-status-toggle-button{
+    @apply btn text-white text-[1.4rem] bg-[grey] border-none hover:bg-[--foreground];
+}
+
+.order-status{
+    @apply font-semibold text-[1.2rem] mb-[-30px];
+}

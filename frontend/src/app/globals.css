@@ -23,8 +23,9 @@ body {
 .main-container {
   @apply flex justify-center pl-[120px] items-center flex-col;
   @apply tablet:pl-[0] mobile:pl-[0];
-  @apply flex justify-center pl-[120px] items-center flex-col;
-  @apply tablet:pl-[0] mobile:pl-[0];
+}
+.pos-container{
+  @apply p-[0] justify-center;
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -33,4 +34,9 @@ body {
 button {
   @apply hover:cursor-pointer;
   transition: all 0.14s ease-in-out;
+}
+
+.main-page {
+  @apply flex justify-center pl-[120px] items-center flex-col;
+  @apply tablet:pl-[0] mobile:pl-[0];
 }

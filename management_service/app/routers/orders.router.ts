@@ -13,15 +13,24 @@ ordersRouter.get("/", async (req: Request, res: Response) => {
     console.log("Retrieving orders with status:", completed);
     console.log("Get order details:", orderItemsDetails);
     let orders: orders[] = [];
-    if ((completed === "true" || completed === "false") && orderItemsDetails === "false") {
+    if (
+      (completed === "true" || completed === "false") &&
+      orderItemsDetails === "false"
+    ) {
       console.log("Retrieving orders with completed status:", completed);
       const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
         where: { completed: completedBoolean },
       });
-    } else if ((completed === "true" || completed === "false") && orderItemsDetails === "true") {
+    } else if (
+      (completed === "true" || completed === "false") &&
+      orderItemsDetails === "true"
+    ) {
       console.log("Retrieving orders with completed status:", completed);
-      console.log("Retrieving orders with order items details:", orderItemsDetails);
+      console.log(
+        "Retrieving orders with order items details:",
+        orderItemsDetails
+      );
       const completedBoolean = completed === "true";
       orders = await Db.orders.findMany({
         where: { completed: completedBoolean },
@@ -143,25 +152,73 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
 
 ordersRouter.put("/:id", async (req: Request, res: Response) => {
   try {
-    // This is a placeholder for the actual order update logic
     const orderId = Number(req.params["id"]);
-    const { newStatus } = req.body;
     console.log("Updating order with ID:", orderId);
 
-    // const order = await Db.orders.findUnique({ where: { orderid: orderId } });
+    const order = await Db.orders.findUnique({
+      where: { orderid: orderId },
+      include: {
+        orderitems: {
+          include: {
+            menuitems: {
+              include: {
+                menuitemingredients: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-    // if (!order) {
-    //     return res.status(404).json({ error: "Order not found" });
-    // }
-    // Update the order status
-    console.log("New status:", newStatus);
+    if (!order) {
+      throw new Error(`Order with ID ${orderId} not found`);
+    }
+
+    // update order status
     await Db.orders.update({
       where: { orderid: orderId },
-      data: { completed: newStatus },
+      data: { completed: !order.completed,
+              completedTimeStamp: new Date()
+      },
     });
-    console.log("Order updated successfully");
 
-    // ONCE WEBSOCKET IS IMPLEMENTED, WE WILL NOTIFY THE CLIENT OF A A STATUS UPDATE
+    //this loop is for debugging purposes
+    for (const orderItem of order.orderitems) {
+      console.log("Updating stock for order item:", orderItem);
+      console.log("Menu item", orderItem.menuitems.name);
+      console.log(
+        "Item has the following ingridients",
+        orderItem.menuitems.menuitemingredients
+      );
+      for (const ingredient of orderItem.menuitems.menuitemingredients) {
+        console.log("Ingredient to update stock for:", ingredient.ingredientid);
+      }
+    }
+
+    await Db.$transaction(async (tx) => {
+      //Collect stock update promises
+      const updates = order.orderitems.flatMap((orderItem) =>
+        orderItem.menuitems.menuitemingredients.map(async (ingredient) => {
+          console.log(
+            "Updating stock for ingredient:",
+            ingredient.ingredientid
+          );
+          const stockToUpdate = await tx.stock.findFirst({
+            where: {
+              ingredientid: ingredient.ingredientid,
+              isexpired: false,
+            },
+          });
+          if (stockToUpdate) {
+            console.log("Stock updated for ingredient:", ingredient.ingredientid);
+            return tx.$queryRaw`SELECT updateStock(CAST(${ingredient.ingredientid} AS INT), CAST(${ingredient.quantity} AS INT));`;
+          }
+          return null;
+        })
+      );
+      //Trigger all stock updates at the same time
+      await Promise.all(updates);
+    });
 
     res.sendStatus(200);
   } catch (error) {
