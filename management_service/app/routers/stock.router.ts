@@ -76,16 +76,17 @@ stockRouter.get("/:id", async (req: Request, res: Response) => {
 
 stockRouter.post("/", async (req: Request, res: Response) => {
   try {
-    const { ingredientId, quantity, cost, shelfLife } = req.body;
+    const { bulkOrderQuantity, ingredientId, price, shelfLife } = req.body;
  
     const todaysDate = new Date();
-    const expirationDate = new Date(todaysDate.setDate(todaysDate.getDate() + shelfLife));
+    const expirationDate = new Date(todaysDate);
+    expirationDate.setDate(todaysDate.getDate() + shelfLife);
 
     const stock = await Db.stock.create({
       data: {
         ingredientid: ingredientId,
-        quantity: quantity,
-        cost: cost,
+        quantity: bulkOrderQuantity,
+        cost: price * bulkOrderQuantity,
         expirationdate: expirationDate
       },
       select: {
