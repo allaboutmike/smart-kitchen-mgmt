@@ -19,6 +19,7 @@ export type MenuItemType = {
   category: string;
   isPopular: boolean;
   pictureUrl: string;
+  menuitemid: string;
 };
 
 interface MenuManagementContainerProps {
@@ -28,9 +29,10 @@ interface MenuManagementContainerProps {
 export type MenuItemDetails = {
   menuItem: MenuItemType;
 }
-export default function MenuManagementContainer({menuItems}: MenuManagementContainerProps) {
+export default function MenuManagementContainer({ menuItems }: MenuManagementContainerProps) {
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
+
   const [itemSelected, setItemSelected] = useState<MenuItemProps | null>(null)
   const filteredMenuItems = 
   currentSelection === "none"
@@ -76,7 +78,7 @@ export default function MenuManagementContainer({menuItems}: MenuManagementConta
       {menuItems?.length > 0 && (
         <div className={styles["restaurant-main-food-menu-container"]}>
           <span className={styles["restaurant-current-option-title"]}>
-          <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
+            <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
           </span>
           <div className={styles["current-menu-items-container"]}>
           {filteredMenuItems.map((menuItem, index) => {

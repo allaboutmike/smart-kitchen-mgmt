@@ -6,7 +6,7 @@ export function useMutation<T>(mutationType: mutationType, url: string) {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateData = async (payload?: Record<string, string | boolean>): Promise<MutationResponse<T>> => {
+  const updateData = async (payload?: Record<string, string | boolean | unknown>): Promise<MutationResponse<T>> => {
     setIsPending(true);
     setError(null);
 
