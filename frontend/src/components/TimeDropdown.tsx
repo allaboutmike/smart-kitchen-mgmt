@@ -61,8 +61,8 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
       {orderTimeFrames.map((timeFrame: string, index) => {
         const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
         return (
-          <table key={index} className="border border-[3.16px] border-black w-[751px]">
-            <thead>
+          <table key={index} className="border border-[3.16px] border-black w-[751px] text-[1rem] cursor-pointer">
+            <thead className="hover:bg-slate-200">
               <tr>
                 <th
                   onClick={() => {
@@ -70,13 +70,13 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                       prevIndex !== index ? index : -1
                     );
                   }}
-                  className="flex p-[12.64px] justify-between items-center h-[64.64px] text-[1.2rem] font-semibold"
+                  className="border border-b-black flex p-[12.64px] justify-between items-center h-[64.64px]"
                 >
                   {timeFrame}<span className={`${currentIndex === index ? "rotate-180" : ""}`}>{svgIcons.dropdownIcon}</span>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className={`${currentIndex === index ? "overflow-y-auto" : ""} `}>
               {filteredOrders &&
                 filteredOrders.map((order: Order, orderIndex) => {
                   return (
@@ -84,10 +84,11 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                       key={orderIndex}
                       className={`${
                         currentIndex === index ? "visible" : "hidden"
-                      }`}
+                          } ${orderIndex % 2 ? "bg-slate-200": ""} grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr border border-b-[1px] border-black py-[10px] justify-items-center text-center h-[58px] items-center`}
                     >
-                      <td>{formatDate(new Date(order.ordertimestamp))}</td>
-                      <td>
+                          <td className="w-[100%]">{formatDate(new Date(order.ordertimestamp))}</td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         {(order.orderitems ?? [])
                           .reduce(
                             (prev, curr) =>
@@ -98,16 +99,19 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                             style: "currency",
                             currency: "USD",
                           })}
-                      </td>
-                      <td>
+                          </td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         {(order.orderitems ?? []).some(
                           (item) => item?.returned === true
                         )
                           ? "ITEMS RETURNED"
                           : "NO RETURNS"}
-                      </td>
-                      <td>ID: {order.orderid}</td>
-                      <td>
+                          </td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                          <td className="w-[100%]">ID: {order.orderid}</td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         <button
                           id={order.orderid}
                           onClick={() => {
@@ -122,7 +126,7 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                 })}
               {index === currentIndex && !filteredOrders.length && (
                 <tr>
-                  <td>No orders to display.</td>
+                  <td className="text-center">No orders to display.</td>
                 </tr>
               )}
             </tbody>

@@ -329,8 +329,8 @@ const svgIcons = {
     >
       <path
         d="M30.8998 1.70602L16.6306 27.2448L2.36137 1.70602H30.8998Z"
-        fill="#D9D9D9"
-        fillOpacity="0.33"
+        fill="#FFFFFF"
+        fillOpacity="1"
         stroke="black"
         strokeWidth="2.52862"
       />
