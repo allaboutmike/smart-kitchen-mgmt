@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Order } from "@/components/OrderReceiptManager";
+import { svgIcons } from "@/app/svgIcons";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -55,12 +56,12 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
   };
 
   return (
-    <div className="dropdown-container">
-      Completed Orders
+    <div className="dropdown-container flex flex-col gap-[40px] text-black">
+      <h2 className="text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem]">Completed Orders</h2>
       {orderTimeFrames.map((timeFrame: string, index) => {
         const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
         return (
-          <table key={index}>
+          <table key={index} className="border border-[3.16px] border-black w-[751px]">
             <thead>
               <tr>
                 <th
@@ -69,9 +70,9 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                       prevIndex !== index ? index : -1
                     );
                   }}
-                  className="toggle-trigger"
+                  className="flex p-[12.64px] justify-between items-center h-[64.64px] text-[1.2rem] font-semibold"
                 >
-                  {timeFrame}
+                  {timeFrame}<span className={`${currentIndex === index ? "rotate-180" : ""}`}>{svgIcons.dropdownIcon}</span>
                 </th>
               </tr>
             </thead>
@@ -81,7 +82,7 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                   return (
                     <tr
                       key={orderIndex}
-                      className={`order-data ${
+                      className={`${
                         currentIndex === index ? "visible" : "hidden"
                       }`}
                     >
