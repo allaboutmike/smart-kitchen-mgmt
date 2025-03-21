@@ -23,7 +23,7 @@ export default function SideNavBar() {
   console.log(pageNow)
   const canDisplay =()=>{
     switch(pageNow){
-      case "/pos": return false;break;
+      case "/pos": return false; break;
       case "/select-portal": return false; break;
       case "/": return false; break;
       default: return true;
