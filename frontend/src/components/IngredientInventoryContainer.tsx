@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useFetch } from '../customHooks/useFetch';
+import { useMutation } from '@/customHooks/useMutation'
 
 interface InventoryItem {
+  ingredientid: number;
   name: string;
   price: number;
   status: string;
   current: number;
   capacity: number;
   category: string;
-  threshold?: number;
+  threshold: number;
+  shelflife: number;
+  bulkOrderQuantity: number;
 }
 
 interface BackendStock {
@@ -30,33 +34,73 @@ interface BackendStock {
     costperunit: string;
     shelflife: number;
     servingSize: string;
+    bulkOrderQuantity: number;
   }[];
+}
+
+interface IngredientType {
+  name: string;
+  ingredientid: number;
+  current: number;
+  price: number;
+  shelflife: number;
+  bulkOrderQuantity: number;
 }
 
 export const IngredientInventoryContainer: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
+  const [selectedIngredient, setSelectedIngredient] = useState<IngredientType | null>(null);
+
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const { updateData: updateStock } = useMutation("POST", "stocks");
   
   const { data, isPending, error } = useFetch<BackendStock>('stocks');
 
+  const handleOrderClick = (item: IngredientType) => {
+    setSelectedIngredient(item);
+    modalRef.current?.showModal();
+  };
+
+  const handleConfirmOrder = async () => {
+    if (!selectedIngredient) return;
+    
+    // Use the updateStock function
+    const res = await updateStock({
+      ingredientId: selectedIngredient.ingredientid,
+      current: selectedIngredient.current,
+      price: selectedIngredient.price,
+      shelfLife: selectedIngredient.shelflife,
+      bulkOrderQuantity: selectedIngredient.bulkOrderQuantity,
+      
+    });
+    if(res.success) {
+      console.log(`Successfully ordered ${selectedIngredient.name}`);
+      modalRef.current?.close();
+      // Clear selected ingredient after order
+      setSelectedIngredient(null);
+    };
+  };
+
+
   // Sample data for fallback/development
   const getSampleInventoryData = (): InventoryItem[] => [
-    { name: 'Regular Bun', price: 0.50, status: 'In Stock', current: 100, capacity: 250, threshold: 125, category: 'Buns' },
-    { name: 'No Bun', price: 0.00, status: 'Always Available', current: 0, capacity: 0, threshold: 0, category: 'Buns' },
+    { ingredientid: 1, name: 'Regular Bun', price: 0.50, status: 'In Stock', current: 100, capacity: 250, threshold: 125, category: 'Buns', shelflife: 7, bulkOrderQuantity: 75 },
+    { ingredientid: 2, name: 'No Bun', price: 0.00, status: 'Always Available', current: 0, capacity: 0, threshold: 0, category: 'Buns', shelflife: 6, bulkOrderQuantity: 75 },
     
-    { name: 'Crispy Patty', price: 1.20, status: 'In Stock', current: 75, capacity: 200, threshold: 100, category: 'Patties' },
-    { name: 'Spicy Patty', price: 1.30, status: 'Out of Stock', current: 50, capacity: 200, threshold: 100, category: 'Patties' },
-    { name: 'Grilled Patty', price: 1.40, status: 'In Stock', current: 60, capacity: 200, threshold: 100, category: 'Patties' },
+    { ingredientid: 3, name: 'Crispy Patty', price: 1.20, status: 'In Stock', current: 75, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
+    { ingredientid: 4, name: 'Spicy Patty', price: 1.30, status: 'Out of Stock', current: 50, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
+    { ingredientid: 5, name: 'Grilled Patty', price: 1.40, status: 'In Stock', current: 60, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
     
-    { name: 'Single Serving Nuggets', price: 0.80, status: 'In Stock', current: 90, capacity: 300, threshold: 150, category: 'Chicken' },
-    { name: 'Double Serving Nuggets', price: 1.50, status: 'Out of Stock', current: 70, capacity: 300, threshold: 150, category: 'Chicken' },
+    { ingredientid: 6, name: 'Single Serving Nuggets', price: 0.80, status: 'In Stock', current: 90, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 3, bulkOrderQuantity: 75 },
+    { ingredientid: 7, name: 'Double Serving Nuggets', price: 1.50, status: 'Out of Stock', current: 70, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 6, bulkOrderQuantity: 75 },
     
-    { name: 'Lettuce', price: 0.25, status: 'In Stock', current: 200, capacity: 500, threshold: 250, category: 'Produce' },
-    { name: 'Tomato', price: 0.50, status: 'Low Stock', current: 150, capacity: 400, threshold: 200, category: 'Produce' },
-    { name: 'Cheese Slice', price: 0.30, status: 'In Stock', current: 80, capacity: 200, threshold: 100, category: 'Cheese' },
-    { name: 'BBQ Sauce', price: 0.15, status: 'Well Stocked', current: 300, capacity: 600, threshold: 300, category: 'Sauces' },
-    { name: 'Mayo', price: 0.10, status: 'Well Stocked', current: 400, capacity: 600, threshold: 300, category: 'Sauces' },
+    { ingredientid: 15, name: 'Lettuce', price: 0.25, status: 'In Stock', current: 200, capacity: 500, threshold: 250, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
+    { ingredientid: 16, name: 'Tomato', price: 0.50, status: 'Low Stock', current: 150, capacity: 400, threshold: 200, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
+    { ingredientid: 11, name: 'Cheese Slice', price: 0.30, status: 'In Stock', current: 80, capacity: 200, threshold: 100, category: 'Cheese', shelflife: 7, bulkOrderQuantity: 75 },
+    { ingredientid: 21, name: 'BBQ Sauce', price: 0.15, status: 'Well Stocked', current: 300, capacity: 600, threshold: 300, category: 'Sauces', shelflife: 7, bulkOrderQuantity: 75 },
+    { ingredientid: 26, name: 'Mayo', price: 0.10, status: 'Well Stocked', current: 400, capacity: 600, threshold: 300, category: 'Sauces', shelflife: 7, bulkOrderQuantity: 75 },
   ];
 
   // Modify the received backend data to the format expected by the component
@@ -71,8 +115,8 @@ export const IngredientInventoryContainer: React.FC = () => {
       const validStock = ingredient.stock.filter(item => !item.isexpired);
       const currentQuantity = validStock.reduce((total, item) => total + item.quantity, 0);
       
-      // Calculate total capacity (arbitrary - we'll use 2x threshold)
-      const capacity = ingredient.thresholdquantity * 2;
+      // Calculate total capacity (arbitrary - we'll use 5x threshold)
+      const capacity = ingredient.thresholdquantity * 5;
       
       // Determine status based on quantity and threshold
       let status = 'In Stock';
@@ -89,13 +133,16 @@ export const IngredientInventoryContainer: React.FC = () => {
       }
       
       return {
+        ingredientid: ingredient.ingredientid,
         name: ingredient.ingredientname,
         price: parseFloat(ingredient.costperunit),
         status,
         current: currentQuantity,
         capacity,
         category: ingredient.category,
-        threshold: ingredient.thresholdquantity
+        threshold: ingredient.thresholdquantity,
+        shelflife: ingredient.shelflife,
+        bulkOrderQuantity: ingredient.bulkOrderQuantity,
       };
     });
   };
@@ -227,6 +274,7 @@ export const IngredientInventoryContainer: React.FC = () => {
                   <th className="py-2 px-3 text-left text-blue-500">Quantity</th>
                   <th className="py-2 px-3 text-left text-blue-500">Threshold</th>
                   <th className="py-2 px-3 text-left text-blue-500">Category</th>
+                  <th className="py-2 px-3 text-left text-blue-500"></th>
                 </tr>
               </thead>
               <tbody>
@@ -250,6 +298,22 @@ export const IngredientInventoryContainer: React.FC = () => {
                       <td className="py-2 px-3">
                         {item.category}
                       </td>
+                      <td className="py-2 px-3">
+                        <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors border-none" onClick={()=>handleOrderClick(item)}>Order</button>
+                        <dialog id={`order-modal-${index}`} ref={modalRef} className="modal">
+                          <div className="modal-box">
+                            <h3 className="font-bold text-lg">Please Confirm That You Would Like to Place This Order</h3>
+                            <p className="py-4">Confirming will place an order with your supplier</p>
+                            <div className="modal-action flex justify-end gap-4">
+                              <form method="dialog">
+                                {/* if there is a button in form, it will close the modal */}
+                                <button className="btn btn-success m-1" onClick={handleConfirmOrder}>Confirm</button>
+                                <button className="btn btn-warning m-1">Cancel</button>
+                              </form>
+                            </div>
+                          </div>
+                        </dialog>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -267,5 +331,6 @@ export const IngredientInventoryContainer: React.FC = () => {
     </div>
   );
 };
+
 
 export default IngredientInventoryContainer;
