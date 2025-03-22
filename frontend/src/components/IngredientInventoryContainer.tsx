@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import React, { useState, useEffect, useRef } from 'react';
 import { useFetch } from '../customHooks/useFetch';
-import { useMutation } from '@/customHooks/useMutation'
 import { useMutation } from '@/customHooks/useMutation'
 
 interface InventoryItem {
-  ingredientid: number;
   ingredientid: number;
   name: string;
   price: number;
@@ -18,9 +15,7 @@ interface InventoryItem {
   threshold: number;
   shelflife: number;
   bulkOrderQuantity: number;
-  threshold: number;
-  shelflife: number;
-  bulkOrderQuantity: number;
+
 }
 
 interface BackendStock {
@@ -40,7 +35,6 @@ interface BackendStock {
     costperunit: string;
     shelflife: number;
     servingSize: string;
-    bulkOrderQuantity: number;
     bulkOrderQuantity: number;
   }[];
 }
@@ -67,10 +61,6 @@ export const IngredientInventoryContainer: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
-  const [selectedIngredient, setSelectedIngredient] = useState<IngredientType | null>(null);
-
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const { updateData: updateStock } = useMutation("POST", "stocks");
   const [selectedIngredient, setSelectedIngredient] = useState<IngredientType | null>(null);
 
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -113,26 +103,11 @@ export const IngredientInventoryContainer: React.FC = () => {
   const getSampleInventoryData = (): InventoryItem[] => [
     { ingredientid: 1, name: 'Regular Bun', price: 0.50, status: 'In Stock', current: 100, capacity: 250, threshold: 125, category: 'Buns', shelflife: 7, bulkOrderQuantity: 75 },
     { ingredientid: 2, name: 'No Bun', price: 0.00, status: 'Always Available', current: 0, capacity: 0, threshold: 0, category: 'Buns', shelflife: 6, bulkOrderQuantity: 75 },
-    { ingredientid: 1, name: 'Regular Bun', price: 0.50, status: 'In Stock', current: 100, capacity: 250, threshold: 125, category: 'Buns', shelflife: 7, bulkOrderQuantity: 75 },
-    { ingredientid: 2, name: 'No Bun', price: 0.00, status: 'Always Available', current: 0, capacity: 0, threshold: 0, category: 'Buns', shelflife: 6, bulkOrderQuantity: 75 },
-    
     { ingredientid: 3, name: 'Crispy Patty', price: 1.20, status: 'In Stock', current: 75, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
     { ingredientid: 4, name: 'Spicy Patty', price: 1.30, status: 'Out of Stock', current: 50, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
     { ingredientid: 5, name: 'Grilled Patty', price: 1.40, status: 'In Stock', current: 60, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
-    { ingredientid: 3, name: 'Crispy Patty', price: 1.20, status: 'In Stock', current: 75, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
-    { ingredientid: 4, name: 'Spicy Patty', price: 1.30, status: 'Out of Stock', current: 50, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
-    { ingredientid: 5, name: 'Grilled Patty', price: 1.40, status: 'In Stock', current: 60, capacity: 200, threshold: 100, category: 'Patties', shelflife: 5, bulkOrderQuantity: 75 },
-    
     { ingredientid: 6, name: 'Single Serving Nuggets', price: 0.80, status: 'In Stock', current: 90, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 3, bulkOrderQuantity: 75 },
     { ingredientid: 7, name: 'Double Serving Nuggets', price: 1.50, status: 'Out of Stock', current: 70, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 6, bulkOrderQuantity: 75 },
-    { ingredientid: 6, name: 'Single Serving Nuggets', price: 0.80, status: 'In Stock', current: 90, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 3, bulkOrderQuantity: 75 },
-    { ingredientid: 7, name: 'Double Serving Nuggets', price: 1.50, status: 'Out of Stock', current: 70, capacity: 300, threshold: 150, category: 'Chicken', shelflife: 6, bulkOrderQuantity: 75 },
-    
-    { ingredientid: 15, name: 'Lettuce', price: 0.25, status: 'In Stock', current: 200, capacity: 500, threshold: 250, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
-    { ingredientid: 16, name: 'Tomato', price: 0.50, status: 'Low Stock', current: 150, capacity: 400, threshold: 200, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
-    { ingredientid: 11, name: 'Cheese Slice', price: 0.30, status: 'In Stock', current: 80, capacity: 200, threshold: 100, category: 'Cheese', shelflife: 7, bulkOrderQuantity: 75 },
-    { ingredientid: 21, name: 'BBQ Sauce', price: 0.15, status: 'Well Stocked', current: 300, capacity: 600, threshold: 300, category: 'Sauces', shelflife: 7, bulkOrderQuantity: 75 },
-    { ingredientid: 26, name: 'Mayo', price: 0.10, status: 'Well Stocked', current: 400, capacity: 600, threshold: 300, category: 'Sauces', shelflife: 7, bulkOrderQuantity: 75 },
     { ingredientid: 15, name: 'Lettuce', price: 0.25, status: 'In Stock', current: 200, capacity: 500, threshold: 250, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
     { ingredientid: 16, name: 'Tomato', price: 0.50, status: 'Low Stock', current: 150, capacity: 400, threshold: 200, category: 'Produce', shelflife: 5, bulkOrderQuantity: 75 },
     { ingredientid: 11, name: 'Cheese Slice', price: 0.30, status: 'In Stock', current: 80, capacity: 200, threshold: 100, category: 'Cheese', shelflife: 7, bulkOrderQuantity: 75 },
@@ -154,9 +129,7 @@ export const IngredientInventoryContainer: React.FC = () => {
       
       // Calculate total capacity (arbitrary - we'll use 5x threshold)
       const capacity = ingredient.thresholdquantity * 5;
-      // Calculate total capacity (arbitrary - we'll use 5x threshold)
-      const capacity = ingredient.thresholdquantity * 5;
-      
+
       // Determine status based on quantity and threshold
       let status = 'In Stock';
       if (ingredient.ingredientname === "No Bun") {
@@ -173,7 +146,6 @@ export const IngredientInventoryContainer: React.FC = () => {
       
       return {
         ingredientid: ingredient.ingredientid,
-        ingredientid: ingredient.ingredientid,
         name: ingredient.ingredientname,
         price: parseFloat(ingredient.costperunit),
         status,
@@ -182,10 +154,7 @@ export const IngredientInventoryContainer: React.FC = () => {
         category: ingredient.category,
         threshold: ingredient.thresholdquantity,
         shelflife: ingredient.shelflife,
-        bulkOrderQuantity: ingredient.bulkOrderQuantity,
-        threshold: ingredient.thresholdquantity,
-        shelflife: ingredient.shelflife,
-        bulkOrderQuantity: ingredient.bulkOrderQuantity,
+        bulkOrderQuantity: ingredient.bulkOrderQuantity
       };
     });
   };
