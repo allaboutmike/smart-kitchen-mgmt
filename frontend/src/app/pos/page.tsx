@@ -78,7 +78,24 @@ export default function POS() {
   const findElement =(item: MenuItemType)=>{
     return addedItems.find(searchedItem => searchedItem.foodName === item.name)
   }
-  console.table(menuItems);
+  const addItemToCart =(item: MenuItemType)=>{
+    const newItem: ItemProps = {
+      foodName: item.name,
+      foodPrice: parseFloat(item.price),
+      quantity: 1,
+    };
+    const allItems = [...addedItems];
+    const itemFoundIndex = allItems.findIndex(
+      (item) => item.foodName === newItem.foodName
+    );
+    if (itemFoundIndex >= 0 && itemFoundIndex < allItems.length 
+      && allItems[itemFoundIndex]?.quantity !== undefined) {
+      allItems[itemFoundIndex].quantity += 1;
+      setAddedItems([...allItems]);
+    } else {
+      setAddedItems((prevItems) => [...prevItems, newItem]);
+    }
+  }
   return (
     <div className="main-container pos-container">
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
@@ -95,7 +112,7 @@ export default function POS() {
         aria-label="Cart toggle button"
       >
         {svgIcons.cart}
-        { addedItems.length > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
+        { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
         h-[30px] bottom-[-20px] left-[-18px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
             <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
@@ -144,24 +161,7 @@ export default function POS() {
                 </span>
                 <button
                   className="btn tablet:text-[0.7rem] rounded-none h-full"
-                  onClick={() => {
-                    const newItem: ItemProps = {
-                      foodName: item.name,
-                      foodPrice: parseFloat(item.price),
-                      quantity: 1,
-                    };
-                    const allItems = [...addedItems];
-                    const itemFoundIndex = allItems.findIndex(
-                      (item) => item.foodName === newItem.foodName
-                    );
-                    if (itemFoundIndex >= 0 && itemFoundIndex < allItems.length 
-                      && allItems[itemFoundIndex]?.quantity !== undefined) {
-                      allItems[itemFoundIndex].quantity += 1;
-                      setAddedItems([...allItems]);
-                    } else {
-                      setAddedItems((prevItems) => [...prevItems, newItem]);
-                    }
-                  }}
+                  onClick={()=> addItemToCart(item)}
                 >
                   Add Item
                 </button>
