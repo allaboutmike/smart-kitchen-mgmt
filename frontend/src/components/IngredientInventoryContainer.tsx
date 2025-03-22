@@ -66,7 +66,6 @@ export const IngredientInventoryContainer: React.FC = () => {
   const handleConfirmOrder = async () => {
     if (!selectedIngredient) return;
     
-    // Use the updateStock function
     const res = await updateStock({
       ingredientId: selectedIngredient.ingredientid,
       current: selectedIngredient.current,
@@ -80,8 +79,15 @@ export const IngredientInventoryContainer: React.FC = () => {
       modalRef.current?.close();
       // Clear selected ingredient after order
       setSelectedIngredient(null);
+
+      if (res.data) {
+        const updatedData = transformStockData(res.data as BackendStock);
+        setInventoryData(updatedData);
+      }
+    }
+      // setInventoryData([res.data as InventoryItem]);
     };
-  };
+
 
 
   // Sample data for fallback/development
@@ -300,10 +306,10 @@ export const IngredientInventoryContainer: React.FC = () => {
                       </td>
                       <td className="py-2 px-3">
                         <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors border-none" onClick={()=>handleOrderClick(item)}>Order</button>
-                        <dialog id={`order-modal-${index}`} ref={modalRef} className="modal">
-                          <div className="modal-box">
-                            <h3 className="font-bold text-lg">Please Confirm That You Would Like to Place This Order</h3>
-                            <p className="py-4">Confirming will place an order with your supplier</p>
+                        <dialog key={item.ingredientid} ref={modalRef} className="modal">
+                          <div className="modal-box bg-white p-4 rounded-lg shadow-lg">
+                            <h3 className="font-bold text-black text-lg">Please Confirm That You Would Like to Place This Order</h3>
+                            <p className="text-black py-4">Confirming will place an order with your supplier</p>
                             <div className="modal-action flex justify-end gap-4">
                               <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}

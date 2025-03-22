@@ -103,30 +103,31 @@ stockRouter.post("/", async (req: Request, res: Response) => {
       },
     })
 
-    
-      const stockItems = await Db.ingredients.findMany({
-        // where: { quantity: { lt: Number(lowStock) }},
-        select: {
-          ingredientid: true,
-          ingredientname: true, 
-          bulkOrderQuantity: true,
-          stock: {
-            select: {
-              stockid: true,
-              quantity: true,
-              cost: true,
-              isexpired: true,
-              receivedtimestamp: true,
-              expirationdate: true
-            },
+  
+    const stockItems = await Db.ingredients.findMany({
+      // where: { quantity: { lt: Number(lowStock) }},
+      select: {
+        ingredientid: true,
+        ingredientname: true, 
+        bulkOrderQuantity: true,
+        stock: {
+          select: {
+            stockid: true,
+            quantity: true,
+            cost: true,
+            isexpired: true,
+            receivedtimestamp: true,
+            expirationdate: true
           },
-          thresholdquantity: true,
-          category: true,
-          costperunit: true,
-          shelflife: true,
-          servingSize: true,
-        }
-      });
+        },
+        thresholdquantity: true,
+        category: true,
+        costperunit: true,
+        shelflife: true,
+        servingSize: true,
+      }
+    });
+    
     console.log("Ordered stock with ID:", stock.stockid);
     res.status(201).json({ success: true, stock: stockItems });
   } catch (error) {
