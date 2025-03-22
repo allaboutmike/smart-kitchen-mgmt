@@ -1,0 +1,13 @@
+.cart-container{
+    @apply flex fixed right-[10px] flex-col px-[40px] gap-[1rem];
+    @apply py-[20px] rounded-[8px] max-w-[500px] min-w-[300px] bg-white h-[80%] outline;
+    @apply justify-evenly top-[100px];
+    z-index: 10;
+    
+}
+.pos-item-name{
+    @apply text-lg max-w-[200px];
+}
+.cart-title{
+    @apply max-h-[fit-content] text-2xl text-black text-[2rem] font-semibold;
+}

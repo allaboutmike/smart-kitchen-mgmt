@@ -9,6 +9,7 @@
   --active-button-color: #6063ff;
   --remove-button-bg-color: #a760ff;
   --custom-active-red-color: #ea484b;
+  --continue-button-color: #DE5BFF;
   --drop-shadow-color: hsla(221, 71%, 64%, 0.293);
   --white-backdrop: rgba(255, 255, 255, 0.573);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);

@@ -1,13 +1,29 @@
 .menuItem {
-    @apply grid rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] gap-[8px] justify-between;
+    @apply grid relative rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-y-clip gap-[8px] justify-between;
     box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
     @apply mobile:max-w-[100%];
 }
-.menuItem button {
-@apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
+.pos-menu-item{
+    @apply grid relative place-items-center rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-clip gap-[4px] justify-between;
+    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
+    @apply mobile:max-w-[100%];
+    
+}
+.menuItem button, .pos-menu-item button {
+@apply text-[1.2rem] absolute p-[40px] self-end place-self-center mb-[-100px] font-semibold align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
     &:active {
         @apply bg-[--active-button-color];
     }
+    transition: margin 0.3s ease;
+}
+.pos-menu-item button {
+    @apply mb-[-140%];
+    transition: margin 0.13s ease-in-out;
+}
+.menuItem:hover button , .pos-menu-item:hover button{
+    filter: opacity(0.95);
+    @apply bg-[#A760FF];
+    margin-bottom: 0;
 }
 
 .menuItemPictureAndPriceGroup {
@@ -28,4 +44,30 @@
 
 .menuItemName::-webkit-scrollbar{
     display: none;
+}
+@keyframes element-pop-in-anim{
+    0%{
+      transform: scale(0);
+    }
+    50%{
+      transform: scale(1.8)
+    }
+    60%{
+      transform: scale(0.6)
+    }
+    80%{
+      transform: scale(1.2)
+    }
+    100%{
+      transform: scale(1)
+    }
+  }
+.elem-bounce{
+    animation: element-pop-in-anim 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+.number-indicator{
+    @apply flex absolute top-[10px] outline font-semibold w-[30px] text-center;
+    @apply right-[15px] rounded-[50%] h-[30px] justify-center items-center text-[--foreground] bg-white text-[1rem] z-10;
+    outline-color: rgb(43, 11, 48);
+    outline-width: 2px;
 }
