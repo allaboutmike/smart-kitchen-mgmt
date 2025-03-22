@@ -39,6 +39,7 @@ export interface ItemProps{
 }
 export default function Cart(orderInfo: CartInfo) {
   const cartTotalCost = orderInfo.items.reduce((prevVal, currVal)=> prevVal + (currVal.quantity? (currVal.foodPrice * currVal.quantity): currVal.foodPrice), 0).toFixed(2)
+  const itemsAvailable = orderInfo.items.length;
   return (
     <div className={styles["cart-container"]}>
       <span className={styles["cart-title"]}>Cart</span>
@@ -62,10 +63,10 @@ export default function Cart(orderInfo: CartInfo) {
             <span>Total</span>
             <span>${cartTotalCost}</span>
         </span>
-        <span className="grid grid-rows-2 w-full gap-[1rem]">
+        {itemsAvailable > 0 && <span className="grid grid-rows-2 w-full gap-[1rem]">
             <button className="btn bg-[--continue-button-color] border-none hover:bg-purple-500 active:bg-[--foreground-2] text-white">Buy</button>
             <button className="btn btn-error text-white" onClick={()=>orderInfo.cancelOrder()}>Cancel</button>
-        </span>
+        </span>}
       </span>
     </div>
   );
@@ -81,8 +82,8 @@ const ItemComponent=(itemInfo: ItemProps)=>{
                 <span className="flex items-center">
                   <span className="pr-[10px]">{itemInfo.quantity}</span>
                   <span className="flex relative gap-[4px]">
+                    {(itemInfo.quantity ?? 0) > 1 && <button className="btn btn-outline btn-secondary" onClick={()=>itemInfo.actions?.decreaseQty(itemInfo.foodName)}>-</button>}
                     <button className="btn btn-outline btn-primary"   onClick={()=>itemInfo.actions?.increaseQty(itemInfo.foodName)}>+</button>
-                    <button className="btn btn-outline btn-secondary" onClick={()=>itemInfo.actions?.decreaseQty(itemInfo.foodName)}>-</button>
                   </span>
                 </span>
             </span>
