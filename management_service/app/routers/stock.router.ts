@@ -102,8 +102,33 @@ stockRouter.post("/", async (req: Request, res: Response) => {
         expensedate: todaysDate,
       },
     })
+
+    
+      const stockItems = await Db.ingredients.findMany({
+        // where: { quantity: { lt: Number(lowStock) }},
+        select: {
+          ingredientid: true,
+          ingredientname: true, 
+          bulkOrderQuantity: true,
+          stock: {
+            select: {
+              stockid: true,
+              quantity: true,
+              cost: true,
+              isexpired: true,
+              receivedtimestamp: true,
+              expirationdate: true
+            },
+          },
+          thresholdquantity: true,
+          category: true,
+          costperunit: true,
+          shelflife: true,
+          servingSize: true,
+        }
+      });
     console.log("Ordered stock with ID:", stock.stockid);
-    res.sendStatus(201);
+    res.status(201).json({ success: true, stock: stockItems });
   } catch (error) {
     console.error("Error ordering stock:", error);
     res.status(500).json({ error: "Internal server error" });
