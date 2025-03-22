@@ -138,7 +138,7 @@ export default function POS() {
                   <span>Price: ${item.price}</span>                  
                 </span>
                 <button
-                  className="btn tablet:text-[0.7rem]"
+                  className="btn tablet:text-[0.7rem] rounded-none"
                   onClick={() => {
                     const newItem: ItemProps = {
                       foodName: item.name,

@@ -1,13 +1,23 @@
 .menuItem {
-    @apply grid rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] gap-[8px] justify-between;
+    @apply grid relative rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-y-clip gap-[8px] justify-between;
     box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
     @apply mobile:max-w-[100%];
 }
-.menuItem button {
-@apply text-[1.2rem] font-semibold rounded-[8px] align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
+.pos-menu-item{
+    @apply grid relative place-items-center rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-y-clip gap-[4px] justify-between;
+    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
+    @apply mobile:max-w-[100%];
+    
+}
+.menuItem button, .pos-menu-item button {
+@apply text-[1.2rem] absolute p-[40px] self-end place-self-center mb-[-100px] font-semibold align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
     &:active {
         @apply bg-[--active-button-color];
     }
+    transition: margin 0.3s ease;
+}
+.menuItem:hover button , .pos-menu-item:hover button{
+    margin-bottom: 10;
 }
 
 .menuItemPictureAndPriceGroup {
