@@ -8,6 +8,8 @@ import SelectableButton from "@/components/SelectableButton";
 import styles from "../../styles/MenuManagementContainer.module.css";
 import menuItemStyles from "../../styles/MenuItem.module.css"
 import Image from "next/image";
+import { svgIcons } from "../svgIcons";
+import Link from "next/link";
 
 const menuCategories =
   "Popular, Meals, Entrees, Salads, Sides, Beverages".split(",");
@@ -72,7 +74,6 @@ export default function POS() {
           return item.category.toLowerCase() === optionName;
         });
 
-  const svgSize = 20;
   const amountOfItemsInCart = addedItems.reduce((prevVal, currVal) => prevVal + (currVal.quantity ?? 0), 0)
   const findElement =(item: MenuItemType)=>{
     return addedItems.find(searchedItem => searchedItem.foodName === item.name)
@@ -80,32 +81,26 @@ export default function POS() {
   console.table(menuItems);
   return (
     <div className="main-container pos-container">
+      <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
+      <Link href="/select-portal">
+        <button className="flex btn fixed right-[100px] top-[20px] bg-transparent hover:bg-[--foreground] hover:border-none
+        w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
+            {svgIcons.backArrow}
+        </button>
+      </Link>
       <button
-        className={`btn btn-square relative text-[--foreground] self-end mr-[20px]
+        className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px]
          bg-[--background] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
         onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
         aria-label="Cart toggle button"
       >
-        <svg
-          width={svgSize}
-          height={svgSize}
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M4 .75H1a1 1 0 0 0-1 1v.5a1 1 0 0 0 1 1h2.012l2.724 11.481A4.25 4.25 0 0 0 9.765 18h7.822a4 4 0 0 0 3.943-3.325l1.256-7.338A2 2 0 0 0 20.814 5H5.997l-.78-3.289A1.25 1.25 0 0 0 4 .75M10 21a2 2 0 1 1-4 0 2 2 0 0 1 4 0m11 0a2 2 0 1 1-4 0 2 2 0 0 1 4 0"
-            fill="currentColor"
-          />
-        </svg>
+        {svgIcons.cart}
         { addedItems.length > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
         h-[30px] bottom-[-20px] left-[-18px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
             <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
       </button>
-      <span className={styles["restaurant-current-option-title"]}>
-            <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
-          </span>
+      
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {
           return (
@@ -119,6 +114,9 @@ export default function POS() {
           );
         })}
       </div>
+      <span className={`${styles["restaurant-current-option-title-pos"]}`}>
+            <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
+      </span>
 
       <span className="flex gap-[2rem] w-full justify-center place-items-center ml-[-20px] p-[20px] mt-[20px]">
         <span
