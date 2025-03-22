@@ -3,10 +3,10 @@
     @apply mobile:flex mobile:pl-0 mobile:text-center mobile:justify-center;
 }
 .restaurant-current-option-title-pos{
-  @apply pl-0 mt-[20px] mb-[-40px];
-  > span{
+  @apply pl-0 mt-[20px] mb-[-40px];  
+}
+.restaurant-current-option-title-pos > span{
     @apply font-semibold;
-  }
 }
 .restaurant-current-option-title > span{ @apply font-semibold;}
 .restaurant-components-main-container {@apply flex flex-col items-center;}
