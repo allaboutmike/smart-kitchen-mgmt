@@ -16,7 +16,7 @@ export default function POS() {
   const fetchString = "menuItems";
   const { data } = useFetch<{ menuItems: MenuItemType[] }>(fetchString);
   const [addedItems, setAddedItems] = useState<ItemProps[]>([]);
-  const [isCartVisible, setIsCartVisible] = useState(false);
+  const [isCartVisible, setIsCartVisible] = useState(true);
   const { currentSelection, isCurrentSelection, setCurrentSelection } =
     useSelection();
   const menuItems = data?.menuItems;
@@ -74,11 +74,15 @@ export default function POS() {
 
   const svgSize = 20;
   const amountOfItemsInCart = addedItems.reduce((prevVal, currVal) => prevVal + (currVal.quantity ?? 0), 0)
+  const findElement =(item: MenuItemType)=>{
+    return addedItems.find(searchedItem => searchedItem.foodName === item.name)
+  }
   console.table(menuItems);
   return (
     <div className="main-container pos-container">
       <button
-        className="btn btn-square relative text-[--foreground] self-end mr-[20px] bg-[--background] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px]"
+        className={`btn btn-square relative text-[--foreground] self-end mr-[20px]
+         bg-[--background] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
         onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
         aria-label="Cart toggle button"
       >
@@ -94,11 +98,14 @@ export default function POS() {
             fill="currentColor"
           />
         </svg>
-        { addedItems.length > 0 && <span className="flex justify-center absolute w-[30px] text-[--foreground]
-        h-[30px] bottom-[-20px] left-[-18px] bg-white outline rounded-[50%]">
-            <span className="self-center text-[--custom-active-red-color] pointer-events-none">{amountOfItemsInCart}</span>
+        { addedItems.length > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
+        h-[30px] bottom-[-20px] left-[-18px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
+            <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
       </button>
+      <span className={styles["restaurant-current-option-title"]}>
+            <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
+          </span>
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {
           return (
@@ -113,10 +120,10 @@ export default function POS() {
         })}
       </div>
 
-      <span className="flex outline gap-[2rem] w-full justify-between place-items-center ml-[-20px] p-[20px] mt-[20px]">
+      <span className="flex gap-[2rem] w-full justify-center place-items-center ml-[-20px] p-[20px] mt-[20px]">
         <span
           className="grid grid-flow-row-dense tablet:grid-cols-2 mobile:grid-cols-1 
-          p-[20px] grid-cols-6 gap-[20px] max-h-[400px] overflow-y-auto"
+          p-[20px] grid-cols-4 gap-[20px] max-h-[600px] overflow-y-auto"
         >
           {filteredMenuItems?.map((item, index) => {
             const imgSize = 80;
@@ -138,7 +145,7 @@ export default function POS() {
                   <span>Price: ${item.price}</span>                  
                 </span>
                 <button
-                  className="btn tablet:text-[0.7rem] rounded-none"
+                  className="btn tablet:text-[0.7rem] rounded-none h-full"
                   onClick={() => {
                     const newItem: ItemProps = {
                       foodName: item.name,
@@ -160,6 +167,13 @@ export default function POS() {
                 >
                   Add Item
                 </button>
+                { 
+                  findElement(item)?.quantity &&
+                  <span key={findElement(item)?.quantity} className={`${menuItemStyles["elem-bounce"]} ${menuItemStyles["number-indicator"]}`}
+                  >
+                    <span>{(findElement(item)?.quantity)}</span>
+                  </span>
+                }
               </span>
             );
           })}
