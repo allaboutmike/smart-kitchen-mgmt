@@ -272,7 +272,7 @@ export const IngredientInventoryContainer: React.FC = () => {
   };
   
   return (
-    <div className="w-full max-w-[1000px] mx-auto flex flex-col h-full">
+    <div className="w-full max-w-[1000px] mx-auto flex flex-col h-full p-1">
       <div className="mb-4">
         <h1 className="text-3xl font-bold text-center text-blue-500 mb-4">
           Ingredients Inventory
