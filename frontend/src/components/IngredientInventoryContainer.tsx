@@ -62,6 +62,9 @@ export const IngredientInventoryContainer: React.FC = () => {
   const [inventoryData, setInventoryData] = useState<InventoryItem[]>([]);
   const [isUsingSampleData, setIsUsingSampleData] = useState<boolean>(false);
   const [selectedIngredient, setSelectedIngredient] = useState<IngredientType | null>(null);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [alertType, setAlertType] = useState<'success' | 'error' | 'warning'>('success');
 
   const modalRef = useRef<HTMLDialogElement>(null);
   const { updateData: updateStock } = useMutation("POST", "stocks");
@@ -75,25 +78,44 @@ export const IngredientInventoryContainer: React.FC = () => {
 
   const handleConfirmOrder = async () => {
     if (!selectedIngredient) return;
-    
-    const res = await updateStock({
-      ingredientId: selectedIngredient.ingredientid,
-      current: selectedIngredient.current,
-      price: selectedIngredient.price,
-      shelfLife: selectedIngredient.shelflife,
-      bulkOrderQuantity: selectedIngredient.bulkOrderQuantity,
-      
-    });
-    if(res.success) {
-      console.log(`Successfully ordered ${selectedIngredient.name}`);
-      modalRef.current?.close();
-      // Clear selected ingredient after order
-      setSelectedIngredient(null);
+  
+    try {
+      const res = await updateStock({
+        ingredientId: selectedIngredient.ingredientid,
+        current: selectedIngredient.current,
+        price: selectedIngredient.price,
+        shelfLife: selectedIngredient.shelflife,
+        bulkOrderQuantity: selectedIngredient.bulkOrderQuantity,
+        
+      });
+      if(res.success) {
+        console.log(`Successfully ordered ${selectedIngredient.name}`);
+        modalRef.current?.close();
+        setAlertType('success');
+        setAlertMessage(`Successfully ordered ${selectedIngredient.bulkOrderQuantity} units of ${selectedIngredient.name}`);
+        setShowAlert(true);
+        // setTimeout(() => setShowAlert(false), 5000);
 
-      if (res.data) {
-        const updatedData = transformStockData(res.data as BackendStock);
-        setInventoryData(updatedData);
+        // Clear selected ingredient after order
+        setSelectedIngredient(null);
+
+
+        if (res.data) {
+          const updatedData = transformStockData(res.data as BackendStock);
+          setInventoryData(updatedData);
+        }
+      } else {
+        // Show error alert
+        setAlertType('error');
+        setAlertMessage('Failed to place order. Please try again.');
+        setShowAlert(true);
       }
+    } catch (error) {
+      console.error('Order error:', error);
+      // Show error alert
+      setAlertType('error');
+      setAlertMessage('An error occurred while placing your order.');
+      setShowAlert(true);
     }
   };
 
@@ -239,6 +261,7 @@ export const IngredientInventoryContainer: React.FC = () => {
     }
     
     return (
+      
       <div className="w-28 bg-gray-300 rounded-full h-2">
         <div 
           className={`h-2 rounded-full ${color}`}
@@ -263,7 +286,27 @@ export const IngredientInventoryContainer: React.FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      
+      {showAlert && (
+        <div 
+          role="alert" 
+          className={`alert flex ${
+            alertType === 'success' ? 'alert-success' : 
+            alertType === 'error' ? 'alert-error' : 
+            'alert-warning'
+          } mb-4 animate-fadeIn`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{alertMessage}</span>
+          <button 
+            onClick={() => setShowAlert(false)}
+            className="btn btn-sm btn-circle btn-ghost ml-auto"
+          >
+            ✕
+          </button>
+        </div>
+      )}
       <div className="flex-1 overflow-hidden">
         {isPending ? (
           <div className="flex justify-center items-center h-[400px]">
@@ -313,19 +356,7 @@ export const IngredientInventoryContainer: React.FC = () => {
                       </td>
                       <td className="py-2 px-3">
                         <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors border-none" onClick={()=>handleOrderClick(item)}>Order</button>
-                        <dialog key={item.ingredientid} ref={modalRef} className="modal">
-                          <div className="modal-box bg-white p-4 rounded-lg shadow-lg">
-                            <h3 className="font-bold text-black text-lg">Please Confirm That You Would Like to Place This Order</h3>
-                            <p className="text-black py-4">Confirming will place an order with your supplier</p>
-                            <div className="modal-action flex justify-end gap-4">
-                              <form method="dialog">
-                                {/* if there is a button in form, it will close the modal */}
-                                <button className="btn btn-success m-1" onClick={handleConfirmOrder}>Confirm</button>
-                                <button className="btn btn-warning m-1">Cancel</button>
-                              </form>
-                            </div>
-                          </div>
-                        </dialog>
+                        
                       </td>
                     </tr>
                   ))
@@ -341,6 +372,21 @@ export const IngredientInventoryContainer: React.FC = () => {
           </div>
         )}
       </div>
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box bg-white p-4 rounded-lg shadow-lg">
+          <h3 className="font-bold text-black text-lg">Please Confirm That You Would Like to Place This Order</h3>
+          <p className="text-black py-4">Confirming will place an order for {selectedIngredient?.bulkOrderQuantity} units of {selectedIngredient?.name} with your supplier. Total Cost: ${selectedIngredient?.price && selectedIngredient?.bulkOrderQuantity 
+        ? (selectedIngredient.price * selectedIngredient.bulkOrderQuantity).toFixed(2) 
+        : '0.00'} </p>
+          <div className="modal-action flex justify-end gap-4">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-success m-1" onClick={handleConfirmOrder}>Confirm</button>
+              <button className="btn btn-warning m-1">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
