@@ -29,6 +29,7 @@ body {
 .pos-container{
   @apply p-[0] justify-center;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

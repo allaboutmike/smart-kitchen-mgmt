@@ -99,21 +99,27 @@ export default function POS() {
   return (
     <div className="main-container pos-container">
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
-      <Link href="/select-portal">
-        <button className="flex btn fixed right-[100px] top-[20px] bg-transparent hover:bg-[--foreground] hover:border-none
-        w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
-            {svgIcons.backArrow}
-        </button>
-      </Link>
+      
+      
+        <span className="fixed tooltip tooltip-left right-[120px] transition delay-500
+        top-[44px] bg-[foreground]" data-tip="Go back to Management Center">
+          <Link href="/select-portal">
+            <button className="flex btn fixed right-[70px] top-[20px] bg-white hover:bg-[--foreground] hover:border-[--foreground]
+            w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
+                {svgIcons.backArrow}
+            </button>            
+          </Link>
+        </span>
+      
       <button
         className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px]
-         bg-[--background] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
+         bg-[--background] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
         onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
         aria-label="Cart toggle button"
       >
         {svgIcons.cart}
         { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
-        h-[30px] bottom-[-20px] left-[-18px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
+        h-[30px] top-[-15px] right-[-10px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
             <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
       </button>
@@ -135,10 +141,9 @@ export default function POS() {
             <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
       </span>
 
-      <span className="flex gap-[2rem] w-full justify-center place-items-center ml-[-20px] p-[20px] mt-[20px]">
+      <span className="flex gap-[2rem] w-full justify-center place-items-center p-[20px] mt-[20px]">
         <span
-          className="grid grid-flow-row-dense tablet:grid-cols-2 mobile:grid-cols-1 
-          p-[20px] grid-cols-4 gap-[20px] max-h-[600px] overflow-y-auto"
+          className={styles["menu-items-container-pos"]}
         >
           {filteredMenuItems?.map((item, index) => {
             const imgSize = 80;

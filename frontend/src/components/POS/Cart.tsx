@@ -43,7 +43,7 @@ export default function Cart(orderInfo: CartInfo) {
   return (
     <div className={styles["cart-container"]}>
       <span className={styles["cart-title"]}>Cart</span>
-      <span className="flex flex-col h-[400px] gap-[10px] overflow-y-auto">
+      <span className="flex flex-col h-[400px] gap-[10px] overflow-y-auto outline p-[5px] rounded-[8px]">
         {
             orderInfo.items?.map((item, index)=>{
                 const currItem: ItemProps={
