@@ -140,7 +140,7 @@ const ProductivityMetricsComponent: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-base font-medium text-blue-700 mb-4">Profits</h2>
             <h3 className="text-gray-700 mb-4">Net Profit</h3>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-green-600">
                   ${parseFloat(profitToday).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
