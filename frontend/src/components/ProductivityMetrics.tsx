@@ -140,7 +140,7 @@ const ProductivityMetricsComponent: React.FC = () => {
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-base font-medium text-blue-700 mb-4">Profits</h2>
             <h3 className="text-gray-700 mb-4">Net Profit</h3>
-            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid mobile:grid-cols-1 mobile-m:grid-cols-1 tablet:grid-cols-3 gap-4">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-green-600">
                   ${parseFloat(profitToday).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
@@ -165,7 +165,7 @@ const ProductivityMetricsComponent: React.FC = () => {
           {/* Total Order Metrics Card */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-base font-medium text-blue-700 mb-4">Total Order Metrics</h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid mobile:grid-cols-1 grid-cols-3 gap-4">
               <div className="flex flex-col">
                 <span className="text-5xl font-bold text-green-600">{totalOrdersToday}</span>
                 <span className="text-sm text-gray-500 mt-1">Today</span>
@@ -186,7 +186,7 @@ const ProductivityMetricsComponent: React.FC = () => {
           {/* Successful Order Metrics Card */}
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h2 className="text-base font-medium text-blue-700 mb-4">Successful Order Metrics</h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid mobile:grid-cols-1 grid-cols-3 gap-4">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">
                   <span className="text-green-600">{successfulOrdersToday}</span>
@@ -232,13 +232,13 @@ const ProductivityMetricsComponent: React.FC = () => {
                 getItemInfo(metricsData?.bestSellingItemYearToDate || [], "No Data")
               ].map((item, index) => (
                 <div key={`best-${index}`} className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
+                  <div className="mobile:w-10 mobile:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
                     {item.imageUrl ? (
                       <Image 
                         src={item.imageUrl} 
                         alt={item.name} 
-                        width={80}
-                        height={80}
+                        width={60}
+                        height={60}
                         className="w-full h-full object-cover"
                         onError={() => {}} 
                       />
@@ -260,7 +260,7 @@ const ProductivityMetricsComponent: React.FC = () => {
                 getItemInfo(metricsData?.worstSellingItemYearToDate || [], "No Data")
               ].map((item, index) => (
                 <div key={`worst-${index}`} className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
+                  <div className="mobile:w-10 mobile:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
                     {item.imageUrl ? (
                       <Image 
                         src={item.imageUrl} 
