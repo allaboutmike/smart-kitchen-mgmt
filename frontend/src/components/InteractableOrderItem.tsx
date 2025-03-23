@@ -12,6 +12,7 @@ export default function InteractableOrderItem(itemDetails: ItemDetails) {
       </div>
       <span className={styles["remove-and-price-group"]}>
         <span className={styles["order-item-price"]}>${itemDetails.price}</span>        
+        <span >{itemDetails.quantity?.toString()}</span>        
       </span>
     </div>
   );
