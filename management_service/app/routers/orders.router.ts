@@ -176,7 +176,17 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
     // update order status
     await Db.orders.update({
       where: { orderid: orderId },
-      data: { completed: !order.completed, completedTimeStamp: new Date() },
+      data: { 
+        completed: !order.completed,
+        completedTimeStamp: new Date(),
+        orderitems: {
+          updateMany: {
+            where: { orderid: orderId },
+            data: { served: true, servedtimestamp: new Date() },
+          },
+        },
+
+       },
     });
 
     //this loop is for debugging purposes
