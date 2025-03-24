@@ -1,4 +1,5 @@
 .order-tracking-button-container {
-    @apply flex gap-x-[1rem] px-[35px] py-[15px] rounded-[8px];
+    @apply flex gap-x-[1rem] p-[15px] rounded-[8px];
+    @apply mobile:flex-col mobile:gap-x-0 mobile:gap-y-3 mobile:px-4;
     box-shadow: 0 3px 10px 4px var(--drop-shadow-color);
   }

@@ -122,13 +122,20 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
       }[];
     } = req.body;
 
+    const expandedOrderItems = orderItems.flatMap(item => 
+      Array(item.quantity).fill(null).map(() => ({
+        menuitemid: item.id,
+        customizationdetail: null,
+      }))
+    );
+
     await Db.orders.create({
       data: {
         orderitems: {
           createMany: {
-            data: orderItems.map((item) => ({
-              menuitemid: item.id,
-              customizationdetail: null,
+            data: expandedOrderItems.map((item) => ({
+              menuitemid: item.menuitemid,
+              customizationdetail: item.customizationdetail,
             })),
           },
         },
@@ -169,7 +176,17 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
     // update order status
     await Db.orders.update({
       where: { orderid: orderId },
-      data: { completed: !order.completed, completedTimeStamp: new Date() },
+      data: { 
+        completed: !order.completed,
+        completedTimeStamp: new Date(),
+        orderitems: {
+          updateMany: {
+            where: { orderid: orderId },
+            data: { served: true, servedtimestamp: new Date() },
+          },
+        },
+
+       },
     });
 
     //this loop is for debugging purposes

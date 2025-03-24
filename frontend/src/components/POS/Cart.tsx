@@ -36,6 +36,7 @@ export interface ItemProps{
   foodPrice: number;
   quantity?: number;
   actions?: ItemButtonActions;
+  id: number;
 }
 export default function Cart(orderInfo: CartInfo) {
   const cartTotalCost = orderInfo.items.reduce((prevVal, currVal)=> prevVal + (currVal.quantity? (currVal.foodPrice * currVal.quantity): currVal.foodPrice), 0).toFixed(2)
@@ -50,7 +51,8 @@ export default function Cart(orderInfo: CartInfo) {
                     foodName: item.foodName,
                     foodPrice: item.foodPrice,
                     quantity: item.quantity,
-                    actions: orderInfo.itemActions
+                    actions: orderInfo.itemActions,
+                    id: item.id
                 }
                 return(
                     <ItemComponent key={index} {...currItem} />
@@ -64,8 +66,11 @@ export default function Cart(orderInfo: CartInfo) {
             <span>${cartTotalCost}</span>
         </span>
         {itemsAvailable > 0 && <span className="grid grid-rows-2 w-full gap-[1rem]">
-            <button className="btn bg-[--continue-button-color] border-none hover:bg-purple-500 active:bg-[--foreground-2] text-white">Buy</button>
-            <button className="btn btn-error text-white" onClick={()=>orderInfo.cancelOrder()}>Cancel</button>
+            <button 
+            className="btn bg-[--continue-button-color] border-none hover:bg-purple-500 active:bg-[--foreground-2] text-white"
+            onClick={orderInfo.continueOrder}
+            >Buy</button>
+            <button className="btn btn-error text-white" onClick={orderInfo.cancelOrder}>Cancel</button>
         </span>}
       </span>
     </div>

@@ -3,13 +3,14 @@ import Cart, { CartInfo, ItemProps } from "@/components/POS/Cart";
 import { useFetch } from "@/customHooks/useFetch";
 import { useState } from "react";
 import useSelection from "@/customHooks/useSelection";
-import { MenuItemType } from "@/components/MenuManagementContainer";
+import type { MenuItemType } from "@/components/MenuManagementContainer";
 import SelectableButton from "@/components/SelectableButton";
 import styles from "../../styles/MenuManagementContainer.module.css";
 import menuItemStyles from "../../styles/MenuItem.module.css"
 import Image from "next/image";
 import { svgIcons } from "../svgIcons";
 import Link from "next/link";
+import { useMutation } from '@/customHooks/useMutation'
 
 const menuCategories =
   "Popular, Meals, Entrees, Salads, Sides, Beverages".split(",");
@@ -17,6 +18,7 @@ menuCategories.forEach((menuCategory) => menuCategory.trimStart());
 export default function POS() {
   const fetchString = "menuItems";
   const { data } = useFetch<{ menuItems: MenuItemType[] }>(fetchString);
+  const { updateData: updateOrder } = useMutation("POST", "orders");
   const [addedItems, setAddedItems] = useState<ItemProps[]>([]);
   const [isCartVisible, setIsCartVisible] = useState(true);
   const { currentSelection, isCurrentSelection, setCurrentSelection } =
@@ -43,7 +45,13 @@ export default function POS() {
       setAddedItems([...items]);
     }
   };
-  const continueOrder = () => {};
+  const continueOrder = async () => {
+    console.log(addedItems)
+    const res = await updateOrder({ orderItems: addedItems })
+    if (res.success) {
+      setAddedItems([])
+    }
+  }
   const removeItemFromCart = (itemName: string) => {
     const filteredItems = addedItems.filter(
       (item) => item.foodName !== itemName
@@ -83,6 +91,7 @@ export default function POS() {
       foodName: item.name,
       foodPrice: parseFloat(item.price),
       quantity: 1,
+      id:  parseInt(item.menuitemid)
     };
     const allItems = [...addedItems];
     const itemFoundIndex = allItems.findIndex(

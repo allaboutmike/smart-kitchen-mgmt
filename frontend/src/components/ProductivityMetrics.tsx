@@ -232,7 +232,7 @@ const ProductivityMetricsComponent: React.FC = () => {
                 getItemInfo(metricsData?.bestSellingItemYearToDate || [], "No Data")
               ].map((item, index) => (
                 <div key={`best-${index}`} className="flex flex-col items-center">
-                  <div className="mobile:w-10 mobile:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
+                  <div className="mobile:w-10 mobile:h-10 mobile-m:w-10 mobile-m:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
                     {item.imageUrl ? (
                       <Image 
                         src={item.imageUrl} 
@@ -260,7 +260,7 @@ const ProductivityMetricsComponent: React.FC = () => {
                 getItemInfo(metricsData?.worstSellingItemYearToDate || [], "No Data")
               ].map((item, index) => (
                 <div key={`worst-${index}`} className="flex flex-col items-center">
-                  <div className="mobile:w-10 mobile:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
+                  <div className="mobile:w-10 mobile:h-10  mobile-m:w-10 mobile-m:h-10 tablet:w-20 tablet:h-20 bg-gray-100 rounded-md overflow-hidden">
                     {item.imageUrl ? (
                       <Image 
                         src={item.imageUrl} 

@@ -1,25 +1,29 @@
 .current-order-items-manager {
-    @apply flex flex-col w-[400px] gap-[1rem] p-[40px] rounded-[8px] bg-white ;
+    @apply flex flex-col w-[300px] gap-[1rem] p-[40px] rounded-[8px] bg-white ;
+    @apply p-[20px];
+    @apply mobile:w-full;
     box-shadow: 0 0 4px 4px var(--drop-shadow-color);
 }
 .order-header-group {
     @apply flex flex-col justify-between;
     .order-id {
         @apply text-[2rem] text-[black] font-semibold;
+        @apply tablet:text-[1.6rem];
     }
 }
 .line-separator {
-    @apply flex rounded-[8px] h-[4px] w-full my-[20px] bg-[#DCE7FF];
+    @apply flex rounded-[8px] h-[4px] w-full my-[10px] bg-[#DCE7FF];
 }
 .order-items-container {
-    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll h-[300px] max-w-[100%];
+    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll h-[200px] max-w-[100%];
     justify-items: center;
 }
 .order-total-container {
-    @apply flex flex-col items-center px-[20px] py-[10px] gap-x-[10px] justify-self-end;
+    @apply flex flex-col items-center justify-self-end;
 }
 .order-total-group {
     @apply flex content-center w-full justify-between text-[2rem] text-black my-[10px];
+    @apply tablet:text-[1.5rem];
 }
 .order-buttons-group {
     @apply flex flex-col gap-[10px] w-full py-[10px];
@@ -49,4 +53,8 @@
 
 .order-status{
     @apply font-semibold text-[1.2rem] mb-[-30px];
+}
+
+.order-date{
+    @apply flex self-start text-black text-[1.2rem];
 }
