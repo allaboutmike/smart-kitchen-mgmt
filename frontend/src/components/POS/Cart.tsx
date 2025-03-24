@@ -135,8 +135,7 @@ const CancelOrderModal =({modalClassName, cancelFunc}:{modalClassName: string, c
           <label className="btn modal-backdrop bg-[--foreground] mt-2
             text-white border-none hover:bg-rose-300             
             " htmlFor={modalClassName}
-            >No</label>
-         
+            >No</label>         
         </div>
         <label className="modal-backdrop backdrop-blur-sm" htmlFor={modalClassName}>Close</label>
       </div>
