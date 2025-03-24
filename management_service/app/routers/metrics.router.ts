@@ -55,14 +55,30 @@ metricsRouter.get("/waste", async (_, res: Response) => {
 metricsRouter.get("/Productivity", async (_, res: Response) => {
   try{
     console.log("Retrieving Profit Metrics: ");
-    // Refreshing profit materialized view data
-    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_today;`;
-    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_seven_days;`;
-    await Db.$queryRaw`REFRESH MATERIALIZED VIEW profit_view_one_year;`;
+     
+    const profitMetricsToday = await Db.$queryRaw`
+      SELECT COALESCE(( SELECT sum(menuitems.price) AS sum
+      FROM menuitems
+      JOIN orderitems ON menuitems.menuitemid = orderitems.menuitemid
+      WHERE orderitems.servedtimestamp::date >= CURRENT_DATE), 0::numeric) - COALESCE(( SELECT sum(expenses.amount) AS sum
+      FROM expenses
+      WHERE expenses.expensedate::date >= CURRENT_DATE), 0::numeric) AS profit;`;
     
-    const profitMetricsToday = await Db.$queryRaw`SELECT * FROM profit_view_today;`;
-    const profitMetricsSevenDays = await Db.$queryRaw`SELECT * FROM profit_view_seven_days;`;
-    const profitMetricsOneYear = await Db.$queryRaw`SELECT * FROM profit_view_one_year;`;
+    const profitMetricsSevenDays = await Db.$queryRaw`
+      SELECT COALESCE(( SELECT sum(menuitems.price) AS sum
+      FROM menuitems
+      JOIN orderitems ON menuitems.menuitemid = orderitems.menuitemid
+      WHERE orderitems.servedtimestamp::date >= (CURRENT_DATE - '7 days'::interval)), 0::numeric) - COALESCE(( SELECT sum(expenses.amount) AS sum
+      FROM expenses
+      WHERE expenses.expensedate::date >= (CURRENT_DATE - '7 days'::interval)), 0::numeric) AS profit;`;
+    
+    const profitMetricsOneYear = await Db.$queryRaw`SELECT COALESCE(( 
+      SELECT sum(menuitems.price) AS sum
+      FROM menuitems
+      JOIN orderitems ON menuitems.menuitemid = orderitems.menuitemid
+      WHERE orderitems.servedtimestamp::date >= (CURRENT_DATE - '1 year'::interval)), 0::numeric) - COALESCE(( SELECT sum(expenses.amount) AS sum
+      FROM expenses
+      WHERE expenses.expensedate::date >= (CURRENT_DATE - '1 year'::interval)), 0::numeric) AS profit;`;
 
     const successfulOrdersToday = await Db.orders.aggregate({
       where: {
