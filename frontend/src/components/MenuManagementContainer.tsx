@@ -5,7 +5,7 @@ import SelectableButton from "./SelectableButton";
 import styles from "../styles/MenuManagementContainer.module.css"
 import ViewMenuItemModal from '@/components/ViewMenuItemModal';
 import {useState} from "react"
-import { it } from "node:test";
+
 
 const menuCategories =
   "Popular, Meals, Entrees, Salads, Sides, Beverages".split(
