@@ -17,6 +17,7 @@ export default function OrderTrackingPage() {
     fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
+  console.log(data)
   const selObject: SelectionObject = {
     setCurrentSelection: setCurrentSelection,
     isCurrentSelection: isCurrentSelection

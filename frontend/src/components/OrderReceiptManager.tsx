@@ -42,7 +42,6 @@ export interface OrderDetails {
 export default function OrderReceiptManager(orderDetails: Order) {
   const { updateData } = useMutation("PUT", `orders/${orderDetails.orderid}`);
   const [orderStatus, setOrderStatus] = useState(orderDetails.completed);
-  // const [orderTotalCost, setOrderTotalCost] = useState(0)
   const toggleOrderStatus = async () => {
     setOrderStatus(!orderStatus);
     const res = await updateData();
@@ -51,7 +50,6 @@ export default function OrderReceiptManager(orderDetails: Order) {
     }
   }
   const tempTotalCost = orderDetails.orderitems?.reduce((prevVal, currVal)=>{
-    // const totalAndQty = (currVal.quantity? (currVal.foodPrice * currVal.quantity): currVal.foodPrice), 0).toFixed(2)
     return prevVal + parseFloat(currVal.menuitems.price.toString())
   }, 0).toFixed(2)
   
@@ -88,6 +86,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
               price: details.menuitems.price,
               quantity: details.menuitems.quantity,
             }
+            console.log(`details.menuitems.quantity ${details.menuitems.quantity}`)
             return <InteractableOrderItem key={index} {...itemDetails} />
           })
         }
