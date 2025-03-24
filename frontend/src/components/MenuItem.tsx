@@ -5,6 +5,12 @@ export interface MenuItemProps {
     name: string | null | undefined;
     price: string | null | undefined;
     picture: string | null | undefined;
+    ingredients?: Array<{
+      ingredients: {
+        ingredientname: string;
+      }
+    }>;
+    id: string | null | undefined;
     updateItem?: (item: MenuItemProps)=>void;
     modalToggle?: ()=>void;
 }
