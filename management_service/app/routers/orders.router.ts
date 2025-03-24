@@ -122,13 +122,20 @@ ordersRouter.post("/", async (req: Request, res: Response) => {
       }[];
     } = req.body;
 
+    const expandedOrderItems = orderItems.flatMap(item => 
+      Array(item.quantity).fill(null).map(() => ({
+        menuitemid: item.id,
+        customizationdetail: null,
+      }))
+    );
+
     await Db.orders.create({
       data: {
         orderitems: {
           createMany: {
-            data: orderItems.map((item) => ({
-              menuitemid: item.id,
-              customizationdetail: null,
+            data: expandedOrderItems.map((item) => ({
+              menuitemid: item.menuitemid,
+              customizationdetail: item.customizationdetail,
             })),
           },
         },
