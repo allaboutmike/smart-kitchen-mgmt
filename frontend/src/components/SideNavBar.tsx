@@ -36,7 +36,7 @@ export default function SideNavBar() {
   return (
     
       <>
-        { canDisplay() && <div className={styles["side-nav-bar"]}>      
+        { canDisplay() && <div className={`${styles["side-nav-bar"]} dock`}>      
           {buttonNames.map((buttonName, buttonIndex)=>{
             return <SelectableButton 
                 key={buttonIndex}
