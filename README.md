@@ -195,7 +195,7 @@ The backend is powered by node.js and Express, written in TypeScript.
 - Brandon
 
   - [Github](https://github.com/CodenamePianist)
-  - [LinkedIn]()
+  - [LinkedIn](https://www.linkedin.com/in/brandon-k-hamilton/)
 
 - Sean
 
@@ -210,7 +210,7 @@ The backend is powered by node.js and Express, written in TypeScript.
 - Jacob
 
   - [Github](https://github.com/kevinmarindev)
-  - [LinkedIn]()
+  - [LinkedIn](https://www.linkedin.com/in/kevinj-marin/)
 
 - Keelen
 
