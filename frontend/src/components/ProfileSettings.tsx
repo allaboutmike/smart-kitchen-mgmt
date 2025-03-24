@@ -16,7 +16,6 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = fals
     name: 'Chicken Queen',
     address: 'P. Sherman, 42 Wallaby Way, Sydney',
     brandColors: ['#74C3C8', '#F6EAB6', '#F6D0C7', '#FFAAAA', '#D0D5ED', '#FFFF00', '#B10DC9'],
-    hexCode: '74C3C8',
     customerSupportRep: {
       name: 'Jordan Reed',
       email: 'J.Reed@OurCompany.com',
@@ -25,14 +24,20 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = fals
   });
 
   const [activeTab, setActiveTab] = useState('Profile Settings');
+  const [selectedHexCode, setSelectedHexCode] = useState(profile.brandColors[0].substring(1));
 
-  // Color circles component
-  const ColorCircle: React.FC<{ color: string }> = ({ color }) => (
-    <div
-      className="h-6 w-6 rounded-full inline-block mr-1"
-      style={{ backgroundColor: color }}
-    ></div>
-  );
+  const ColorCircle: React.FC<{ color: string }> = ({ color }) => {
+    const isSelected = `#${selectedHexCode}` === color;
+    
+    return (
+      <div
+        className={`h-6 w-6 rounded-full inline-block mr-1 cursor-pointer transition-transform hover:scale-125 ${isSelected ? 'ring-2 ring-gray-700' : ''}`}
+        style={{ backgroundColor: color }}
+        onClick={() => setSelectedHexCode(color.substring(1))}
+        title={color}
+      ></div>
+    );
+  };
 
   return (
     <div className="w-full max-w-[1000px] mx-auto flex flex-col bg-gray-50">
@@ -97,7 +102,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({ hideNavigation = fals
           <div>
             <label className="block text-sm text-gray-600 mb-1">Hex Code:</label>
             <div className="p-2 bg-gray-50 rounded-lg border border-gray-200 text-gray-800 text-base w-full">
-              {profile.hexCode}
+              {selectedHexCode}
             </div>
           </div>
         </div>

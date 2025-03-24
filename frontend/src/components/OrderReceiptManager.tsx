@@ -25,6 +25,7 @@ export type AddedItem = {
 export interface MenuItem {
   name: string;
   price: number;
+  quantity: number;
   customizationdetail: string | null
 }
 export interface OrderItem {
@@ -41,7 +42,6 @@ export interface OrderDetails {
 export default function OrderReceiptManager(orderDetails: Order) {
   const { updateData } = useMutation("PUT", `orders/${orderDetails.orderid}`);
   const [orderStatus, setOrderStatus] = useState(orderDetails.completed);
-  // const [orderTotalCost, setOrderTotalCost] = useState(0)
   const toggleOrderStatus = async () => {
     setOrderStatus(!orderStatus);
     const res = await updateData();
@@ -83,8 +83,10 @@ export default function OrderReceiptManager(orderDetails: Order) {
           orderDetails.orderitems && orderDetails.orderitems.map((details, index) => {
             const itemDetails: ItemDetails = {
               name: details.menuitems.name,
-              price: details.menuitems.price
+              price: details.menuitems.price,
+              quantity: details.menuitems.quantity,
             }
+            console.log(`details.menuitems.quantity ${details.menuitems.quantity}`)
             return <InteractableOrderItem key={index} {...itemDetails} />
           })
         }

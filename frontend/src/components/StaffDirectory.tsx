@@ -241,7 +241,7 @@ const StaffDirectory: React.FC<StaffDirectoryProps> = ({ hideNavigation = false 
                 'Friday': '5am-10am',
                 'Saturday': '5am-10am'
             },
-            comments: shuffledComments[10],
+            comments: "Taught by Danny himself on how to properly fry chicken wings.",
             imageUrl: "https://res.cloudinary.com/dufytrfii/image/upload/v1742416513/TEAM_3_rh2tas.png"
         }
     ];

@@ -1,6 +1,6 @@
 import { NamedRouter } from "./index.js";
 import { Router, Request, Response } from "express";
-import { Prisma, orders } from "@prisma/client";
+import { orders } from "@prisma/client";
 // Prisma client renamed from prisma to Db to avoid confusion with the Prisma object
 import { Db } from "@server/server.js";
 
@@ -111,37 +111,29 @@ ordersRouter.get("/:id", async (req: Request, res: Response) => {
 ordersRouter.post("/", async (req: Request, res: Response) => {
   try {
     // This is a placeholder for the actual order creation logic
-    const { items, timePlaced } = req.body;
+    const {
+      orderItems,
+    }: {
+      orderItems: {
+        foodName: string;
+        foodPrice: number;
+        quantity: number;
+        id: number;
+      }[];
+    } = req.body;
 
-    const orderItemsData = items.map(
-      (orderItem: Prisma.orderitemsCreateInput) => {
-        return {
-          menuitemid: orderItem.menuitems.connect?.menuitemid,
-          customizationdetail: orderItem.customizationdetail,
-        };
-      }
-    );
-
-    // Simulate order creation
-    const newOrder = {
-      id: "123",
-      items,
-      timePlaced,
-    };
-    console.log("Order created:", newOrder);
-    // In a real application, you would save the order to the database here
     await Db.orders.create({
       data: {
-        ordertimestamp: timePlaced,
         orderitems: {
           createMany: {
-            data: orderItemsData,
+            data: orderItems.map((item) => ({
+              menuitemid: item.id,
+              customizationdetail: null,
+            })),
           },
         },
       },
     });
-
-    // ONCE WEBSOCKET IS IMPLEMENTED, WE WILL NOTIFY THE CLIENT OF A NEW ORDER
 
     res.sendStatus(201);
   } catch (error) {
@@ -177,9 +169,7 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
     // update order status
     await Db.orders.update({
       where: { orderid: orderId },
-      data: { completed: !order.completed,
-              completedTimeStamp: new Date()
-      },
+      data: { completed: !order.completed, completedTimeStamp: new Date() },
     });
 
     //this loop is for debugging purposes
@@ -210,7 +200,10 @@ ordersRouter.put("/:id", async (req: Request, res: Response) => {
             },
           });
           if (stockToUpdate) {
-            console.log("Stock updated for ingredient:", ingredient.ingredientid);
+            console.log(
+              "Stock updated for ingredient:",
+              ingredient.ingredientid
+            );
             return tx.$queryRaw`SELECT updateStock(CAST(${ingredient.ingredientid} AS INT), CAST(${ingredient.quantity} AS INT));`;
           }
           return null;

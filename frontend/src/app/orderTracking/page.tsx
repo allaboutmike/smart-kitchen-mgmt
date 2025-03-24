@@ -9,7 +9,7 @@ import OrderDetailsScreen, { OrderDetails } from "@/components/OrderDetailsScree
 import TimeDropdown, { TimeDropdownProps } from "@/components/TimeDropdown";
 
 export default function OrderTrackingPage() {
-  const { currentSelection, isCurrentSelection, setCurrentSelection } = useSelection()
+  const { currentSelection, isCurrentSelection, setCurrentSelection } = useSelection("Current Orders")
   
   let fetchString = "orders?"
   if(!isCurrentSelection("none")){
@@ -17,6 +17,7 @@ export default function OrderTrackingPage() {
     fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
+  console.log(data)
   const selObject: SelectionObject = {
     setCurrentSelection: setCurrentSelection,
     isCurrentSelection: isCurrentSelection

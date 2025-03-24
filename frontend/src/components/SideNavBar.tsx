@@ -19,6 +19,16 @@ export default function SideNavBar() {
       case "Settings": {router.push("/settings");break;}
     }    
   }
+  const pageNow = usePathname()
+  console.log(pageNow)
+  const canDisplay =()=>{
+    switch(pageNow){
+      case "/pos": return false; break;
+      case "/select-portal": return false; break;
+      case "/": return false; break;
+      default: return true;
+    }
+  }
   const buttonNames = ["Home", "Menu Manager", "Order Tracking", "Inventory Tracker", "Productivity Metrics", "Settings"]
   const buttonIcons = [svgIcons.home, svgIcons.menuManager, svgIcons.orderTracking,
     svgIcons.inventory, svgIcons.productivity, svgIcons.settings]
@@ -26,7 +36,7 @@ export default function SideNavBar() {
   return (
     
       <>
-        { usePathname() !== "/pos" && <div className={styles["side-nav-bar"]}>      
+        { canDisplay() && <div className={`${styles["side-nav-bar"]} dock`}>      
           {buttonNames.map((buttonName, buttonIndex)=>{
             return <SelectableButton 
                 key={buttonIndex}

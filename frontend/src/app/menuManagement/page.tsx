@@ -11,7 +11,7 @@ export default function MenuManagementPage() {
 
   if (data?.menuItems && data.menuItems.length) {
     return (
-      <div className="main-container">
+      <div className="main-container h-full max-h-screen overflow-hidden">
         <MenuManagementContainer menuItems={data?.menuItems}/>
       </div>
     )

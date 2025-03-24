@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Order } from "@/components/OrderReceiptManager";
+import { svgIcons } from "@/app/svgIcons";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -55,13 +56,13 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
   };
 
   return (
-    <div className="dropdown-container">
-      Completed Orders
+    <div className="dropdown-container flex flex-col gap-[40px] text-black mb-16">
+      <h2 className="text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem]">Completed Orders</h2>
       {orderTimeFrames.map((timeFrame: string, index) => {
         const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
         return (
-          <table key={index}>
-            <thead>
+          <table key={index} className={`border border-[2.5px] border-black w-[751px] text-[1rem] ${currentIndex === index ?"": "drop-shadow-[0_4px_4px_rgb(0,0,0,0.25)]"} cursor-pointer`}>
+            <thead className="bg-white hover:bg-slate-200">
               <tr>
                 <th
                   onClick={() => {
@@ -69,24 +70,25 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                       prevIndex !== index ? index : -1
                     );
                   }}
-                  className="toggle-trigger"
+                  className="border border-b-black flex p-[12.64px] justify-between items-center h-[64.64px]"
                 >
-                  {timeFrame}
+                  {timeFrame}<span className={`${currentIndex === index ? "rotate-180" : ""}`}>{svgIcons.dropdownIcon}</span>
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className={`${currentIndex === index && filteredOrders.length > 5 ? "block h-[20rem] overflow-y-auto" : ""} `}>
               {filteredOrders &&
                 filteredOrders.map((order: Order, orderIndex) => {
                   return (
                     <tr
                       key={orderIndex}
-                      className={`order-data ${
+                      className={`${
                         currentIndex === index ? "visible" : "hidden"
-                      }`}
+                          } ${orderIndex % 2 ? "bg-slate-200": ""} grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr border border-b-[1px] border-black py-[10px] justify-items-center text-center h-[58px] items-center`}
                     >
-                      <td>{formatDate(new Date(order.ordertimestamp))}</td>
-                      <td>
+                          <td className="w-[100%]">{formatDate(new Date(order.ordertimestamp))}</td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         {(order.orderitems ?? [])
                           .reduce(
                             (prev, curr) =>
@@ -97,16 +99,19 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                             style: "currency",
                             currency: "USD",
                           })}
-                      </td>
-                      <td>
+                          </td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         {(order.orderitems ?? []).some(
                           (item) => item?.returned === true
                         )
                           ? "ITEMS RETURNED"
                           : "NO RETURNS"}
-                      </td>
-                      <td>ID: {order.orderid}</td>
-                      <td>
+                          </td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                          <td className="w-[100%]">ID: {order.orderid}</td>
+                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
+                      <td className="w-[100%]">
                         <button
                           id={order.orderid}
                           onClick={() => {
@@ -121,7 +126,7 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
                 })}
               {index === currentIndex && !filteredOrders.length && (
                 <tr>
-                  <td>No orders to display.</td>
+                  <td className="text-center">No orders to display.</td>
                 </tr>
               )}
             </tbody>
