@@ -1,4 +1,4 @@
 .footer-component {
     @apply fixed bottom-[20px] text-[--foreground] right-[50px];
-    @apply tablet:bottom-[80px] mobile:invisible;
+    @apply tablet:invisible mobile:invisible;
 }

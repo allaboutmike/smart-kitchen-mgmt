@@ -97,7 +97,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
           <span>Total</span>
           <span className={styles["order-total-value"]}>${tempTotalCost}</span>
         </div>
-        <span className="flex self-start text-black text-[1.6rem]">{formatDate(timeStamp)}</span>
+        <span className={styles["order-date"]}>{formatDate(timeStamp)}</span>
       </div>
     </div>
   );

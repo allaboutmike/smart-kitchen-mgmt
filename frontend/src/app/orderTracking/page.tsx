@@ -40,9 +40,13 @@ export default function OrderTrackingPage() {
     <div className="main-container">
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject} />
-      <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]`} >
-          {data && isCurrentSelection("Current Orders") && <div key={currentSelection} className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
-           gap-[1rem] carousel-start w-full scroll-smooth outline`}>
+      {data?.orders.length && <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]
+        mobile:max-w-full mobile:mb-[4rem]
+        `} >
+          {data && isCurrentSelection("Current Orders") && <div key={currentSelection}
+          className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
+           gap-[1rem] carousel-start w-full scroll-smooth outline mobile:w-full mobile:carousel-vertical
+           mobile:rounded-none mobile:items-center mobile:p-[2rem] tablet:pt-[10px] tablet:mb-[4rem]`}>
             {
               (data?.orders && data.orders.length) &&
                 data?.orders.map((order)=>{
@@ -51,7 +55,7 @@ export default function OrderTrackingPage() {
             }
         </div>} 
         {data && isCurrentSelection("Completed Orders") && <TimeDropdown {...completedOrders} />}
-      </div>
+      </div>}
       {currentOrderDetails && <OrderDetailsScreen {...orderDetailsObj} />}
     </div>
   );
