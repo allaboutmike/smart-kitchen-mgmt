@@ -7,20 +7,6 @@ from fetch_menu_ingredients import fetch_menu_items_ingredients
 def calculate_ingredient_needs(start_date=None, end_date=None):
     """
     Convert order data into ingredient needs broken down by hour.
-    
-    This function:
-    1. Fetches historical orders from the database
-    2. Fetches menu items and their ingredient requirements
-    3. Maps the order quantities to ingredient usage
-    4. Creates a DataFrame indexed by hourly timestamps with ingredients as columns
-    
-    Parameters:
-    -----------
-    start_date : datetime.datetime, optional
-        Start date for the query range. If None, defaults to 90 days ago.
-    end_date : datetime.datetime, optional
-        End date for the query range. If None, defaults to current time.
-        
     Returns:
     --------
     pandas.DataFrame
@@ -28,7 +14,7 @@ def calculate_ingredient_needs(start_date=None, end_date=None):
         containing total required quantities per hour.
     """
     print("Retrieving order history...")
-    # needs to be in the following format: python calculate_ingredient_needs.py --start YYYY-MM-DD --end YYYY-MM-DD
+    # date needs to be in the following format: YYYY-MM-DD
     orders = fetch_historical_orders(start_date, end_date)
     
     if not orders:
@@ -46,19 +32,16 @@ def calculate_ingredient_needs(start_date=None, end_date=None):
     
     print(f"Retrieved ingredients for {len(menu_items)} menu items.")
     
-    # Get list of all unique ingredients
     all_ingredients = set()
     for ingredients in menu_items.values():
         all_ingredients.update(ingredients.keys())
     print(f"Identified {len(all_ingredients)} unique ingredients.")
     
-    # Create timestamp range
-    # Find min and max order timestamps
     if orders:
         start_time = min(order['ordertimestamp'] for order in orders).replace(minute=0, second=0, microsecond=0)
         end_time = max(order['ordertimestamp'] for order in orders).replace(minute=0, second=0, microsecond=0) + datetime.timedelta(hours=1)
     else:
-        return pd.DataFrame()  # Return empty DataFrame if no orders
+        return pd.DataFrame() 
     
     # Create DataFrame with hourly timestamps
     print(f"Creating hourly ingredient needs from {start_time} to {end_time}...")
@@ -71,11 +54,9 @@ def calculate_ingredient_needs(start_date=None, end_date=None):
     skipped_orders = 0
     
     for order in orders:
-        # Get the hour timestamp (rounded down to the nearest hour)
         hour_timestamp = order['ordertimestamp'].replace(minute=0, second=0, microsecond=0)
         menu_item_name = order['menuitemname']
         
-        # Skip if this menu item doesn't have ingredient data
         if menu_item_name not in menu_items:
             skipped_orders += 1
             continue
@@ -84,13 +65,10 @@ def calculate_ingredient_needs(start_date=None, end_date=None):
         
         # Process each ingredient for this menu item
         for ingredient, amount in menu_items[menu_item_name].items():
-            # Accumulate the ingredient amount needed
-            # Assume quantity is always 1 since we don't have that info in orderitems table
             ingredients_df.at[hour_timestamp, ingredient] += amount
-    
+    # for informational purposes
     print(f"Processed {processed_orders} orders, skipped {skipped_orders} orders.")
     
-    # Calculate some statistics for informational purposes
     total_ingredient_usage = ingredients_df.sum().sum()
     busiest_hour = ingredients_df.sum(axis=1).idxmax()
     busiest_hour_usage = ingredients_df.sum(axis=1).max()
@@ -110,14 +88,11 @@ def calculate_ingredient_needs(start_date=None, end_date=None):
 
 
 if __name__ == "__main__":
-    # This section only runs when the script is executed directly (not imported)
-    
-    # Print a header for the terminal output
+    # Header
     print("=" * 60)
-    print("  SMART KITCHEN - HOURLY INGREDIENT NEEDS CALCULATION")
+    print("SMART KITCHEN - HOURLY INGREDIENT NEEDS CALCULATION")
     print("=" * 60)
     
-    # Parse command-line arguments if provided
     import sys
     import argparse
     
@@ -150,7 +125,6 @@ if __name__ == "__main__":
     # Calculate the hourly ingredient needs
     ingredients_df = calculate_ingredient_needs(start_date, end_date)
     
-    # Display sample of the hourly ingredient needs
     if not ingredients_df.empty:
         # Print the first few rows
         print("\n Sample of hourly ingredient needs:")
