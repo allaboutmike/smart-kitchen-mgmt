@@ -189,6 +189,8 @@ The backend is powered by node.js and Express, written in TypeScript.
 
 - Belle
 
+- Brandon
+
 - Sean
 
 - Gilbert
