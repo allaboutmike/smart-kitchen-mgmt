@@ -11,7 +11,19 @@ menuItemsRouter.get("/", async (_, res: Response) => {
   try {
     let menuItems:menuitems[] = [];
     console.log("Retrieving all menu items");
-    menuItems = await Db.menuitems.findMany();
+    menuItems = await Db.menuitems.findMany({
+      include: {
+        menuitemingredients: {
+          select: {
+            ingredients: {
+              select: {
+                ingredientname: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
     res.status(200).json({
       menuItems: menuItems,
