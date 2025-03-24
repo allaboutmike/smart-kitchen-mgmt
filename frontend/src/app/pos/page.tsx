@@ -192,6 +192,12 @@ export default function POS() {
         </span>
         {isCartVisible && <Cart {...cartInfo} />}
       </span>
+      
+      
+      
+      
+      
     </div>
   );
 }
+
