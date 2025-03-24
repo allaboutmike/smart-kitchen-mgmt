@@ -56,13 +56,13 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
   };
 
   return (
-    <div className="dropdown-container flex flex-col gap-[40px] text-black mb-16">
+    <div className="dropdown-container flex flex-col gap-[22px] text-black mb-16">
       <h2 className="text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem]">Completed Orders</h2>
       {orderTimeFrames.map((timeFrame: string, index) => {
         const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
         return (
-          <table key={index} className={`border border-[2.5px] border-black w-[751px] text-[1rem] ${currentIndex === index ?"": "drop-shadow-[0_4px_4px_rgb(0,0,0,0.25)]"} cursor-pointer`}>
-            <thead className="bg-white hover:bg-slate-200">
+          <table key={index} className={`border border-[2.5px] border-black  w-[751px] text-[1rem] text-[#6785FF] ${currentIndex === index ?"": "drop-shadow-[0_4px_4px_rgb(0,0,0,0.25)]"} `}>
+            <thead className="bg-white hover:bg-[#6785FF] hover:text-[white] cursor-pointer">
               <tr>
                 <th
                   onClick={() => {
