@@ -5,7 +5,8 @@
     z-index: 10;    
 }
 .pos-item-name{
-    @apply text-lg max-w-[200px];
+    @apply text-lg max-w-[200px] pr-[10px] break-words;
+    line-height: 1.2;
 }
 .cart-title{
     @apply max-h-[fit-content] text-2xl text-black text-[2rem] font-semibold;

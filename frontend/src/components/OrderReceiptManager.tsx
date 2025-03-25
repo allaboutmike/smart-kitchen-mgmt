@@ -49,6 +49,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
       setOrderStatus(!orderStatus);
     }
   }
+  
   const tempTotalCost = orderDetails.orderitems?.reduce((prevVal, currVal)=>{
     return prevVal + parseFloat(currVal.menuitems.price.toString())
   }, 0).toFixed(2)
@@ -66,39 +67,41 @@ export default function OrderReceiptManager(orderDetails: Order) {
   }
   const timeStamp = orderDetails.ordertimestamp ? new Date(orderDetails.ordertimestamp) : "";
   return (
-    <div className={`${styles["current-order-items-manager"]} carousel-item`}>
-      <button className={`${styles["order-status-toggle-button"]}`} onClick={() => toggleOrderStatus()}>Toggle Order Status</button>
-      <span className={`${styles["order-status"]}`}>{orderStatus ? "Completed" : "In Progress"}</span>
-      <span className={`${styles["order-details-container-bg"]} `}></span>
-      <div className={styles["order-header-group"]}>
-        <span className="flex justify-between align-center">
-          <div className={styles["order-id"]}>Order: #{orderDetails.orderid}</div>
-          {!orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
-        </span>
-        <span className={styles["line-separator"]}></span>
-      </div>
-
-      <div className={styles["order-items-container"]}>
-        {
-          orderDetails.orderitems && orderDetails.orderitems.map((details, index) => {
-            const itemDetails: ItemDetails = {
-              name: details.menuitems.name,
-              price: details.menuitems.price,
-              quantity: details.menuitems.quantity,
-            }
-            console.log(`details.menuitems.quantity ${details.menuitems.quantity}`)
-            return <InteractableOrderItem key={index} {...itemDetails} />
-          })
-        }
-      </div>
-      <div className={styles["order-total-container"]}>
-        <span className={styles["line-separator"]}></span>
-        <div className={styles["order-total-group"]}>
-          <span>Total</span>
-          <span className={styles["order-total-value"]}>${tempTotalCost}</span>
+    <>
+      {!orderStatus && <div className={`${styles["current-order-items-manager"]} carousel-item`}>
+        <button className={`${styles["order-status-toggle-button"]}`} onClick={() => toggleOrderStatus()}>Toggle Order Status</button>
+        <span className={`${styles["order-status"]}`}>{orderStatus ? "Completed" : "In Progress"}</span>
+        <span className={`${styles["order-details-container-bg"]} `}></span>
+        <div className={styles["order-header-group"]}>
+          <span className="flex justify-between align-center">
+            <h1 className={styles["order-id"]}>Order #{orderDetails.orderid}</h1>
+            {!orderDetails.completed && <OrderStatusNotifier orderComplete ={orderDetails.completed}/>}
+          </span>
+          <span className={styles["line-separator"]}></span>
         </div>
-        <span className={styles["order-date"]}>{formatDate(timeStamp)}</span>
-      </div>
-    </div>
+
+        <div className={styles["order-items-container"]}>
+          {
+            orderDetails.orderitems && orderDetails.orderitems.map((details, index) => {
+              const itemDetails: ItemDetails = {
+                name: details.menuitems.name,
+                price: details.menuitems.price,
+                quantity: details.menuitems.quantity,
+              }
+              console.log(`details.menuitems.quantity ${details.menuitems.quantity}`)
+              return <InteractableOrderItem key={index} {...itemDetails} />
+            })
+          }
+        </div>
+        <div className={styles["order-total-container"]}>
+          <span className={styles["line-separator"]}></span>
+          <div className={styles["order-total-group"]}>
+            <p>Total</p>
+            <p className={styles["order-total-value"]}>${tempTotalCost}</p>
+          </div>
+          <p className={styles["order-date"]}>{formatDate(timeStamp)}</p>
+        </div>
+      </div>}
+    </>
   );
 }
