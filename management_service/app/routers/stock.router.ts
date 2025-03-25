@@ -144,7 +144,7 @@ stockRouter.post("/", async (req: Request, res: Response) => {
     res.status(201).json({ success: true, stock: stockItems });
     } else {
       console.log("Sending order to supplier");
-      await fetch(`${process.env["SUPPLIER_API_URL"]}${supplierApiUrl.suppliers.api_url}`, {
+      await fetch(`${supplierApiUrl.suppliers.api_url}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
