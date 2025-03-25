@@ -14,6 +14,7 @@
   --white-backdrop: rgba(255, 255, 255, 0.573);
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
+  --top-most-z-index: 1000;
   background-color: var(--background);  
 }
 

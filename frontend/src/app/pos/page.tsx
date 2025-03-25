@@ -20,7 +20,7 @@ export default function POS() {
   const { data } = useFetch<{ menuItems: MenuItemType[] }>(fetchString);
   const { updateData: updateOrder } = useMutation("POST", "orders");
   const [addedItems, setAddedItems] = useState<ItemProps[]>([]);
-  const [isCartVisible, setIsCartVisible] = useState(true);
+  const [isCartVisible, setIsCartVisible] = useState(false);
   const { currentSelection, isCurrentSelection, setCurrentSelection } =
     useSelection();
   const menuItems = data?.menuItems;
@@ -105,32 +105,16 @@ export default function POS() {
       setAddedItems((prevItems) => [...prevItems, newItem]);
     }
   }
+  
   return (
-    <div className="main-container pos-container">
+    <div className="main-container pos-container" onLoad={()=>{
+      if(typeof window !== undefined){
+        const isMobile = window.innerWidth <= 500;
+        console.log(`is mobile: ${isMobile}`)
+        setIsCartVisible(!isMobile);
+      }
+    }}>
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
-      <span className="fixed tooltip tooltip-left right-[120px] transition delay-500
-      top-[44px] bg-[foreground]" data-tip="Go back to Management Center">
-        <Link href="/select-portal">
-          <button className="flex btn fixed right-[70px] top-[20px] bg-white hover:bg-[--foreground] hover:border-[--foreground]
-          w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
-              {svgIcons.backArrow}
-          </button>            
-        </Link>
-      </span>
-      
-      <button
-        className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px]
-         bg-[--background] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
-        onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
-        aria-label="Cart toggle button"
-      >
-        {svgIcons.cart}
-        { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
-        h-[30px] top-[-15px] right-[-10px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
-            <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
-          </span>}
-      </button>
-      
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {
           return (
@@ -165,14 +149,14 @@ export default function POS() {
                   height={imgSize}
                   alt={item.name}
                 />
-                <span className="tablet:text-[0.7rem] text-center">
+                <p className="tablet:text-[0.7rem] text-center">
                   {item.name}
-                </span>
+                </p>
                 <span className="flex flex-col">
-                  <span>Price: ${item.price}</span>                  
+                  <p>Price: ${item.price}</p>                  
                 </span>
                 <button
-                  className="btn tablet:text-[0.7rem] rounded-none h-full"
+                  className={menuItemStyles["add-item-button-pos"]}
                   onClick={()=> addItemToCart(item)}
                 >
                   Add Item
@@ -181,7 +165,7 @@ export default function POS() {
                   findElement(item)?.quantity &&
                   <span key={findElement(item)?.quantity} className={`${menuItemStyles["elem-bounce"]} ${menuItemStyles["number-indicator"]}`}
                   >
-                    <span>{(findElement(item)?.quantity)}</span>
+                    <p>{(findElement(item)?.quantity)}</p>
                   </span>
                 }
               </span>
@@ -190,6 +174,27 @@ export default function POS() {
         </span>
         {isCartVisible && <Cart {...cartInfo} />}
       </span>
+      <span className="fixed tooltip tooltip-left right-[120px] transition delay-500
+      top-[44px] bg-[foreground]" data-tip="Go back to Management Center">
+        <Link href="/select-portal" >
+          <button className="flex btn  fixed right-[70px] top-[20px] bg-white hover:bg-[--foreground] hover:border-[--foreground]
+          z-[--top-most-z-index] w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
+              {svgIcons.backArrow}
+          </button>            
+        </Link>
+      </span>      
+      <button
+        className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px] z-[--top-most-z-index]
+         bg-[--background] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
+        onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
+        aria-label="Cart toggle button"
+      >
+        {svgIcons.cart}
+        { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
+        h-[30px] top-[-15px] right-[-10px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
+            <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
+          </span>}
+      </button>
     </div>
   );
 }
