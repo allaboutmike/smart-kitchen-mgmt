@@ -11,8 +11,8 @@ export default function InteractableOrderItem(itemDetails: ItemDetails) {
         <span className={styles["order-item-name"]}>{itemDetails.name}</span>
       </span>
       <span className={styles["remove-and-price-group"]}>
-        <span className={styles["order-item-price"]}>${itemDetails.price}</span>        
-        {itemDetails.quantity && <span>{itemDetails.quantity}</span>}        
+        <span className={styles["order-item-price"]}>${(itemDetails.price * itemDetails.quantity).toFixed(2)}</span>        
+        {itemDetails.quantity && <span>Qty {itemDetails.quantity}</span>}        
       </span>
     </div>
   );

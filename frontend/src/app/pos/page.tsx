@@ -108,17 +108,15 @@ export default function POS() {
   return (
     <div className="main-container pos-container">
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
-      
-      
-        <span className="fixed tooltip tooltip-left right-[120px] transition delay-500
-        top-[44px] bg-[foreground]" data-tip="Go back to Management Center">
-          <Link href="/select-portal">
-            <button className="flex btn fixed right-[70px] top-[20px] bg-white hover:bg-[--foreground] hover:border-[--foreground]
-            w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
-                {svgIcons.backArrow}
-            </button>            
-          </Link>
-        </span>
+      <span className="fixed tooltip tooltip-left right-[120px] transition delay-500
+      top-[44px] bg-[foreground]" data-tip="Go back to Management Center">
+        <Link href="/select-portal">
+          <button className="flex btn fixed right-[70px] top-[20px] bg-white hover:bg-[--foreground] hover:border-[--foreground]
+          w-[fit-content] text-[--foreground] border-[--foreground] hover:text-[white]">
+              {svgIcons.backArrow}
+          </button>            
+        </Link>
+      </span>
       
       <button
         className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px]
@@ -192,11 +190,6 @@ export default function POS() {
         </span>
         {isCartVisible && <Cart {...cartInfo} />}
       </span>
-      
-      
-      
-      
-      
     </div>
   );
 }

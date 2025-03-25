@@ -66,6 +66,22 @@ export default function OrderReceiptManager(orderDetails: Order) {
     return ""
   }
   const timeStamp = orderDetails.ordertimestamp ? new Date(orderDetails.ordertimestamp) : "";
+  const finalOrderItems: ItemDetails[] = [];
+  if(orderDetails.orderitems.length){
+    orderDetails.orderitems.forEach((item: OrderItem) => {
+      const itemIndex = finalOrderItems.findIndex((orderItem) => orderItem.name === item.menuitems.name);
+      if(itemIndex >= 0){
+        finalOrderItems[itemIndex].quantity += 1;
+      }
+      else{
+        finalOrderItems.push({
+          name: item.menuitems.name,
+          price: item.menuitems.price,
+          quantity: 1
+        });
+      }
+    });
+  }
   return (
     <>
       {!orderStatus && <div className={`${styles["current-order-items-manager"]} carousel-item`}>
@@ -81,15 +97,9 @@ export default function OrderReceiptManager(orderDetails: Order) {
         </div>
 
         <div className={styles["order-items-container"]}>
-          {
-            orderDetails.orderitems && orderDetails.orderitems.map((details, index) => {
-              const itemDetails: ItemDetails = {
-                name: details.menuitems.name,
-                price: details.menuitems.price,
-                quantity: details.menuitems.quantity,
-              }
-              console.log(`details.menuitems.quantity ${details.menuitems.quantity}`)
-              return <InteractableOrderItem key={index} {...itemDetails} />
+          {            
+            finalOrderItems && finalOrderItems.map((details, index) => {
+              return <InteractableOrderItem key={index} {...details} />
             })
           }
         </div>
