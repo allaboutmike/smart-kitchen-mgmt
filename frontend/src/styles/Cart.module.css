@@ -8,6 +8,7 @@
     @apply justify-evenly top-[100px] mobile:min-w-full mobile:right-0 mobile:rounded-none tablet:bottom-[10px] tablet:top-[unset];
     animation: slide-from-right 0.3s cubic-bezier(0.20, -0.9, 0.10, 1.8);
 }
+
 .pos-item-name{
     @apply text-lg max-w-[200px] pr-[10px] break-words;
     line-height: 1.2;

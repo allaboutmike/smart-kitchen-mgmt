@@ -132,7 +132,7 @@ export default function POS() {
             <span>{currentSelection === "none" ? "All" : currentSelection}</span> Menu
       </span>
 
-      <span className="flex gap-[2rem] w-full justify-center place-items-center p-[20px] mt-[20px]">
+      <span className="flex gap-[2rem] w-full mobile:w-[100%] justify-center place-items-center p-[20px] mt-[20px]">
         <span
           className={styles["menu-items-container-pos"]}
         >
@@ -149,10 +149,10 @@ export default function POS() {
                   height={imgSize}
                   alt={item.name}
                 />
-                <p className="tablet:text-[0.7rem] text-center">
+                <p className={menuItemStyles["menu-item-name-pos"]}>
                   {item.name}
                 </p>
-                <span className="flex flex-col">
+                <span className={menuItemStyles["menu-item-price-pos"]}>
                   <p>Price: ${item.price}</p>                  
                 </span>
                 <button
