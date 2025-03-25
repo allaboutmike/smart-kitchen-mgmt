@@ -39,6 +39,22 @@ model forecasts {
   createdat         DateTime? @default(now()) @db.Timestamptz(6)
 }
 
+model suppliers {
+  supplierid   Int       @id @default(autoincrement())
+  suppliername String
+  api_url       String?  @db.VarChar(500)
+  ingredientSuppliers ingredientSuppliers[]
+}
+
+model ingredientSuppliers {
+  ingredientid Int
+  supplierid   Int
+  ingredients  ingredients @relation(fields: [ingredientid], references: [ingredientid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredientSuppliers_ingredientid")
+  suppliers    suppliers   @relation(fields: [supplierid], references: [supplierid], onDelete: NoAction, onUpdate: NoAction, map: "fk_ingredientSuppliers_supplierid")
+
+  @@id([ingredientid, supplierid])
+}
+
 model ingredients {
   ingredientid        Int                   @id @default(autoincrement())
   ingredientname      String
@@ -50,6 +66,7 @@ model ingredients {
   bulkOrderQuantity   Int                   @default(75)
   menuitemingredients menuitemingredients[]
   stock               stock[]
+  ingredientSuppliers ingredientSuppliers[]
 }
 
 model menuitemingredients {
