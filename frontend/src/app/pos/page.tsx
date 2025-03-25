@@ -110,7 +110,6 @@ export default function POS() {
     <div className="main-container pos-container" onLoad={()=>{
       if(typeof window !== undefined){
         const isMobile = window.innerWidth <= 500;
-        console.log(`is mobile: ${isMobile}`)
         setIsCartVisible(!isMobile);
       }
     }}>
