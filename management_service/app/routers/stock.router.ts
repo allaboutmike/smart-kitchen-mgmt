@@ -92,7 +92,6 @@ stockRouter.post("/", async (req: Request, res: Response) => {
             }
       },
     });
-    console.log("Supplier API URL:", supplierApiUrl?.suppliers.api_url);
     if(!supplierApiUrl){
     const stock = await Db.stock.create({
       data: {
@@ -153,10 +152,8 @@ stockRouter.post("/", async (req: Request, res: Response) => {
           ingredientId,
           bulkOrderQuantity
         }),
-      });
-      
-    
-    res.status(201).json({ message: "Order successfully sent to Supplier"});
+      });   
+    res.sendStatus(201);
     }
   } catch (error) {
     console.error("Error ordering stock:", error);
@@ -164,9 +161,10 @@ stockRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-stockRouter.post("/supplierconfirmation", async (req: Request, res: Response) => {
+stockRouter.put("/:ingredientId", async (req: Request, res: Response) => {
   try {
-    const { bulkOrderQuantity, ingredientId, price, shelfLife } = req.body;
+    const ingredientId = Number(req.params['ingredientId']);
+    const { bulkOrderQuantity, price, shelfLife } = req.body;
  
     const todaysDate = new Date();
     const expirationDate = new Date(todaysDate);
@@ -219,7 +217,7 @@ stockRouter.post("/supplierconfirmation", async (req: Request, res: Response) =>
     });
     
     
-    console.log("Confirming with Supplier, Ordered stock with ID:", stock.stockid);
+    console.log("Delivery received from Supplier for stock with ID:", stock.stockid);
     res.status(201).json({ success: true, stock: stockItems });
   } catch (error) {
     console.error("Error ordering stock:", error);
