@@ -189,15 +189,33 @@ The backend is powered by node.js and Express, written in TypeScript.
 
 - Belle
 
+  - [Github](https://github.com/bduran04)
+  - [LinkedIn](https://www.linkedin.com/in/belle-duran-127760204/)
+
 - Brandon
+
+  - [Github](https://github.com/CodenamePianist)
+  - [LinkedIn](https://www.linkedin.com/in/brandon-k-hamilton/)
 
 - Sean
 
+  - [Github](https://github.com/Seanpacheco)
+  - [LinkedIn](https://www.linkedin.com/in/sean-michael-pacheco-ruiz/)
+
 - Gilbert
+
+  - [Github](https://github.com/treblig-punisher)
+  - [LinkedIn](https://www.linkedin.com/in/gilbert-m-900105119/)
 
 - Jacob
 
+  - [Github](https://github.com/kevinmarindev)
+  - [LinkedIn](https://www.linkedin.com/in/kevinj-marin/)
+
 - Keelen
+
+  - [Github](https://github.com/Keelen-Fisher)
+  - [LinkedIn](https://www.linkedin.com/in/keelen-fisher-b63766148/)
 
 ## License
 

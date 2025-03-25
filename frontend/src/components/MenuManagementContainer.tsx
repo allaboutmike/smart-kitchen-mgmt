@@ -6,6 +6,7 @@ import styles from "../styles/MenuManagementContainer.module.css"
 import ViewMenuItemModal from '@/components/ViewMenuItemModal';
 import {useState} from "react"
 
+
 const menuCategories =
   "Popular, Meals, Entrees, Salads, Sides, Beverages".split(
     ","
@@ -20,6 +21,11 @@ export type MenuItemType = {
   isPopular: boolean;
   pictureUrl: string;
   menuitemid: string;
+  menuitemingredients: Array<{
+    ingredients: {
+      ingredientname: string;
+    }
+  }>;
 };
 
 interface MenuManagementContainerProps {
@@ -32,7 +38,7 @@ export type MenuItemDetails = {
 export default function MenuManagementContainer({ menuItems }: MenuManagementContainerProps) {
   const { currentSelection, setCurrentSelection, isCurrentSelection } =
     useSelection();
-
+  console.log(menuItems)
   const [itemSelected, setItemSelected] = useState<MenuItemProps | null>(null)
   const filteredMenuItems = 
   currentSelection === "none"
@@ -58,7 +64,9 @@ export default function MenuManagementContainer({ menuItems }: MenuManagementCon
     modalToggle: turnOffItemModal,
     name: itemSelected?.name,
     price: itemSelected?.price,
-    picture: itemSelected?.picture
+    picture: itemSelected?.picture,
+    ingredients: itemSelected?.ingredients,
+    id: itemSelected?.id
   }
   return (
     <div className={`${styles["restaurant-main-food-menu-container"]} overflow-y-hidden flex-1`}>
@@ -84,8 +92,10 @@ export default function MenuManagementContainer({ menuItems }: MenuManagementCon
           {filteredMenuItems.map((menuItem, index) => {
               const itemInfo: MenuItemProps={
                 name: menuItem.name,
+                id: menuItem.menuitemid,
                 price: Number(menuItem.price).toFixed(2),
                 picture: menuItem.pictureUrl,
+                ingredients: menuItem.menuitemingredients,
                 updateItem: itemClicked
               }
               return(

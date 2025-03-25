@@ -331,7 +331,7 @@ const svgIcons = {
         d="M30.8998 1.70602L16.6306 27.2448L2.36137 1.70602H30.8998Z"
         fill="#FFFFFF"
         fillOpacity="1"
-        stroke="black"
+        stroke="currentColor"
         strokeWidth="2.52862"
       />
     </svg>

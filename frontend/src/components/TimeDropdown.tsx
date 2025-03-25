@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Order } from "@/components/OrderReceiptManager";
 import { svgIcons } from "@/app/svgIcons";
+import styles from "@/styles/TimeDropdown.module.css";
 
 const orderTimeFrames = [
   "Last Hour",
@@ -56,81 +57,105 @@ export default function TimeDropdown(orderData: TimeDropdownProps) {
   };
 
   return (
-    <div className="dropdown-container flex flex-col gap-[40px] text-black mb-16">
-      <h2 className="text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem]">Completed Orders</h2>
+    <div className={`${styles["dropdown-container"]}`}>
+      <h2 className={`${styles["page-heading"]}`}>
+        Completed Orders
+      </h2>
       {orderTimeFrames.map((timeFrame: string, index) => {
         const filteredOrders = orders ? filterByDate(timeFrame, orders) : [];
         return (
-          <table key={index} className={`border border-[2.5px] border-black w-[751px] text-[1rem] ${currentIndex === index ?"": "drop-shadow-[0_4px_4px_rgb(0,0,0,0.25)]"} cursor-pointer`}>
-            <thead className="bg-white hover:bg-slate-200">
-              <tr>
-                <th
-                  onClick={() => {
-                    setCurrentIndex((prevIndex) =>
-                      prevIndex !== index ? index : -1
-                    );
-                  }}
-                  className="border border-b-black flex p-[12.64px] justify-between items-center h-[64.64px]"
-                >
-                  {timeFrame}<span className={`${currentIndex === index ? "rotate-180" : ""}`}>{svgIcons.dropdownIcon}</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className={`${currentIndex === index && filteredOrders.length > 5 ? "block h-[20rem] overflow-y-auto" : ""} `}>
-              {filteredOrders &&
-                filteredOrders.map((order: Order, orderIndex) => {
-                  return (
-                    <tr
-                      key={orderIndex}
-                      className={`${
-                        currentIndex === index ? "visible" : "hidden"
-                          } ${orderIndex % 2 ? "bg-slate-200": ""} grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr border border-b-[1px] border-black py-[10px] justify-items-center text-center h-[58px] items-center`}
-                    >
-                          <td className="w-[100%]">{formatDate(new Date(order.ordertimestamp))}</td>
-                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
-                      <td className="w-[100%]">
-                        {(order.orderitems ?? [])
-                          .reduce(
-                            (prev, curr) =>
-                              prev + Number(curr.menuitems?.price ?? 0),
-                            0
-                          )
-                          .toLocaleString("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          })}
-                          </td>
-                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
-                      <td className="w-[100%]">
-                        {(order.orderitems ?? []).some(
-                          (item) => item?.returned === true
-                        )
-                          ? "ITEMS RETURNED"
-                          : "NO RETURNS"}
-                          </td>
-                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
-                          <td className="w-[100%]">ID: {order.orderid}</td>
-                          <td className="w-[0.5px] h-[35px] bg-stone-500"></td>
-                      <td className="w-[100%]">
-                        <button
-                          id={order.orderid}
-                          onClick={() => {
-                            orderData.setOrderDetails(order);
-                          }}
-                        >
-                          View Details
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              {index === currentIndex && !filteredOrders.length && (
+          <div
+            key={index}
+            className={`${styles["table-container"]}  ${
+              currentIndex === index
+                ? ""
+                : "drop-shadow-[0_4px_4px_var(--drop-shadow-color)]"
+            }`}
+          >
+            <table className={`${styles["dropdown-table"]} `}>
+              <thead className={`${styles["table-head"]}`}>
                 <tr>
-                  <td className="text-center">No orders to display.</td>
+                  <th
+                    onClick={() => {
+                      setCurrentIndex((prevIndex) =>
+                        prevIndex !== index ? index : -1
+                      );
+                    }}
+                    className={`${styles["table-title"]}`}
+                  >
+                    {timeFrame}
+                    <span
+                      className={`${
+                        currentIndex === index ? "rotate-180" : ""
+                      }`}
+                    >
+                      {svgIcons.dropdownIcon}
+                    </span>
+                  </th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody
+                className={`${
+                  currentIndex === index && filteredOrders.length > 5
+                    ? `${styles["table-body"]}`
+                    : ""
+                } `}
+              >
+                {filteredOrders &&
+                  filteredOrders.map((order: Order, orderIndex) => {
+                    return (
+                      <tr
+                        key={orderIndex}
+                        className={`${currentIndex === index ? `${styles["table-row-format"]}` : `${styles["hide-data"]}`}  ${orderIndex % 2 ? "bg-slate-200" : ""} `}
+                      >
+                        <td className={`${styles["order-data"]}`}>
+                          {formatDate(new Date(order.ordertimestamp))}
+                        </td>
+                        <td className={`${styles["dividers"]}`}></td>
+                        <td className={`${styles["order-data"]}`}>
+                          {(order.orderitems ?? [])
+                            .reduce(
+                              (prev, curr) =>
+                                prev + Number(curr.menuitems?.price ?? 0),
+                              0
+                            )
+                            .toLocaleString("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            })}
+                        </td>
+                        <td className={`${styles["dividers"]}`}></td>
+                        <td className={`${styles["order-data"]}`}>
+                          {(order.orderitems ?? []).some(
+                            (item) => item?.returned === true
+                          )
+                            ? "ITEMS RETURNED"
+                            : "NO RETURNS"}
+                        </td>
+                        <td className={`${styles["dividers"]}`}></td>
+                        <td className={`${styles["order-data"]}`}>ID: {order.orderid}</td>
+                        <td className={`${styles["dividers"]}`}></td>
+                        <td className={`${styles["order-data"]}`}>
+                          <button
+                            id={order.orderid}
+                            onClick={() => {
+                              orderData.setOrderDetails(order);
+                            }}
+                          >
+                            View Details
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                {index === currentIndex && !filteredOrders.length && (
+                  <tr>
+                    <td className={`${styles["empty-state"]}`}>No orders to display.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         );
       })}
     </div>
