@@ -36,17 +36,6 @@ stockRouter.get("/", async ( _req: Request, res: Response) => {
           costperunit: true,
           shelflife: true,
           servingSize: true,
-          ingredientSuppliers: {
-            select: {
-              suppliers: {
-                select: {
-                  supplierid: true,
-                  suppliername: true,                
-                  api_url: true,
-                },
-              },
-            },
-        }
       }
     });
     
@@ -87,12 +76,23 @@ stockRouter.get("/:id", async (req: Request, res: Response) => {
 
 stockRouter.post("/", async (req: Request, res: Response) => {
   try {
-    const { bulkOrderQuantity, ingredientId, price, shelfLife, supplierApiUrl } = req.body;
+    const { bulkOrderQuantity, ingredientId, price, shelfLife } = req.body;
  
     const todaysDate = new Date();
     const expirationDate = new Date(todaysDate);
     expirationDate.setDate(todaysDate.getDate() + shelfLife);
 
+    const supplierApiUrl = await Db.ingredientSuppliers.findFirst({
+      where: { ingredientid: ingredientId },
+      select: {
+            suppliers: {
+              select: {
+                api_url: true,
+              },
+            }
+      },
+    });
+    console.log("Supplier API URL:", supplierApiUrl?.suppliers.api_url);
     if(!supplierApiUrl){
     const stock = await Db.stock.create({
       data: {
@@ -144,43 +144,19 @@ stockRouter.post("/", async (req: Request, res: Response) => {
     res.status(201).json({ success: true, stock: stockItems });
     } else {
       console.log("Sending order to supplier");
-      await fetch(`${process.env["SUPPLIER_API_URL"]}${supplierApiUrl}`, {
+      await fetch(`${process.env["SUPPLIER_API_URL"]}${supplierApiUrl.suppliers.api_url}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          bulkOrderQuantity,
           ingredientId,
-          price,
-          shelfLife,
+          bulkOrderQuantity
         }),
       });
       
-      const stockItems = await Db.ingredients.findMany({
-        // where: { quantity: { lt: Number(lowStock) }},
-        select: {
-          ingredientid: true,
-          ingredientname: true, 
-          bulkOrderQuantity: true,
-          stock: {
-            select: {
-              stockid: true,
-              quantity: true,
-              cost: true,
-              isexpired: true,
-              receivedtimestamp: true,
-              expirationdate: true
-            },
-          },
-          thresholdquantity: true,
-          category: true,
-          costperunit: true,
-          shelflife: true,
-          servingSize: true,
-        }
-      });
-    res.status(201).json({ message: "Order successfully sent to Supplier", stock: stockItems });
+    
+    res.status(201).json({ message: "Order successfully sent to Supplier"});
     }
   } catch (error) {
     console.error("Error ordering stock:", error);
@@ -188,7 +164,7 @@ stockRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-stockRouter.post("/supplierConfirmation", async (req: Request, res: Response) => {
+stockRouter.post("/supplierconfirmation", async (req: Request, res: Response) => {
   try {
     const { bulkOrderQuantity, ingredientId, price, shelfLife } = req.body;
  

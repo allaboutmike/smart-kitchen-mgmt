@@ -10,7 +10,7 @@ server.use(cors());
 
 server.post('/cornwallLogistics/order', async (req: Request, res: Response) => {
   try {
-    const { bulkOrderQuantity, ingredientId, price, shelfLife } = req.body;
+    const { ingredientId, bulkOrderQuantity  } = req.body;
     console.log("Order is going through supplier")
     await fetch(`${process.env["MANAGEMENT_SERVICE_URL"]}`, {
       method: 'POST',
@@ -18,13 +18,11 @@ server.post('/cornwallLogistics/order', async (req: Request, res: Response) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        bulkOrderQuantity,
         ingredientId,
-        price,
-        shelfLife,
+        bulkOrderQuantity      
       }),
     });
-    res.status(201).json({ message: `Stock order created successfully for $${(price.toFixed(2))}, Your order of ${bulkOrderQuantity} of Ingredient: #${ingredientId} will ship shortly.` });
+    res.status(201).json({ message: `Stock order created successfully, Your order of ${bulkOrderQuantity} of Ingredient: #${ingredientId} will ship shortly.` });
   } catch(error) {
     res.status(500).json({ error: "Internal server error" });
   }
