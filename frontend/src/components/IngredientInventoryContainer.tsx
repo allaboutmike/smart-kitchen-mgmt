@@ -30,7 +30,7 @@ interface BackendStock {
       receivedtimestamp: string;
       expirationdate: string;
     }[];
-    ingredientSuppliers?: { // Add this property
+    ingredientSuppliers?: {
       suppliers: {
         supplierid: number;
         suppliername: string;
