@@ -15,7 +15,7 @@ interface InventoryItem {
   threshold: number;
   shelflife: number;
   bulkOrderQuantity: number;
-
+  supplierApiUrl?: string;
 }
 
 interface BackendStock {
@@ -29,6 +29,13 @@ interface BackendStock {
       isexpired: boolean;
       receivedtimestamp: string;
       expirationdate: string;
+    }[];
+    ingredientSuppliers?: { // Add this property
+      suppliers: {
+        supplierid: number;
+        suppliername: string;
+        api_url: string;
+      }
     }[];
     thresholdquantity: number;
     category: string;
@@ -55,6 +62,7 @@ interface IngredientType {
   price: number;
   shelflife: number;
   bulkOrderQuantity: number;
+  supplierApiUrl?: string;
 }
 
 export const IngredientInventoryContainer: React.FC = () => {
@@ -80,12 +88,15 @@ export const IngredientInventoryContainer: React.FC = () => {
     if (!selectedIngredient) return;
   
     try {
+      console.log(selectedIngredient)
       const res = await updateStock({
         ingredientId: selectedIngredient.ingredientid,
         current: selectedIngredient.current,
         price: selectedIngredient.price,
         shelfLife: selectedIngredient.shelflife,
         bulkOrderQuantity: selectedIngredient.bulkOrderQuantity,
+        supplierApiUrl: selectedIngredient.supplierApiUrl,
+
         
       });
       if(res.success) {
@@ -176,7 +187,10 @@ export const IngredientInventoryContainer: React.FC = () => {
         category: ingredient.category,
         threshold: ingredient.thresholdquantity,
         shelflife: ingredient.shelflife,
-        bulkOrderQuantity: ingredient.bulkOrderQuantity
+        bulkOrderQuantity: ingredient.bulkOrderQuantity,
+        supplierApiUrl: ingredient.ingredientSuppliers?.[0]?.suppliers?.api_url,
+
+        
       };
     });
   };
