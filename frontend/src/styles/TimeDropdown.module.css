@@ -4,6 +4,7 @@
 
 .page-heading {
   @apply text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem];
+  @apply mobile:text-center;
 }
 
 .table-container {
@@ -14,6 +15,8 @@
 
 .dropdown-table {
   @apply w-[751px] text-[1rem] text-[#6785FF];
+  @apply tablet:w-[100%];
+  @apply mobile:w-[90dvw];
 }
 
 .table-head {
@@ -21,11 +24,12 @@
 }
 
 .table-title {
-  @apply rounded-[8px] flex p-[12.64px] justify-between items-center h-[64.64px];
+  @apply rounded-[8px] flex p-[12px] justify-between items-center h-[64px];
 }
 
 .table-body {
   @apply block h-[20rem] overflow-y-auto;
+  /* @apply mobile:overflow-x-scroll mobile:w-[inherit]; */
 }
 
 .hide-data {
@@ -33,7 +37,9 @@
 }
 
 .table-row-format {
-  @apply grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr border border-b-[1px] border-[var(--foreground)] py-[10px] justify-items-center text-center h-[58px] items-center;
+  @apply grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr;
+  @apply border border-b-[1px] border-[var(--foreground)];
+  @apply py-[10px] justify-items-center text-center h-[58px] items-center;
 }
 
 .order-data {
