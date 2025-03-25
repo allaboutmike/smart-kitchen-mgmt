@@ -1,0 +1,49 @@
+.dropdown-container {
+  @apply flex flex-col gap-[22px] text-black mb-16;
+}
+
+.page-heading {
+  @apply text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem];
+}
+
+.table-container {
+  @apply rounded-[8px];
+  border: solid var(--foreground);
+  overflow: hidden;
+}
+
+.dropdown-table {
+  @apply w-[751px] text-[1rem] text-[#6785FF];
+}
+
+.table-head {
+  @apply bg-white hover:bg-[#6785FF] hover:text-[white] cursor-pointer;
+}
+
+.table-title {
+  @apply rounded-[8px] flex p-[12.64px] justify-between items-center h-[64.64px];
+}
+
+.table-body {
+  @apply block h-[20rem] overflow-y-auto;
+}
+
+.hide-data {
+    @apply hidden;
+}
+
+.table-row-format {
+  @apply grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr border border-b-[1px] border-[var(--foreground)] py-[10px] justify-items-center text-center h-[58px] items-center;
+}
+
+.order-data {
+  @apply w-[100%];
+}
+
+.dividers {
+  @apply w-[0.5px] h-[35px] bg-stone-500;
+}
+
+.empty-state {
+  @apply text-center;
+}
