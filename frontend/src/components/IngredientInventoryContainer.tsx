@@ -99,14 +99,11 @@ export const IngredientInventoryContainer: React.FC = () => {
         // Clear selected ingredient after order
         setSelectedIngredient(null);
 
-        if (res.data) {
-          if (res.data) {
-            console.log("No data to update");
-          }else {
+        if (res.data) {         
             const updatedData = transformStockData(res.data as BackendStock);
-            setInventoryData(updatedData);
-          }
+            setInventoryData(updatedData);       
         }
+        
       } else {
         // Show error alert
         setAlertType('error');
