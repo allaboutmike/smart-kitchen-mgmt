@@ -99,7 +99,7 @@ export const IngredientInventoryContainer: React.FC = () => {
         // Clear selected ingredient after order
         setSelectedIngredient(null);
 
-        if (res.data) {
+        if (res) {
           if (res.data === null) {
             console.log("No data to update");
           }else {
