@@ -188,13 +188,13 @@ export default function POS() {
       </span>      
       <button
         className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px] z-[--top-most-z-index]
-         bg-[--background] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
+         bg-[--brand-white] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
         onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
         aria-label="Cart toggle button"
       >
         {svgIcons.cart}
         { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
-        h-[30px] top-[-15px] right-[-10px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
+        h-[30px] top-[-15px] right-[-10px] bg-[--color] outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
             <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
       </button>

@@ -5,7 +5,6 @@ import viewModalStyles from '../styles/ViewMenuItemModal.module.css'
 
 export default function ViewMenuItemModal(modalDetails: MenuItemProps) {
     const imgSize = 300;
-    console.log(modalDetails)
   return (
     <span className={viewModalStyles["view-menu-item-modal"]}
         onKeyDown={(e)=> {
@@ -32,8 +31,7 @@ export default function ViewMenuItemModal(modalDetails: MenuItemProps) {
                     })}
                 </ul>               
             </span>
-        </span>
-        
+        </span>        
     </span>
   )
 }

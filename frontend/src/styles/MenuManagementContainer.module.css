@@ -13,7 +13,7 @@
 .restaurant-sub-menu-container {
     @apply grid gap-2 relative grid-cols-3 grid-rows-2 p-[20px] mb-[10px] mt-[50px] bg-white rounded-[8px];
     @apply tablet:p-[10px] tablet:w-[90dvw];
-    @apply mobile:grid-cols-1 mobile:max-h-[200px] overflow-y-scroll mobile:grid-rows-[auto];
+    @apply mobile:grid-cols-1 mobile:max-h-[200px] mobile:overflow-y-scroll mobile:grid-rows-[auto];
     box-shadow: var(--sellers-container-drop-shadow);
 }
 .restaurant-sub-menu-button {
