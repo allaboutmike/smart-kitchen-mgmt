@@ -175,7 +175,7 @@ stockRouter.put("/:ingredientId", async (req: Request, res: Response) => {
       data: {
         ingredientid: ingredientId,
         quantity: bulkOrderQuantity,
-        cost: price * bulkOrderQuantity,
+        cost: price,
         expirationdate: expirationDate
       },
       select: {
