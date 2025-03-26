@@ -1,6 +1,6 @@
 "use client";
 import InteractableOrderItem, { ItemDetails } from "./InteractableOrderItem";
-import {useState} from "react";
+import React,{useState} from "react";
 import { useMutation } from "@/customHooks/useMutation";
 import OrderStatusNotifier from "./OrderStatusNotifier";
 import styles from "../styles/OrderReceiptManager.module.css"
@@ -13,6 +13,8 @@ export type Order = {
   ordertimestamp: string;
   completedTimeStamp: string | null;
   toggleOrderDetails?: ()=> void;
+  animDelay: number;
+  animIndex: number;
 };
 export type AddedItem = {
   price: number;
@@ -84,7 +86,7 @@ export default function OrderReceiptManager(orderDetails: Order) {
   }
   return (
     <>
-      {!orderStatus && <div className={`${styles["current-order-items-manager"]} carousel-item`}>
+      {!orderStatus && <div className={`${styles["current-order-items-manager"]} carousel-item`} style={{"--trans-delay": `${orderDetails.animIndex * orderDetails.animDelay}s`} as React.CSSProperties}>
         <button className={`${styles["order-status-toggle-button"]}`} onClick={() => toggleOrderStatus()}>Toggle Order Status</button>
         <span className={`${styles["order-status"]}`}>{orderStatus ? "Completed" : "In Progress"}</span>
         <span className={`${styles["order-details-container-bg"]} `}></span>

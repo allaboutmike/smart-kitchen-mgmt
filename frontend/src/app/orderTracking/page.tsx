@@ -17,8 +17,6 @@ export default function OrderTrackingPage() {
     fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
-  const [orders, setOrders] = useState<Order[] | undefined>(data?.orders)
-  const [containerKey, setContainerKey] = useState<string>("20")
   console.log(data)
   const selObject: SelectionObject = {
     setCurrentSelection: setCurrentSelection,
@@ -36,22 +34,19 @@ export default function OrderTrackingPage() {
     orders: data?.orders,
     setOrderDetails: setCurrentOrderDetails
   }
-  const orderChecker =()=>{
-    if(data?.orders === undefined || data.orders.length <= 0){
-      return (<div>No Orders Found</div>)
-    }
-    return data?.orders.map((order)=> <OrderReceiptManager key={order.orderid} {...order} />)
-  }
 
   return (
     <div className="main-container">
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject} />
       <div className={orderTrackingStyles["order-tracking-container"]}>
-        { (isCurrentSelection("Current Orders") && orders) && <div className={orderTrackingStyles["order-receipt-container"]}>
-            {orderChecker()}
-        </div>}     
-        {/* {(isCurrentSelection("Current Orders") && (orders?.length === undefined || orders?.length <= 0)) && <div>No Orders Found</div>}   */}
+      {(isCurrentSelection("Current Orders") && data) && <div className={orderTrackingStyles["order-receipt-container"]}>
+        {data?.orders.map((order, index)=>{
+          order.animIndex = index;
+          order.animDelay = index * 0.02;
+          return <OrderReceiptManager key={order.orderid} {...order} />})
+        }
+        </div>}      
         {isCurrentSelection("Completed Orders") && <TimeDropdown {...completedOrders} />}
       </div>      
       {currentOrderDetails && <OrderDetailsScreen {...orderDetailsObj} />}

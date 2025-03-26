@@ -1,8 +1,15 @@
 .current-order-items-manager {
+    --trans-delay: 0s;
     @apply flex flex-col w-[300px] gap-[1rem] p-[40px] rounded-[8px] bg-white ;
     @apply p-[20px];
     @apply mobile:w-full;
     box-shadow: 0 0 4px 4px var(--drop-shadow-color);
+    @starting-style{
+        opacity: 0;
+        transform: translatey(100%);
+    }
+    transition: all 0.4s cubic-bezier(0.05, 1.8, 0.9, 0.9);
+    transition-delay: var(--trans-delay);
 }
 .order-header-group {
     @apply flex flex-col justify-between;

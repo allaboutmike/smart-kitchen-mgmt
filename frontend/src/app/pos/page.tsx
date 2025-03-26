@@ -141,6 +141,7 @@ export default function POS() {
               <span
                 className={menuItemStyles["pos-menu-item"]}
                 key={index}
+                style={{"--transition-delay": `${index * 0.08}s`} as React.CSSProperties}
               >
                 <Image
                   src={item.pictureUrl}
