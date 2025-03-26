@@ -25,11 +25,11 @@ export default function MenuItem(itemInfo: MenuItemProps) {
           {itemInfo.picture && itemInfo.name && <Image src={itemInfo.picture} width={imageSize} height={imageSize} alt={itemInfo.name}/>}
         </span>
         <span className={styles.menuPricingGroup}>
-          <span>Price:</span>
-          <span className="menu-item-price">${itemInfo.price}</span>
+          <p>Price:</p>
+          <p className="menu-item-price">${itemInfo.price}</p>
         </span>
       </span>
-      <span className={styles.menuItemName}>{itemInfo.name}</span>
+      <p className={styles.menuItemName}>{itemInfo.name}</p>
     </div>
   );
 }
