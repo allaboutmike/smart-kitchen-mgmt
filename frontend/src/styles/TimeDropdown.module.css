@@ -28,7 +28,7 @@
 }
 
 .table-body {
-  @apply block h-[20rem] text-black overflow-y-auto;
+  @apply block h-[20rem]  overflow-y-auto;
 }
 
 .hide-data {
@@ -38,7 +38,7 @@
 .table-row-format {
   @apply grid grid-flow-col grid-cols-[1fr_10px_1fr_10px_1fr_10px_1fr_10px_1fr] auto-cols-fr;
   @apply border border-b-[1px] border-[var(--foreground)];
-  @apply justify-items-center text-center h-[58px] items-center;
+  @apply justify-items-center text-center text-black h-[58px] items-center;
   @apply mobile:items-center;
 }
 
