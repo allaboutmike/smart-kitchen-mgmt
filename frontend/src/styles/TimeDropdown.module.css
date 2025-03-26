@@ -1,9 +1,9 @@
 .dropdown-container {
-  @apply flex flex-col gap-[22px] text-black mb-16;
+  @apply flex flex-col gap-[22px] mb-16;
 }
 
 .page-heading {
-  @apply text-[32px] text-[#6785FF] font-semibold mb-[-1.25rem] mt-[2rem];
+  @apply text-[32px] text-[var(--foreground)] font-semibold mb-[-1.25rem] mt-[2rem];
   @apply mobile:text-center;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .dropdown-table {
-  @apply w-[751px] text-[1rem] text-[#6785FF];
+  @apply w-[751px] text-[1rem] text-[var(--foreground)];
   @apply tablet:w-[100%];
   @apply mobile:w-[90dvw];
 }
@@ -28,7 +28,7 @@
 }
 
 .table-body {
-  @apply block h-[20rem] overflow-y-auto;
+  @apply block h-[20rem] text-black overflow-y-auto;
 }
 
 .hide-data {
@@ -51,5 +51,5 @@
 }
 
 .empty-state {
-  @apply text-center;
+  @apply text-black text-center;
 }
