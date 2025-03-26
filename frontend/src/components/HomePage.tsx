@@ -171,7 +171,7 @@ const RestaurantDashboard: React.FC = () => {
               <h3 className="text-lg font-bold">New Updates</h3>
             </div>
             <p className="text-center">
-              Get ready for the next phaser of Dine Flow with online ordering dashboards.
+              Get ready for the next phase of Dine Flow with online ordering dashboards.
             </p>
           </div>
 
