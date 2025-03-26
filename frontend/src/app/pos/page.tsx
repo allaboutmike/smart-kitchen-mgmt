@@ -1,7 +1,7 @@
 "use client";
 import Cart, { CartInfo, ItemProps } from "@/components/POS/Cart";
 import { useFetch } from "@/customHooks/useFetch";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSelection from "@/customHooks/useSelection";
 import type { MenuItemType } from "@/components/MenuManagementContainer";
 import SelectableButton from "@/components/SelectableButton";
@@ -105,14 +105,17 @@ export default function POS() {
       setAddedItems((prevItems) => [...prevItems, newItem]);
     }
   }
+
+  useEffect(()=>{ 
+    if(typeof window !== undefined){
+      const isMobile = window.innerWidth <= 500;
+      setIsCartVisible(!isMobile);
+    }
+  },[])
+
   
   return (
-    <div className="main-container pos-container" onLoad={()=>{
-      if(typeof window !== undefined){
-        const isMobile = window.innerWidth <= 500;
-        setIsCartVisible(!isMobile);
-      }
-    }}>
+    <div className="main-container pos-container">
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {

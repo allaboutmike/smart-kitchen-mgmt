@@ -11,15 +11,15 @@
 .restaurant-current-option-title > span{ @apply font-semibold;}
 .restaurant-components-main-container {@apply flex flex-col items-center;}
 .restaurant-sub-menu-container {
-    @apply grid gap-2 grid-cols-3 grid-rows-2 p-[20px] mb-[10px] mt-[50px] bg-white rounded-[8px];
+    @apply grid gap-2 relative grid-cols-3 grid-rows-2 p-[20px] mb-[10px] mt-[50px] bg-white rounded-[8px];
     @apply tablet:p-[10px] tablet:w-[90dvw];
-    @apply mobile:grid-cols-2 mobile:max-h-[200px] overflow-y-scroll;
+    @apply mobile:grid-cols-1 mobile:max-h-[200px] overflow-y-scroll mobile:grid-rows-[auto];
     box-shadow: var(--sellers-container-drop-shadow);
 }
 .restaurant-sub-menu-button {
     @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[25px] bg-white border-none;
     @apply tablet:text-[1rem] tablet:px-[5px];
-    @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
+    @apply mobile:text-[1.2rem] mobile:gap-y-4 mobile:py-[20px] mobile:px-[10px];
     box-shadow: var(--sellers-container-drop-shadow);
     &:hover {
       @apply !text-white !bg-[--foreground];

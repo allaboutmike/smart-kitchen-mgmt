@@ -3,8 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafbff;
-  --foreground: #638de5;
+  --original-background: #fafbff;
+  --background: var(--original-background);
+  --original-foreground: #638de5;
+  --foreground: var(--original-foreground);
   --foreground-2: #747dbe;
   --active-button-color: #6063ff;
   --remove-button-bg-color: #a760ff;
@@ -15,10 +17,15 @@
   --rows-drop-shadow: 0 2px 2px 1px var(--drop-shadow-color);
   --sellers-container-drop-shadow: 0 1px 4px 1px var(--drop-shadow-color);
   --top-most-z-index: 1000;
+  --color: white;
+  --brand-blue: #001F3F;
+  --brand-pink: #FFE8F0;
+  --brand-orange: #FF8532;
+  --brand-white: #ffffff;
   background-color: var(--background);  
 }
 
-body {
+body {  
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   user-select: none;
