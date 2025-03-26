@@ -7,9 +7,9 @@ import OrderReceiptManager, { Order } from "@/components/OrderReceiptManager";
 import { SelectionObject } from "@/components/SelectionObject";
 import OrderDetailsScreen, { OrderDetails } from "@/components/OrderDetailsScreen";
 import TimeDropdown, { TimeDropdownProps } from "@/components/TimeDropdown";
-
+import orderTrackingStyles from "../../styles/OrderTracking.module.css";
 export default function OrderTrackingPage() {
-  const { currentSelection, isCurrentSelection, setCurrentSelection } = useSelection("Current Orders")
+  const {isCurrentSelection, setCurrentSelection } = useSelection("Current Orders")
   
   let fetchString = "orders?"
   if(!isCurrentSelection("none")){
@@ -17,6 +17,8 @@ export default function OrderTrackingPage() {
     fetchString = `orders?completed=${showCompletedOrders}&orderItemsDetails=true`
   }
   const { data } = useFetch<{ orders: Order[] }>(fetchString);
+  const [orders, setOrders] = useState<Order[] | undefined>(data?.orders)
+  const [containerKey, setContainerKey] = useState<string>("20")
   console.log(data)
   const selObject: SelectionObject = {
     setCurrentSelection: setCurrentSelection,
@@ -30,32 +32,28 @@ export default function OrderTrackingPage() {
     order: currentOrderDetails,
     updateOrderDetailsScreen: updateOrderDetails
   }
-
   const completedOrders: TimeDropdownProps = {
     orders: data?.orders,
     setOrderDetails: setCurrentOrderDetails
+  }
+  const orderChecker =()=>{
+    if(data?.orders === undefined || data.orders.length <= 0){
+      return (<div>No Orders Found</div>)
+    }
+    return data?.orders.map((order)=> <OrderReceiptManager key={order.orderid} {...order} />)
   }
 
   return (
     <div className="main-container">
       <h1 className="text-3xl font-bold text-center my-[0.5rem]">Order Tracking</h1>
       <OrderTrackingMenu {...selObject} />
-      {(data?.orders.length !== undefined && data?.orders.length > 0) && <div className={`flex order-tracking-main-container max-w-[80dvw] justify-center mt-[20px]
-        mobile:max-w-full mobile:mb-[4rem]
-        `} >
-          {isCurrentSelection("Current Orders") && <div key={currentSelection}
-          className={`carousel max-h-[max-content] justify-start align-center overflow-x-auto p-[2rem] rounded-box bg-neutral
-           gap-[1rem] carousel-start w-full scroll-smooth outline mobile:w-full mobile:carousel-vertical
-           mobile:rounded-none mobile:items-center mobile:p-[2rem] tablet:pt-[10px] tablet:mb-[4rem]`}>
-            {
-              (data?.orders && data.orders.length) &&
-                data?.orders.map((order)=>{
-                  return <OrderReceiptManager key={order.orderid} {...order} />
-                })
-            }
-        </div>} 
-        {data && isCurrentSelection("Completed Orders") && <TimeDropdown {...completedOrders} />}
-      </div>}
+      <div className={orderTrackingStyles["order-tracking-container"]}>
+        { (isCurrentSelection("Current Orders") && orders) && <div className={orderTrackingStyles["order-receipt-container"]}>
+            {orderChecker()}
+        </div>}     
+        {/* {(isCurrentSelection("Current Orders") && (orders?.length === undefined || orders?.length <= 0)) && <div>No Orders Found</div>}   */}
+        {isCurrentSelection("Completed Orders") && <TimeDropdown {...completedOrders} />}
+      </div>      
       {currentOrderDetails && <OrderDetailsScreen {...orderDetailsObj} />}
     </div>
   );
