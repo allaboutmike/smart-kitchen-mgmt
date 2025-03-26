@@ -155,8 +155,7 @@ stockRouter.post("/", async (req: Request, res: Response) => {
 
       });   
     res.sendStatus(201);
-      });
-    }
+    }  
   } catch (error) {
     console.error("Error ordering stock:", error);
     res.status(500).json({ error: "Internal server error" });
