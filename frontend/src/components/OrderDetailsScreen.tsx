@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/OrderDetailsScreen.module.css";
 import { Order } from "./OrderReceiptManager";
+import scrollBarToggle from "./scrollBarToggle";
 
 export interface OrderDetails{
   order: Order | null,
@@ -12,12 +13,16 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
   const disableModal =()=>{
     orderDetails.updateOrderDetailsScreen(null)
   }
+  scrollBarToggle(false)
   const orderTotal = oDetails?.orderitems.reduce((acc, curr)=>{ return acc + parseFloat(curr.menuitems.price.toString())},0)
   const tax = parseFloat(((Math.random() * 10) + 1).toFixed(2));
   const finalPrice = orderTotal? (tax + orderTotal).toFixed(2): 0;
   return (
     <>
-      <span className={styles["order-details-container-bg"]} onClick={disableModal}></span>
+      <span className={styles["order-details-container-bg"]} onClick={()=>{
+        scrollBarToggle(true)
+        disableModal()
+      }}></span>
       <dialog className={styles["order-details-container"]} 
       onLoadStart={(e)=> e.currentTarget.focus()}
       onKeyDown={(e)=> {
