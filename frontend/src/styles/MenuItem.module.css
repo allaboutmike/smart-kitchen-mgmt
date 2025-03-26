@@ -4,26 +4,22 @@
     @apply mobile:max-w-[100%];
 }
 .pos-menu-item{
-    @apply grid relative place-items-center rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-clip gap-[4px] justify-between;
+    @apply grid relative place-items-center rounded-[6px] flex-col max-w-[1fr] h-[200px] p-[20px] bg-[white] overflow-clip gap-[4px];
     box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
-    @apply mobile:max-w-[100%];
-    
+    @apply mobile:w-[100%] mobile:p-[5px] mobile:max-w-[80%];   
 }
-.menuItem button, .pos-menu-item button {
+
+.menuItem button {
 @apply text-[1.2rem] absolute p-[40px] self-end place-self-center mb-[-100px] font-semibold align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
     &:active {
         @apply bg-[--active-button-color];
     }
     transition: margin 0.3s ease;
 }
-.pos-menu-item button {
-    @apply mb-[-140%];
-    transition: margin 0.13s ease-in-out;
-}
+
 .menuItem:hover button , .pos-menu-item:hover button{
     filter: opacity(0.95);
     @apply bg-[#A760FF];
-    margin-bottom: 0;
 }
 
 .menuItemPictureAndPriceGroup {
@@ -40,6 +36,12 @@
 
 .menuItemName {
     @apply text-[1.1rem] max-h-[250px] overflow-y-auto;
+}
+.menu-item-name-pos{
+    @apply tablet:text-[1rem] text-center mobile:mb-[-10px] font-semibold;
+}
+.menu-item-price-pos{
+    @apply text-center;
 }
 
 .menuItemName::-webkit-scrollbar{
@@ -67,7 +69,20 @@
 }
 .number-indicator{
     @apply flex absolute top-[10px] outline font-semibold w-[30px] text-center;
-    @apply right-[15px] rounded-[50%] h-[30px] justify-center items-center text-[--foreground] bg-white text-[1rem] z-10;
+    @apply right-[15px] rounded-[50%] h-[30px] justify-center items-center text-[--foreground] bg-white text-[1rem];
+    z-index: inherit;
     outline-color: rgb(43, 11, 48);
     outline-width: 2px;
+}
+
+.add-item-button-pos{
+    @apply text-[1.2rem] w-[100%] top-[100%] h-full absolute p-[40px] self-end place-self-center font-semibold align-bottom text-[white] bg-[#A760FF] py-[8px] border-none;
+    &:active {
+        @apply bg-[--active-button-color];
+    }
+    transition: transform 0.13s ease-in-out;
+}
+
+.pos-menu-item:hover .add-item-button-pos{
+    transform: translateY(-100%);
 }

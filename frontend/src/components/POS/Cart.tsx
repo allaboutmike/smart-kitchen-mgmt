@@ -66,13 +66,18 @@ export default function Cart(orderInfo: CartInfo) {
             <span>${cartTotalCost}</span>
         </span>
         {itemsAvailable > 0 && <span className="grid grid-rows-2 w-full gap-[1rem]">
-            <button 
-            className="btn bg-[--continue-button-color] border-none hover:bg-purple-500 active:bg-[--foreground-2] text-white"
+            <label 
+            className={`btn bg-[--continue-button-color] border-none 
+            hover:bg-purple-500 active:bg-[--foreground-2] text-white            
+            `}
+            htmlFor="continue_order"
             onClick={orderInfo.continueOrder}
-            >Buy</button>
-            <button className="btn btn-error text-white" onClick={orderInfo.cancelOrder}>Cancel</button>
+            >Buy</label>
+            <label className="btn btn-error text-white" htmlFor="cancel-order-modal">Cancel</label>
         </span>}
       </span>
+      <OrderPlacedModal />
+      <CancelOrderModal modalClassName={"cancel-order-modal"} cancelFunc={orderInfo.cancelOrder}/>
     </div>
   );
 }
@@ -100,3 +105,41 @@ const ItemComponent=(itemInfo: ItemProps)=>{
         </span>
     )
 }
+
+
+const OrderPlacedModal =()=>{
+  return(
+    <>
+      <input type="checkbox" id="continue_order" className="modal-toggle" />
+      <div className="modal" role="dialog">
+        <div className="modal-box bg-white">
+          <h3 className="text-xl text-[--foreground] font-bold">Order Status</h3>
+          <p className="py-4 text-[--foreground]">Order placed succesfully!</p>
+        </div>        
+        <label className="modal-backdrop backdrop-blur-sm" htmlFor="continue_order">Close</label>
+      </div>
+    </>
+  )
+}
+const CancelOrderModal =({modalClassName, cancelFunc}:{modalClassName: string, cancelFunc:()=>void})=>{
+  return(
+    <>
+      <input type="checkbox" id={modalClassName} className="modal-toggle" />
+      <div className="modal" role="dialog">
+        <div className="modal-box bg-[white]">
+          <h3 className="text-lg text-red-500 font-bold">WARNING!</h3>
+          <p className="py-2 text-[--foreground] text-black">Do you want to cancel this order?</p>
+          <p className="py-1 text-[--foreground] text-black font-semibold">This action cannot be undone.</p>
+          
+          <label className="btn modal-backdrop hover:bg-purple-400 text-white bg-red-500 border-none" htmlFor={modalClassName} onClick={cancelFunc}>Yes</label>
+          <label className="btn modal-backdrop bg-[--foreground] mt-2
+            text-white border-none hover:bg-rose-300             
+            " htmlFor={modalClassName}
+            >No</label>         
+        </div>
+        <label className="modal-backdrop backdrop-blur-sm" htmlFor={modalClassName}>Close</label>
+      </div>
+    </>
+  )
+}
+

@@ -107,7 +107,6 @@ export const IngredientInventoryContainer: React.FC = () => {
             setInventoryData(updatedData);
           }
         }
-
       } else {
         // Show error alert
         setAlertType('error');

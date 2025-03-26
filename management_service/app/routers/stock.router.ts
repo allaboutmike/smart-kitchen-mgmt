@@ -152,8 +152,10 @@ stockRouter.post("/", async (req: Request, res: Response) => {
           ingredientId,
           bulkOrderQuantity
         }),
+
       });   
     res.sendStatus(201);
+      });
     }
   } catch (error) {
     console.error("Error ordering stock:", error);
@@ -165,7 +167,7 @@ stockRouter.put("/:ingredientId", async (req: Request, res: Response) => {
   try {
     const ingredientId = Number(req.params['ingredientId']);
     const { bulkOrderQuantity, price, shelfLife } = req.body;
- 
+    
     const todaysDate = new Date();
     const expirationDate = new Date(todaysDate);
     expirationDate.setDate(todaysDate.getDate() + shelfLife);
@@ -218,6 +220,7 @@ stockRouter.put("/:ingredientId", async (req: Request, res: Response) => {
     
     
     console.log("Delivery received from Supplier for stock with ID:", stock.stockid);
+
     res.status(201).json({ success: true, stock: stockItems });
   } catch (error) {
     console.error("Error ordering stock:", error);

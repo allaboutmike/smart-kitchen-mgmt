@@ -1,9 +1,8 @@
 .interactable-order-item {
-    @apply grid text-[1.4rem] grid-rows-2 p-[10px] outline-[1px] outline-[black] h-[100px] rounded-[15px] w-[95%];
+    @apply grid text-[1rem] text-black grid-rows-2 p-[10px] outline-[1px] outline-[black] h-[100px] rounded-[15px] w-[95%];
     outline: solid 2px var(--foreground);
-
     .remove-and-price-group {
-        @apply flex items-center;
+        @apply flex items-center mt-[-30px] mobile:mt-[-20px];
         justify-content: space-between;
     }
 }
@@ -14,6 +13,7 @@
 }
 .order-item-name{
     @apply text-left overflow-x-auto;
+    line-height: 1;
 }
 .order-item-quantity-group-menu {
     @apply flex gap-[10px];
@@ -33,6 +33,6 @@
 .order-item-remove-button {
     @apply text-[1.5rem] border-none px-[35px] py-[10px] rounded-[10px] text-white bg-[--remove-button-bg-color];
     &:active {
-      @apply bg-[--custom-active-red-color];
+        @apply bg-[--custom-active-red-color];
     }
-  }
+}

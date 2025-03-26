@@ -22,8 +22,8 @@ const SplashScreen: React.FC = () => {
           </p>
           <div className="flex justify-center">
             <Link href="/select-portal">
-              <button 
-                className="group relative flex items-center bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-500 hover:to-yellow-400 text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg" 
+              <button
+                className="group relative flex items-center bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-500 hover:to-yellow-400 text-black font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
                 aria-label="Try Dine Flow now"
               >
                 <span className="mr-2">Get Started</span>
@@ -38,14 +38,16 @@ const SplashScreen: React.FC = () => {
       <section className="w-full py-20 px-4 bg-white" aria-labelledby="demo-heading">
         <div className="max-w-5xl mx-auto">
           <h2 id="demo-heading" className="text-3xl font-bold text-center mb-10 text-blue-600">See Dine Flow in action</h2>
-          <figure className="w-full bg-gray-200 rounded-lg aspect-video flex items-center justify-center">
-            {/* This would be replaced with an actual video player */}
-            <div className="text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 mx-auto text-gray-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" clipRule="evenodd" />
-              </svg>
-              <figcaption className="mt-4 text-gray-600">Video Demo</figcaption>
-            </div>
+          <figure className="w-full rounded-lg overflow-hidden aspect-video">
+            <iframe
+              src="https://drive.google.com/file/d/1mWDPXmuKYEWDxxKgkq5tGWDjms3KrfdJ/preview"
+              className="w-full h-full border-0"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              title="Dine Flow Demo Video"
+              aria-label="Demo video showing Dine Flow features and functionality"
+            ></iframe>
+            <figcaption className="mt-4 text-gray-600 text-center">Video Demo of Dine Flow</figcaption>
           </figure>
         </div>
       </section>
@@ -67,7 +69,7 @@ const SplashScreen: React.FC = () => {
                 <p className="text-gray-700">Speed up daily tasks and improve workflows for better outcomes for your restaurant.</p>
               </article>
             </li>
-            
+
             {/* Feature 2 */}
             <li className="grid_item">
               <article>
@@ -80,7 +82,7 @@ const SplashScreen: React.FC = () => {
                 <p className="text-gray-700">Get everyone on the same page to get more done in less time.</p>
               </article>
             </li>
-            
+
             {/* Feature 3 */}
             <li className="grid_item">
               <article>
@@ -93,7 +95,7 @@ const SplashScreen: React.FC = () => {
                 <p className="text-gray-700">Put all the moving parts of your restaurant in context and say goodbye to silos.</p>
               </article>
             </li>
-            
+
             {/* Feature 4 */}
             <li className="grid_item">
               <article>
@@ -107,7 +109,7 @@ const SplashScreen: React.FC = () => {
               </article>
             </li>
           </ul>
-          
+
           {/* Orange section */}
           <aside className="bg-orange-400 text-white p-8 mt-16 rounded-lg">
             <h2 className="text-3xl font-bold mb-4">Manage your inventory, teams, and menu<br />with our smart solutions</h2>
@@ -125,7 +127,7 @@ const SplashScreen: React.FC = () => {
           </p>
         </div>
       </section>
-      
+
       {/* Footer */}
       <footer className="w-full py-8 bg-white text-center">
         <p className="text-gray-600">Dine Flow - Restaurant Management Solution</p>

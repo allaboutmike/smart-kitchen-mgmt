@@ -35,7 +35,7 @@
   }
 
   .menu-items-container-pos{
-    @apply grid grid-flow-row-dense tablet:grid-cols-2 mobile:grid-cols-1;
-    @apply p-[20px] grid-cols-4 gap-[20px] max-h-[600px] overflow-y-auto;
-    @apply tablet:grid-cols-2 tablet:self-baseline;
+    @apply grid grid-flow-row-dense tablet:grid-cols-2 mb-[100px];
+    @apply p-[20px] grid-cols-3 gap-[20px] max-h-[600px] overflow-y-auto;
+    @apply tablet:grid-cols-2 tablet:self-baseline mobile:grid-cols-1 mobile:w-[100%] mobile:place-items-center;
   }
