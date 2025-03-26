@@ -20,7 +20,6 @@ export default function SideNavBar() {
     }    
   }
   const pageNow = usePathname()
-  console.log(pageNow)
   const canDisplay =()=>{
     switch(pageNow){
       case "/pos": return false; break;
@@ -33,8 +32,7 @@ export default function SideNavBar() {
   const buttonIcons = [svgIcons.home, svgIcons.menuManager, svgIcons.orderTracking,
     svgIcons.inventory, svgIcons.productivity, svgIcons.settings]
   const buttonStyle = styles["side-nav-bar-button"]
-  return (
-    
+  return (    
       <>
         { canDisplay() && <div className={`${styles["side-nav-bar"]} dock`}>      
           {buttonNames.map((buttonName, buttonIndex)=>{

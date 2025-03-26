@@ -1,7 +1,7 @@
 "use client";
 import Cart, { CartInfo, ItemProps } from "@/components/POS/Cart";
 import { useFetch } from "@/customHooks/useFetch";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSelection from "@/customHooks/useSelection";
 import type { MenuItemType } from "@/components/MenuManagementContainer";
 import SelectableButton from "@/components/SelectableButton";
@@ -105,14 +105,17 @@ export default function POS() {
       setAddedItems((prevItems) => [...prevItems, newItem]);
     }
   }
+
+  useEffect(()=>{ 
+    if(typeof window !== undefined){
+      const isMobile = window.innerWidth <= 500;
+      setIsCartVisible(!isMobile);
+    }
+  },[])
+
   
   return (
-    <div className="main-container pos-container" onLoad={()=>{
-      if(typeof window !== undefined){
-        const isMobile = window.innerWidth <= 500;
-        setIsCartVisible(!isMobile);
-      }
-    }}>
+    <div className="main-container pos-container">
       <h1 className="text-[2rem] font-semibold my-[2rem]">POS</h1>
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {
@@ -141,6 +144,7 @@ export default function POS() {
               <span
                 className={menuItemStyles["pos-menu-item"]}
                 key={index}
+                style={{"--transition-delay": `${index * 0.08}s`} as React.CSSProperties}
               >
                 <Image
                   src={item.pictureUrl}
@@ -184,13 +188,13 @@ export default function POS() {
       </span>      
       <button
         className={`fixed top-[0px] btn btn-square text-[--foreground] self-end mr-[20px] z-[--top-most-z-index]
-         bg-[--background] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
+         bg-[--brand-white] hover:border-[--foreground] hover:bg-[--foreground] hover:text-white border-[--foreground] mt-[20px] `}
         onClick={() => setIsCartVisible((prevVisibility) => !prevVisibility)}
         aria-label="Cart toggle button"
       >
         {svgIcons.cart}
         { amountOfItemsInCart > 0 && <span key={amountOfItemsInCart} className={`flex justify-center absolute w-[30px] text-[--foreground]
-        h-[30px] top-[-15px] right-[-10px] bg-white outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
+        h-[30px] top-[-15px] right-[-10px] bg-[--color] outline rounded-[50%] ${menuItemStyles["elem-bounce"]}`}>
             <span  className={`self-center text-[--custom-active-red-color] pointer-events-none`}>{amountOfItemsInCart}</span>
           </span>}
       </button>

@@ -1,0 +1,26 @@
+
+.view-menu-item-modal{
+    @apply flex fixed w-full h-full bg-[--white-backdrop] items-center justify-center top-0 left-0 backdrop-blur-sm;
+    @apply mobile:flex-col;
+    @starting-style{
+        transform: scale(1.4);
+        opacity: 0;
+    }
+    transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1); 
+}
+.ingredients-list-container{
+    @apply text-black mobile:h-[100px] overflow-y-auto;
+
+}
+.exit-button{
+    @apply btn absolute bg-[--foreground] border-none top-[20px] text-white right-[20px];
+}
+
+.product-details-container{
+    @apply flex flex-col justify-center mobile:mt-[10px];
+}
+
+.inner-contents-container{
+    @apply flex relative bg-white m-4 px-[50px] rounded-[10px]  py-[40px] outline;
+    @apply mobile:flex-col mobile:place-items-center;
+}

@@ -123,7 +123,7 @@ const SplashScreen: React.FC = () => {
         <div className="max-w-5xl mx-auto text-center">
           <h2 id="cta-heading" className="text-4xl font-bold mb-6 text-gray-800">Experience a better way to work with Dine Flow</h2>
           <p className="text-xl mb-10 max-w-3xl mx-auto text-gray-600">
-            Take your restaurant to new heights of collaboration, connection, and efficiency with Dine Flow`&apos;`s integrated platform — available now.
+            Take your restaurant to new heights of collaboration, connection, and efficiency with Dine Flow{`${"'"}`}s integrated platform — available now.
           </p>
         </div>
       </section>

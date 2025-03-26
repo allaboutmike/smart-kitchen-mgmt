@@ -1,12 +1,19 @@
 .menuItem {
-    @apply grid relative rounded-[6px] flex-col max-w-[160px] h-[200px] p-[20px] bg-[white] overflow-y-clip gap-[8px] justify-between;
-    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
-    @apply mobile:max-w-[100%];
+    @apply grid relative rounded-[6px] flex-col max-w-[200px] h-[200px] p-[20px] bg-[white] overflow-y-clip gap-[8px] justify-between;
+    @apply place-items-center mobile:max-w-[1fr];
+    box-shadow: 0 0px 4px 2px var(--drop-shadow-color);   
 }
 .pos-menu-item{
+    --transition-delay: 0;
     @apply grid relative place-items-center rounded-[6px] flex-col max-w-[1fr] h-[200px] p-[20px] bg-[white] overflow-clip gap-[4px];
     box-shadow: 0 0px 4px 2px var(--drop-shadow-color);
     @apply mobile:w-[100%] mobile:p-[5px] mobile:max-w-[80%];   
+    @starting-style{
+        opacity: 0;
+        transform: translatex(-40%) scale(0);
+    }
+    transition: all 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+    transition-delay: var(--transition-delay);
 }
 
 .menuItem button {
@@ -35,7 +42,7 @@
 }
 
 .menuItemName {
-    @apply text-[1.1rem] max-h-[250px] overflow-y-auto;
+    @apply text-center text-[1.1rem] overflow-y-auto;
 }
 .menu-item-name-pos{
     @apply tablet:text-[1rem] text-center mobile:mb-[-10px] font-semibold;

@@ -1,17 +1,28 @@
-.order-details-container{
-    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline;
-    @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center;    
-    z-index: 100;
-    top: 16%;
-}
 .order-details-container-bg{
-    @apply bg-[#ffffff91] fixed w-full h-full;
+    @apply bg-[#2b2b2b6b] fixed w-full h-full;
     content: "";
     backdrop-filter: blur(10px);
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 10;
+    @starting-style{
+        opacity: 0.5;
+    }
+    transition: all 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
  }
+
+.order-details-container{
+    @apply flex fixed text-[--foreground-color] bg-white rounded-[8px] outline;
+    @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center mobile:px-[10px];    
+    z-index: 1000;
+    top: 16%;
+    @starting-style{
+        transform: scale(1.4);
+        opacity: 0;
+    }
+    transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1); 
+}
+
 .order-details-title{
     @apply flex self-center text-[1.6rem] font-semibold;
     grid-area: order-details-title;

@@ -69,7 +69,7 @@ export default function MenuManagementContainer({ menuItems }: MenuManagementCon
     id: itemSelected?.id
   }
   return (
-    <div className={`${styles["restaurant-main-food-menu-container"]} overflow-y-hidden flex-1`}>
+    <div className={`${styles["restaurant-parent-container"]} `}>
       <div className={styles["restaurant-sub-menu-container"]}>
         {menuCategories.map((menuItem, index) => {
           return (

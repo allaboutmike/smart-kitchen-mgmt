@@ -10,17 +10,16 @@
 }
 .restaurant-current-option-title > span{ @apply font-semibold;}
 .restaurant-components-main-container {@apply flex flex-col items-center;}
-.restaurant-main-food-menu-container {@apply mb-[4rem];}
 .restaurant-sub-menu-container {
-    @apply grid gap-2 grid-cols-3 grid-rows-2 p-[20px] mb-[10px] bg-white rounded-[8px];
+    @apply grid gap-2 relative grid-cols-3 grid-rows-2 p-[20px] mb-[10px] mt-[50px] bg-white rounded-[8px];
     @apply tablet:p-[10px] tablet:w-[90dvw];
-    @apply mobile:grid-cols-2 mobile:w-[90dvw];
+    @apply mobile:grid-cols-1 mobile:max-h-[200px] mobile:overflow-y-scroll mobile:grid-rows-[auto];
     box-shadow: var(--sellers-container-drop-shadow);
 }
 .restaurant-sub-menu-button {
     @apply text-[--foreground] text-center text-[1.3rem] cursor-pointer rounded-[8px]  px-[35px] py-[25px] bg-white border-none;
     @apply tablet:text-[1rem] tablet:px-[5px];
-    @apply mobile:text-[1.4rem] mobile:py-[30px] mobile:px-[10px];
+    @apply mobile:text-[1.2rem] mobile:gap-y-4 mobile:py-[20px] mobile:px-[10px];
     box-shadow: var(--sellers-container-drop-shadow);
     &:hover {
       @apply !text-white !bg-[--foreground];
@@ -29,8 +28,8 @@
   }
 
   .current-menu-items-container {
-    @apply grid grid-cols-4 pt-[20px] pb-[40px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%] mb-[50px];
-    @apply mobile:grid-cols-1 mobile-m:grid-cols-2 mobile:w-[90dvw] tablet:grid-cols-3;
+    @apply grid grid-cols-4 pt-[20px] gap-[20px] max-h-[600px] px-[20px] overflow-y-scroll max-w-[100%];
+    @apply mobile:grid-cols-1  mobile:w-[100%] mobile:px-[20px] tablet:grid-cols-3;
     place-items: center; 
   }
 
@@ -38,4 +37,8 @@
     @apply grid grid-flow-row-dense tablet:grid-cols-2 mb-[100px];
     @apply p-[20px] grid-cols-3 gap-[20px] max-h-[600px] overflow-y-auto;
     @apply tablet:grid-cols-2 tablet:self-baseline mobile:grid-cols-1 mobile:w-[100%] mobile:place-items-center;
+  }
+
+  .restaurant-parent-container{
+    @apply flex flex-col w-full justify-center items-center mobile:mt-[100px];
   }
