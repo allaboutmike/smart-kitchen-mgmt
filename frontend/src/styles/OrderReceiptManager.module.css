@@ -7,23 +7,23 @@
 .order-header-group {
     @apply flex flex-col justify-between;
     .order-id {
-        @apply text-[2rem] text-[black] font-semibold;
-        @apply tablet:text-[1.6rem];
+        @apply text-lg text-[black] font-semibold;
+        @apply tablet:text-[1.4rem] mobile:text-[1.2rem];
     }
 }
 .line-separator {
     @apply flex rounded-[8px] h-[4px] w-full my-[10px] bg-[#DCE7FF];
 }
 .order-items-container {
-    @apply grid grid-cols-1 py-[20px] gap-y-[25px] overflow-y-scroll h-[200px] max-w-[100%];
+    @apply grid grid-cols-1 py-[20px] gap-y-[10px] overflow-y-scroll h-[200px] max-w-[100%];
     justify-items: center;
 }
 .order-total-container {
     @apply flex flex-col items-center justify-self-end;
 }
 .order-total-group {
-    @apply flex content-center w-full justify-between text-[2rem] text-black my-[10px];
-    @apply tablet:text-[1.5rem];
+    @apply flex content-center w-full justify-between text-[1.2rem] text-black my-[10px];
+    @apply tablet:text-[1.5rem] mobile:text-[1.3rem];
 }
 .order-buttons-group {
     @apply flex flex-col gap-[10px] w-full py-[10px];
@@ -48,7 +48,8 @@
 }
 
 .order-status-toggle-button{
-    @apply btn text-white text-[1.4rem] bg-[grey] border-none hover:bg-[--foreground];
+    @apply btn text-white text-[1rem] max-w-[70%] self-center bg-[grey] border-none hover:bg-[--foreground];
+    @apply mobile:max-w-full;
 }
 
 .order-status{
@@ -56,5 +57,5 @@
 }
 
 .order-date{
-    @apply flex self-start text-black text-[1.2rem];
+    @apply flex self-start text-black text-[1rem] mt-[-10px];
 }
