@@ -14,6 +14,7 @@
 .order-details-container{
     @apply flex fixed  top-[20px] text-[--foreground-color] bg-[--color] rounded-[8px] outline;
     @apply flex-col gap-[0.6rem] pt-[10px] pb-[40px] justify-center overflow-y-auto;    
+    @apply tablet:px-[20px];
     @apply  mobile:overflow-y-auto mobile:top-[10px] mobile:rounded-none mobile:left-0 mobile:pb-0 mobile:px-[10px];
     z-index: var(--top-most-z-index);
     
@@ -84,7 +85,8 @@
 }
 
 #payment-method{
-    @apply bg-[inherit] px-[5px] mx-[5px] py-[5px];
+    @apply bg-[inherit] px-[5px] mx-[5px] py-[5px] hover:cursor-pointer hover:bg-[--foreground] hover:text-[--color];
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .print-receipt-button{
