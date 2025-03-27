@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "daisyui": "^4.12.23",
+    "framer-motion": "^12.6.2",
     "frontend": "file:",
     "next": "15.1.7",
     "react": "^19.0.0",
