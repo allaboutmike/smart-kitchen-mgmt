@@ -1,3 +1,4 @@
+import argparse
 import datetime
 import numpy as np
 import pandas as pd
@@ -192,9 +193,7 @@ def forecast_future_needs(ingredients_df, future_hours=24*7):  # Default to 1 we
         print(f"  ✅ Generated forecast for {ingredient} using historical patterns")
     
     return forecasts
-
-
-def analyze_forecast(forecasts):
+    def analyze_forecast(forecasts):
     """
     Analyze the forecasted ingredient needs to provide useful insights.
     
@@ -493,9 +492,7 @@ def generate_traffic_recommendations(ingredients_df, forecasts):
         traffic_recommendations[date_val] = recommendation
         
     return traffic_recommendations
-
-
-def store_predictions_in_db(conn, forecasts, recommendations):
+    def store_predictions_in_db(conn, forecasts, recommendations):
     """
     Store only the prep recommendations in the database forecasts table,
     with each recommendation properly mapped to its target future date.
@@ -684,6 +681,7 @@ if __name__ == "__main__":
     parser.add_argument('--end', type=str, help='End date in YYYY-MM-DD format')
     parser.add_argument('--save', action='store_true', help='Save forecasts to CSV file')
     parser.add_argument('--clear-db', action='store_true', help='Clear existing forecast records before adding new ones')
+    parser.add_argument('--auto-confirm', action='store_true', help='Skip confirmation prompts')
     
     args = parser.parse_args()
     
@@ -709,8 +707,8 @@ if __name__ == "__main__":
         sys.exit(1)
     print("✅ Database connection successful")
     
-    # Prompt to clear database if not specified in arguments
-    if not args.clear_db:
+    # Prompt to clear database if not specified in arguments and not auto-confirmed
+    if not args.clear_db and not args.auto_confirm:
         user_input = input("Would you like to clear existing forecast records? (y/n): ")
         if user_input.lower() in ['y', 'yes']:
             args.clear_db = True
@@ -743,10 +741,10 @@ if __name__ == "__main__":
     print("-" * 60)
     forecast_hours = args.forecast * 24  # Convert days to hours
     
-  # Use simpler forecasting method
+    # Use simpler forecasting method
     forecasts = forecast_future_needs(ingredients_df, forecast_hours)
     
-    if forecasts.empty:
+   if forecasts.empty:
         print("❌ Failed to generate forecasts. Exiting.")
         sys.exit(1)
     

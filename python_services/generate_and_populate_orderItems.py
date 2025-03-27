@@ -1,3 +1,4 @@
+import argparse
 import random
 import datetime
 import sys
@@ -205,12 +206,13 @@ def check_table_exists(conn):
         print(f"Error checking tables: {error}")
         return False
 
-def main():
-    # Ask for confirmation
-    confirmation = input(f"This will generate order items for existing orders. Continue? (y/n): ").lower()
-    if confirmation != 'y':
-        print("Operation cancelled.")
-        return
+def main(auto_confirm=False, clear_data=False):
+    # Skip confirmation if auto_confirm is True
+    if not auto_confirm:
+        confirmation = input(f"This will generate order items for existing orders. Continue? (y/n): ").lower()
+        if confirmation != 'y':
+            print("Operation cancelled.")
+            return
     
     # Connect to database
     conn = connect_to_db()
@@ -224,9 +226,12 @@ def main():
             print("OrderItems table does not exist. Please create the table first.")
             return
         
-        # Ask user if they want to clear existing data
-        clear_data = input("Do you want to clear existing data from the orderItems table? (y/n): ").lower()
-        if clear_data == 'y':
+        # Clear data if specified, otherwise ask if not auto-confirmed
+        if not auto_confirm:
+            clear_data_input = input("Do you want to clear existing data from the orderItems table? (y/n): ").lower()
+            clear_data = clear_data_input == 'y'
+            
+        if clear_data:
             if not clear_existing_data(conn):
                 print("Failed to clear existing data. Exiting.")
                 return
@@ -265,4 +270,9 @@ def main():
             print("Database connection closed.")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Generate random order items')
+    parser.add_argument('--auto-confirm', action='store_true', help='Skip confirmation prompts')
+    parser.add_argument('--clear-data', action='store_true', help='Clear existing data')
+    args = parser.parse_args()
+    
+    main(auto_confirm=args.auto_confirm, clear_data=args.clear_data)

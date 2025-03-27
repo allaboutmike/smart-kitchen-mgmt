@@ -1,3 +1,4 @@
+import argparse
 import random
 import datetime
 import sys
@@ -7,15 +8,13 @@ from datetime import timedelta
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from python_services.db_utils import connect_to_db
 
-# Generate 400 random orders with a timestamp between 2025-01-01 and 2025-03-15; more orders on weekends 
+# Generate 500 random orders within 90 days before current date; more orders on weekends 
 NUM_ORDERS = 500 
-START_DATE = datetime.datetime(2025, 1, 1)
-END_DATE = datetime.datetime(2025, 3, 15)
 BATCH_SIZE = 100  # How many records to insert in a single transaction
 
-def random_date():
-    """Generate a random date"""
-    days = random.randint(0, (END_DATE - START_DATE).days)
+def random_date(start_date, end_date):
+    """Generate a random date between start_date and end_date"""
+    days = random.randint(0, (end_date - start_date).days)
 
     # Generate a random time of day
     hour = random.randint(0, 23)
@@ -34,7 +33,7 @@ def random_date():
     minutes = random.randint(0, 59)
     seconds = random.randint(0, 59)
     
-    return START_DATE + timedelta(days=days, hours=hour, minutes=minutes, seconds=seconds)
+    return start_date + timedelta(days=days, hours=hour, minutes=minutes, seconds=seconds)
 
 def clear_existing_data(conn):
     """Clear existing data from the orders table"""
@@ -50,7 +49,7 @@ def clear_existing_data(conn):
         conn.rollback()
         return False
 
-def generate_and_insert_orders(conn, num_orders):
+def generate_and_insert_orders(conn, num_orders, start_date, end_date):
     """Generate orders and insert them into the database
     respecting that orderid is an identity column"""
     records_inserted = 0
@@ -62,7 +61,7 @@ def generate_and_insert_orders(conn, num_orders):
     try:
         for _ in range(num_orders):
             # Generate order timestamp
-            order_date = random_date()
+            order_date = random_date(start_date, end_date)
             
             # Weekends have more traffic
             if order_date.weekday() >= 5:  # 5=Saturday, 6=Sunday
@@ -148,12 +147,20 @@ def check_table_exists(conn):
         print(f"Error checking tables: {error}")
         return False
 
-def main():
-    # Ask for confirmation
-    confirmation = input(f"This will generate {NUM_ORDERS} orders. Continue? (y/n): ").lower()
-    if confirmation != 'y':
-        print("Operation cancelled.")
-        return
+def main(auto_confirm=False, clear_data=False):
+    # Calculate date range for orders (90 days before today)
+    current_date = datetime.datetime.now()
+    start_date = current_date - timedelta(days=90)
+    end_date = current_date
+    
+    print(f"Will generate orders between {start_date.strftime('%Y-%m-%d')} and {end_date.strftime('%Y-%m-%d')}")
+    
+    # Ask for confirmation if not auto-confirmed
+    if not auto_confirm:
+        confirmation = input(f"This will generate {NUM_ORDERS} orders. Continue? (y/n): ").lower()
+        if confirmation != 'y':
+            print("Operation cancelled.")
+            return
     
     # Connect to database
     conn = connect_to_db()
@@ -167,16 +174,19 @@ def main():
             print("Orders table does not exist. Please create the table first.")
             return
         
-        # Ask if want to clear existing data
-        clear_data = input("Do you want to clear existing data from the orders table? (y/n): ").lower()
-        if clear_data == 'y':
+        # Clear data if specified, otherwise ask
+        if not auto_confirm:
+            clear_data_input = input("Do you want to clear existing data from the orders table? (y/n): ").lower()
+            clear_data = clear_data_input == 'y'
+        
+        if clear_data:
             if not clear_existing_data(conn):
                 print("Failed to clear existing data. Exiting.")
                 return
         
         # Generate and insert orders
         records_inserted, min_order_id, max_order_id = generate_and_insert_orders(
-            conn, NUM_ORDERS
+            conn, NUM_ORDERS, start_date, end_date
         )
         
         if records_inserted > 0:
@@ -204,4 +214,9 @@ def main():
             print("Database connection closed.")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Generate random orders')
+    parser.add_argument('--auto-confirm', action='store_true', help='Skip confirmation prompts')
+    parser.add_argument('--clear-data', action='store_true', help='Clear existing data')
+    args = parser.parse_args()
+    
+    main(auto_confirm=args.auto_confirm, clear_data=args.clear_data)

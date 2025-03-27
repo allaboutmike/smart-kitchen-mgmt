@@ -1,10 +1,15 @@
 import os
+import argparse
 from db_utils import connect_to_db
 from datetime import datetime
 
-def move_expired_to_waste():
+def move_expired_to_waste(auto_confirm=False, verbose=False):
     """
     Move expired ingredients from stock to the waste table.
+    
+    Args:
+        auto_confirm (bool): Skip confirmation prompts if True
+        verbose (bool): Display detailed output if True
     """
     print("==== Moving Expired Ingredients to Waste ====")
     
@@ -38,6 +43,14 @@ def move_expired_to_waste():
         
         print(f"Found {len(expired_items)} expired items in stock.")
         
+        # If not auto-confirmed, ask for confirmation
+        if not auto_confirm:
+            confirmation = input(f"Move {len(expired_items)} expired items to waste? (y/n): ").lower()
+            if confirmation != 'y':
+                print("Operation cancelled.")
+                cursor.execute("ROLLBACK;")
+                return
+        
         for stock_id, ingredient_id, quantity, ingredient_name in expired_items:
             # Insert into waste table
             cursor.execute("""
@@ -56,17 +69,19 @@ def move_expired_to_waste():
             WHERE stockid = %s
             """, (stock_id,))
             
-            print(f"Moved {quantity} units of {ingredient_name} to waste.")
+            if verbose:
+                print(f"Moved {quantity} units of {ingredient_name} to waste.")
         
         # Commit the transaction
         cursor.execute("COMMIT;")
         print(f"Successfully moved {len(waste_items)} expired items to waste.")
         
-        # Display summary
-        print("\nWaste Record Summary:")
-        print("-" * 50)
-        for waste_id, name, qty in waste_items:
-            print(f"Waste ID: {waste_id}, Item: {name}, Quantity: {qty}")
+        # Display summary if verbose or not auto-confirm
+        if verbose or not auto_confirm:
+            print("\nWaste Record Summary:")
+            print("-" * 50)
+            for waste_id, name, qty in waste_items:
+                print(f"Waste ID: {waste_id}, Item: {name}, Quantity: {qty}")
         
     except Exception as e:
         cursor.execute("ROLLBACK;")
@@ -77,7 +92,12 @@ def move_expired_to_waste():
         print("Database connection closed.")
 
 def main():
-    move_expired_to_waste()
+    parser = argparse.ArgumentParser(description='Move expired ingredients to waste')
+    parser.add_argument('--auto-confirm', action='store_true', help='Skip confirmation prompts')
+    parser.add_argument('--verbose', action='store_true', help='Display detailed output')
+    args = parser.parse_args()
+    
+    move_expired_to_waste(auto_confirm=args.auto_confirm, verbose=args.verbose)
     
 if __name__ == "__main__":
     main()
