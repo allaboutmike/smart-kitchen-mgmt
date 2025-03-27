@@ -46,7 +46,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
                   return(
                       <ul key={index}>
                       <li>Order Name {elem.menuitems.name}</li>
-                          <li>${Number(elem.menuitems.price)}</li>
+                          <li>${Number(elem.menuitems.price).toFixed(2)}</li>
                       </ul>
                   )
               })}
