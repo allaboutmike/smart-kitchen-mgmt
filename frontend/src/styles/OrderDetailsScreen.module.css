@@ -85,11 +85,13 @@
 }
 
 #payment-method{
-    @apply bg-[inherit] px-[5px] mx-[5px] py-[5px] hover:cursor-pointer hover:bg-[--foreground] hover:text-[--color];
+    @apply bg-[inherit] px-[5px] mx-[5px] py-[5px] hover:cursor-pointer;
     transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .print-receipt-button{
     @apply btn w-[max-content] bg-[--foreground] border-none text-white;
 }
-
+.option-selection{
+    @apply bg-[--color];
+}

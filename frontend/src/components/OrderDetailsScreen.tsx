@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../styles/OrderDetailsScreen.module.css";
 import { Order } from "./OrderReceiptManager";
 import scrollBarToggle from "./scrollBarToggle";
+import { LocaleRouteNormalizer } from "next/dist/server/normalizers/locale-route-normalizer";
 
 export interface OrderDetails{
   order: Order | null,
@@ -18,6 +19,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
   const orderTotal = oDetails?.orderitems.reduce((acc, curr)=>{ return acc + parseFloat(curr.menuitems.price.toString())},0)
   const tax = parseFloat(((Math.random() * 10) + 1).toFixed(2));
   const finalPrice = orderTotal? (tax + orderTotal).toFixed(2): 0;
+  const orderTimeStamp = new Date(oDetails?.ordertimestamp || "").toLocaleString("en-US", { timeZone: "UTC" })
   return (
     <>
       <span className={styles["order-details-container-bg"]} onClick={()=>{        
@@ -38,7 +40,7 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
             <span className={styles["order-details-header"]}>
               <p>Chicken Queen</p>
               <p>Order #{oDetails?.orderid}</p>
-              <p>Order Date: {orderDetails.order?.timePlaced}</p>
+              <p>Order Date: {orderTimeStamp.split(",")[0]}</p>
             </span>
             <span className={styles["items-list-container"]}>
               {oDetails?.orderitems && oDetails?.orderitems.map((elem, index)=>{
@@ -58,10 +60,10 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
             <span className={styles["message-and-payment-method-container"]}>
               <p>Payment Method:</p>
               <select name="payment-method" id={styles["payment-method"]}>
-                <option value="credit-card">Credit Card (**** 2394)</option>
-                <option value="Debit-debit">Debit Card (**** 4596)</option>
-                <option value="cash">Cash</option>
-                <option value="payPal">Paypal</option>
+                <option className={styles["option-selection"]} value="credit-card">Credit Card (**** 2394)</option>
+                <option className={styles["option-selection"]} value="Debit-debit">Debit Card (**** 4596)</option>
+                <option className={styles["option-selection"]} value="cash">Cash</option>
+                <option className={styles["option-selection"]} value="payPal">PayPal</option>
               </select>
               <p>{`Thank you for choosing Chicken Queen Chicken! Have a great day! 👑🐔`}</p>
             </span>
