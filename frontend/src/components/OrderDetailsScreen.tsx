@@ -45,8 +45,8 @@ export default function OrderDetailsScreen(orderDetails: OrderDetails) {
               {oDetails?.orderitems && oDetails?.orderitems.map((elem, index)=>{
                   return(
                       <ul key={index}>
-                          <li>Order Name {elem.menuitems.name}</li>
-                          <li>${elem.menuitems.price}</li>
+                      <li>Order Name {elem.menuitems.name}</li>
+                          <li>${Number(elem.menuitems.price)}</li>
                       </ul>
                   )
               })}
