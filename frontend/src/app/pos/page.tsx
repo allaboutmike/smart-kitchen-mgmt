@@ -156,7 +156,7 @@ export default function POS() {
                   {item.name}
                 </p>
                 <span className={menuItemStyles["menu-item-price-pos"]}>
-                  <p>Price: ${item.price}</p>                  
+                  <p>Price: ${Number(item.price).toFixed(2)}</p>                  
                 </span>
                 <button
                   className={menuItemStyles["add-item-button-pos"]}
