@@ -1,6 +1,6 @@
 .order-receipt-container{
-    @apply carousel max-h-[fit-content] justify-start align-middle overflow-x-auto p-[2rem] rounded-box bg-neutral;
-    @apply gap-[1rem] carousel-start w-full scroll-smooth outline mobile:w-full mobile:carousel-vertical;
+    @apply carousel max-h-[fit-content] justify-start align-middle overflow-x-auto p-[2rem] rounded-box;
+    @apply gap-[1rem] carousel-start w-full scroll-smooth mobile:w-full mobile:carousel-vertical;
     @apply mobile:rounded-none mobile:items-center mobile:p-[2rem] tablet:pt-[10px] tablet:mb-[4rem];
 }
 .order-tracking-container{
