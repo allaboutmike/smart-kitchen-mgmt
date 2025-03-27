@@ -56,11 +56,17 @@ const SplashScreen: React.FC = () => {
       <section className="w-full py-16 px-4 bg-white" aria-labelledby="features-heading">
         <h2 id="features-heading" className="sr-only">Key Features</h2>
         <div className="max-w-7xl mx-auto">
-          <ul className="grid grid-cols-4 gap-4 list-none">
+          <ul className="grid grid-cols-4 gap-4 list-none
+           mobile:grid-cols-1 mobile:text-center
+            tablet:grid-cols-2 tablet:text-center
+          ">
             {/* Feature 1 */}
             <li className="grid_item">
               <article>
-                <div className="w-16 h-16 mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mb-4 bg-green-100 rounded-full flex items-center justify-center
+                 mobile:grid mobile:justify-self-center
+                 tablet:grid tablet:justify-self-center
+                 ">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -73,7 +79,10 @@ const SplashScreen: React.FC = () => {
             {/* Feature 2 */}
             <li className="grid_item">
               <article>
-                <div className="w-16 h-16 mb-4 bg-yellow-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mb-4 bg-yellow-100 rounded-full flex items-center justify-center
+                  mobile:grid mobile:justify-self-center
+                  tablet:grid tablet:justify-self-center
+                ">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
@@ -86,7 +95,10 @@ const SplashScreen: React.FC = () => {
             {/* Feature 3 */}
             <li className="grid_item">
               <article>
-                <div className="w-16 h-16 mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mb-4 bg-purple-100 rounded-full flex items-center justify-center
+                  mobile:grid mobile:justify-self-center
+                 tablet:grid tablet:justify-self-center
+                ">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
@@ -99,7 +111,10 @@ const SplashScreen: React.FC = () => {
             {/* Feature 4 */}
             <li className="grid_item">
               <article>
-                <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mb-4 bg-blue-100 rounded-full flex items-center justify-center
+                  mobile:grid mobile:justify-self-center
+                 tablet:grid tablet:justify-self-center
+                ">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>

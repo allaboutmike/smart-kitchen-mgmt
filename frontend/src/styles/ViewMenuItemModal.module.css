@@ -2,6 +2,7 @@
 .view-menu-item-modal{
     @apply flex fixed w-full h-full bg-[--white-backdrop] items-center justify-center top-0 left-0 backdrop-blur-sm;
     @apply mobile:flex-col;
+    z-index: var(--top-most-z-index);
     @starting-style{
         transform: scale(1.4);
         opacity: 0;

@@ -22,7 +22,11 @@
 
 ## **Overview**
 
-This project is a full-stack web application that integrates a frontend interface with a backend API and a database. It allows users to track, manage, and analyze data related to inventory and operations. The application is a smart restaurant kitchen management system.
+Digital ticket system that tracks orders from POS to kitchen  
+Real-time inventory management that automatically deducts ingredients as orders are completed  
+Predictive prep recommendations based on historical order patterns (e.g., "Prep 3 extra batches of fries between 11:30-12:30")  
+Menu engineering dashboard showing profitability per dish, waste metrics, and ingredient cost tracking  
+Integration with supplier APIs for automatic reordering when ingredients hit threshold levels  
 
 ### Project Overview
 
@@ -34,72 +38,77 @@ This project is a full-stack web application that integrates a frontend interfac
 
 ## **Technologies Used**
 
-- **Frontend UI**: Tailwind CSS
-- **Backend**: Express, Typescript
-- **Dashboard UI**: Next JS, Typescript
-- **Database**: Prisma DB
+- **Frontend UI**: React, Tailwind CSS, Next JS, Typescript
+- **Backend**: Node.js, Express, Typescript
+- **Database**: Prisma DB, PostgreSQL
+- **Machine Learning / Forecasting Tools:** Python, NumPy, Pandas, Matplotlib, Statsmodels (SARIMAX), Psycopg2
 
 ## **Project Structure**
 
-SMART-KITCHEN-MANAGEMENT/\`\`\
-├── frontend/\`\`\
-│   ├── src/\`\`\
-│   │   ├── app/\`\`\
-│   │   │   ├── dashboard/\`\`\
-│   │   │   ├── inventoryTracker/\`\`\
-│   │   │   ├── menuManagement/\`\`\
-│   │   │   ├── orderTracking/\`\`\
-│   │   │   ├── pos/\`\`\
-│   │   │   ├── productivityMetrics/\`\`\
-│   │   │   ├── select-portal/\`\`\
-│   │   │   └── settings/\`\`\
-│   │   ├── components/\`\`\
-│   │   │   └── POS/\`\`\
-│   │   ├── customHooks/\`\`\
-│   │   ├── styles/\`\`\
-│   │   ├── global.css\`\`\
-│   │   ├── layout.tsx\`\`\
-│   │   ├── page.tsx\`\`\
-│   │   └── svgIcons.tsx\`\`\
-│   └── package.json\`\`\
-├── management/\`\`\
-│   ├── app/\`\`\
-│   │   ├── DB/\`\`\
-│   │   ├── routers/\`\`\
-│   │   └── server.ts\`\`\
-│   ├── build/\`\`\
-│   └── package.json\`\`\
+```bash
+SMART-KITCHEN-MANAGEMENT/
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── dashboard/
+│   │   │   ├── inventoryTracker/
+│   │   │   ├── menuManagement/
+│   │   │   ├── orderTracking/
+│   │   │   ├── pos/
+│   │   │   ├── productivityMetrics/
+│   │   │   ├── select-portal/
+│   │   │   └── settings/
+│   │   ├── components/
+│   │   │   └── POS/
+│   │   ├── customHooks/
+│   │   ├── styles/
+│   │   ├── global.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── svgIcons.tsx
+│   └── package.json
+├── management/
+│   ├── app/
+│   │   ├── DB/
+│   │   ├── routers/
+│   │   └── server.ts
+│   ├── build/
+│   └── package.json
 └── README.md
+```
 
 ## **Setup Instructions**
 
-1. **Clone the repository**
+1. **Clone the repository:**
 
-`git clone <repository-url>`
+```bash
+git clone <repository-url>
+cd project-directory
+```
 
-`cd project-directory`
+2. **Set up the backend:**
 
-2. **Set up the backend**
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Update .env with your configuration
+npm run dev
+```
 
-`cd backend`
+3. **Set up the frontend:**
 
-`npm install`
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-`cp .env.example .env`
+4. **Database setup:**
 
-`// Update .env with your configuration`
+Ensure PostgreSQL is installed and running:
 
-`npm run dev`
-
-3. **Set up the frontend**
-
-`cd frontend`
-
-`npm install`
-
-`npm run dev`
-
-4. **Database setup**: Ensure Prisma dependencies are installed
+- Run migrations if applicable.
 
 ## **Frontend**
 
@@ -113,27 +122,28 @@ The frontend is built using React (TypeScript) and styled with Tailwind CSS.
 
 ### **Available Scripts**
 
-`npm run dev      | Starts the development server`
-
-`npm run build    | Builds the project`
+```bash
+npm run dev      # Starts the development server
+npm run build    # Builds the project
+```
 
 ## **Backend**
 
-The backend is powered by node.js and Express, written in TypeScript.
+The backend is powered by **Node.js** and **Express**, written in **TypeScript**.
 
 ### Key Features
 
 - RESTful API endpoints
-
 - Input validation and error handling
-
 - Environment-based configuration
 
 ### Available Scripts
 
-`npm run dev      # Starts the development server`
-
-`npm run build    # Compiles TypeScript to JavaScript`
+```bash
+npm run dev      # Starts the development server
+npm run build    # Compiles TypeScript to JavaScript
+npm run start    # Starts the production server
+```
 
 ## **API Endpoints**
 
