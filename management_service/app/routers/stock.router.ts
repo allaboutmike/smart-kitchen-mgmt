@@ -92,7 +92,7 @@ stockRouter.post("/", async (req: Request, res: Response) => {
             }
       },
     });
-    if(!supplierApiUrl){
+    if(!supplierApiUrl || supplierApiUrl.suppliers.api_url === null){
     const stock = await Db.stock.create({
       data: {
         ingredientid: ingredientId,
