@@ -1,8 +1,12 @@
-// components/Chatbot.tsx
+// Fix for src/components/Chatbot.tsx
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+
+// Import the chatbot configuration
+import { QAPair } from '../app/configs/chatbotConfig';
+import { useChatbot } from '../app/configs/chatbot-context';
 
 // Define the structure for chat messages
 type Message = {
@@ -11,10 +15,6 @@ type Message = {
   sender: 'bot' | 'user';
   timestamp: Date;
 };
-
-// Import the chatbot configuration
-import chatbotConfig, { QAPair } from '../app/configs/chatbotConfig';
-import { useChatbot } from '../app/configs/chatbot-context'; // Adjust the path based on your project structure
 
 export default function Chatbot() {
   const { config } = useChatbot();
@@ -41,7 +41,12 @@ export default function Chatbot() {
         timestamp: new Date()
       }]);
     }
-  }, [config.initialGreeting]);
+  }, [config.initialGreeting, messages.length]);
+
+  // Auto-scroll to the bottom when new messages appear
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   // Function to match user input with predefined questions
   const findBestMatch = (input: string): QAPair | null => {
@@ -97,11 +102,6 @@ export default function Chatbot() {
     }, 500); // Slight delay to make the interaction feel more natural
   };
 
-  // Auto-scroll to the bottom when new messages appear
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   return (
     <>
       {/* Chat button */}
@@ -133,7 +133,7 @@ export default function Chatbot() {
         >
           {/* Chat header */}
           <div className="bg-blue-600 text-white p-4">
-            <h3 className="font-semibold">Dina ~ The Chatbot</h3>
+            <h3 className="font-semibold">Restaurant Assistant</h3>
           </div>
           
           {/* Chat messages */}

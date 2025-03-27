@@ -1,3 +1,5 @@
+// Fix for src/app/chatbot-admin/page.tsx
+
 "use client";
 
 import React, { useState } from 'react';
@@ -39,13 +41,13 @@ export default function ChatbotAdmin() {
   };
 
   // Handle updating an existing QA pair
-  const handleQAChange = (index: number, field: keyof QAPair, value: any) => {
+  const handleQAChange = (index: number, field: keyof QAPair, value: string | string[]) => {
     const updatedQAs = [...config.qaPairs];
     
     if (field === 'keywords' && typeof value === 'string') {
       updatedQAs[index][field] = value.split(',').map(kw => kw.trim());
     } else {
-      updatedQAs[index][field] = value;
+      updatedQAs[index][field] = value as never; // Type assertion to avoid explicit 'any'
     }
     
     updateConfig({
