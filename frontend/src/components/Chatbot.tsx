@@ -208,7 +208,7 @@ export default function Chatbot() {
                   }
                 }}
                 placeholder="Type your question..."
-                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               />
               <button
                 onClick={handleSendMessage}
