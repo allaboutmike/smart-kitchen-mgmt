@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../styles/OrderDetailsScreen.module.css";
 import { Order } from "./OrderReceiptManager";
 import scrollBarToggle from "./scrollBarToggle";
-import { LocaleRouteNormalizer } from "next/dist/server/normalizers/locale-route-normalizer";
 
 export interface OrderDetails{
   order: Order | null,
