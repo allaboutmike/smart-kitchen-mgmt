@@ -1,10 +1,7 @@
-// Fix for src/components/Chatbot.tsx
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
-// Import the chatbot configuration
 import { QAPair } from '../app/configs/chatbotConfig';
 import { useChatbot } from '../app/configs/chatbot-context';
 
@@ -32,7 +29,7 @@ export default function Chatbot() {
 
   // Reset messages when config changes
   useEffect(() => {
-    // Only reset if there's just one message (the greeting)
+
     if (messages.length === 1) {
       setMessages([{
         id: 1,
@@ -133,7 +130,7 @@ export default function Chatbot() {
         >
           {/* Chat header */}
           <div className="bg-blue-600 text-white p-4">
-            <h3 className="font-semibold">Restaurant Assistant</h3>
+            <h3 className="font-semibold">Dina ~ Your Assistant</h3>
           </div>
           
           {/* Chat messages */}

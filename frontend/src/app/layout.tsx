@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "../components/Footer";
 import SideNavBar from "@/components/SideNavBar";
-import Chatbot from "@/components/Chatbot";
+import ChatbotWrapper from "@/components/ChatbotWrapper";
 import { ChatbotProvider } from "./configs/chatbot-context";
 
 const geistSans = Geist({
@@ -37,7 +37,7 @@ export default function RootLayout({
         <ChatbotProvider>
           {children}
           <SideNavBar />
-          <Chatbot />
+          <ChatbotWrapper />
           <Footer />
         </ChatbotProvider>
       </body>

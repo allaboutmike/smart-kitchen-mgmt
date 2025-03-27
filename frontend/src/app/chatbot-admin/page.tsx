@@ -1,5 +1,3 @@
-// Fix for src/app/chatbot-admin/page.tsx
-
 "use client";
 
 import React, { useState } from 'react';

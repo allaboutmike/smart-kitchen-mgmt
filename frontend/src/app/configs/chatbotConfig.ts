@@ -1,4 +1,3 @@
-// configs/chatbotConfig.ts
 
 export type QAPair = {
     question: string;
